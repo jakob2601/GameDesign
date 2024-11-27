@@ -22,7 +22,7 @@ public class TopDownPlayerController : MonoBehaviour
     private void Update()
     {
         // Bewegungseingabe für x- und y-Achse
-        moveInput.x = Input.GetAxis("Horizontal")*moveSpeed; // A/D oder Pfeiltasten (x)
+        moveInput.x = Input.GetAxis("Horizontal"); // A/D oder Pfeiltasten (x)
         moveInput.y = Input.GetAxis("Vertical");   // W/S oder Pfeiltasten (y)
 
         animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
