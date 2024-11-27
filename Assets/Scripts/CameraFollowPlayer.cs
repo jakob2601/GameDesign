@@ -10,7 +10,6 @@ public class CameraFollow : MonoBehaviour
     {
         if (player != null)
         {
-            print("Test");
             // Zielposition der Kamera
             Vector3 targetPosition = player.position + offset;
 
@@ -22,7 +21,6 @@ public class CameraFollow : MonoBehaviour
         }
         else
         {
-            print("Test2");
         }
     }
 }

@@ -47,20 +47,22 @@ public class TopDownPlayerController : MonoBehaviour
     }
 
     void ProccessInputs()
-    {
-        //Speicher letze Position des Spielers
-        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
+{
+    float moveX = Input.GetAxisRaw("Horizontal");
+    float moveY = Input.GetAxisRaw("Vertical");
 
-        if((moveX == 0 && moveY == 0) && (moveInput.x != 0 || moveInput.y != 0))
-        {
-            lastMoveDirection = moveInput;
-        }
-        // Bewegungseingabe für x- und y-Achse
-        moveInput.x = Input.GetAxis("Horizontal"); // A/D oder Pfeiltasten (x)
-        moveInput.y = Input.GetAxis("Vertical");   // W/S oder Pfeiltasten (y)
-        moveInput.Normalize(); // Alle Bewegungsrichtung in der gleichen Geschwind.
+    // Toleranz für kleine Eingabewerte
+    if (Mathf.Abs(moveX) < 0.1f) moveX = 0;
+    if (Mathf.Abs(moveY) < 0.1f) moveY = 0;
+
+    if (moveX != 0 || moveY != 0)
+    {
+        lastMoveDirection = new Vector2(moveX, moveY).normalized;
     }
+
+    moveInput = new Vector2(moveX, moveY).normalized;
+}
+
 
     void Animate()
     {
@@ -82,11 +84,11 @@ public class TopDownPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Normale Bewegung, wenn nicht gedasht wird
-        if (!isDashing)
-        {
-            rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
-        }
+    // Normale Bewegung, wenn nicht gedasht wird und Bewegungseingabe vorhanden ist
+    if (!isDashing && moveInput.magnitude > 0.01f) // Schwellenwert für Bewegung
+    {
+        rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
+    }
     }
 
     private System.Collections.IEnumerator Dash()
