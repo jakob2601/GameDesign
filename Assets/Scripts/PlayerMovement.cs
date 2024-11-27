@@ -6,11 +6,13 @@ public class TopDownPlayerController : MonoBehaviour
     public float dashSpeed = 10f; // Geschwindigkeit während des Dashes
     public float dashDuration = 0.2f; // Dauer des Dashes in Sekunden
     public float dashCooldown = 1f; // Abklingzeit zwischen Dashes
+    public Animator animator;  // Animation für Character
 
     private Rigidbody2D rb; // Rigidbody2D-Komponente
     private Vector2 moveInput; // Bewegungseingabe
     private bool isDashing = false; // Ob der Spieler aktuell dashen kann
     private float dashCooldownTimer = 0f; // Zeit bis zum nächsten Dash
+
 
     private void Start()
     {
@@ -20,8 +22,12 @@ public class TopDownPlayerController : MonoBehaviour
     private void Update()
     {
         // Bewegungseingabe für x- und y-Achse
-        moveInput.x = Input.GetAxis("Horizontal"); // A/D oder Pfeiltasten (x)
+        moveInput.x = Input.GetAxis("Horizontal")*moveSpeed; // A/D oder Pfeiltasten (x)
         moveInput.y = Input.GetAxis("Vertical");   // W/S oder Pfeiltasten (y)
+
+        animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
+        animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
+        animator.SetFloat("Speed", moveInput.sqrMagnitude); // Bewegungsgeschwindigkeit
 
         // Dash-Mechanik prüfen
         if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0f && !isDashing && moveInput != Vector2.zero)
