@@ -10945,7 +10945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  dashSpeed: 10
+  dashSpeed: 15
   dashDuration: 0.2
   dashCooldown: 1
   animator: {fileID: 1650474405}
