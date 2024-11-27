@@ -460,8 +460,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f13d481e0cdf164092d849310a5e246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 349514825}
-  smoothSpeed: 0.125
+  player: {fileID: 1650474407}
+<<<<<<< Updated upstream
+  smoothSpeed: 0.01
+=======
+  smoothSpeed: 0.2
+>>>>>>> Stashed changes
   offset: {x: 0, y: 0, z: -10}
 --- !u!1 &619394800
 GameObject:
