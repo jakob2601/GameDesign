@@ -44,6 +44,9 @@ TagManager:
   - name: boden
     uniqueID: 4278611949
     locked: 0
-  - name: besitz
+  - name: "gegenst\xE4nde auf boden"
     uniqueID: 4100900331
+    locked: 0
+  - name: Player
+    uniqueID: 2232285963
     locked: 0
