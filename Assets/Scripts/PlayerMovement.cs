@@ -7,10 +7,10 @@ public class TopDownPlayerController : MonoBehaviour
     public float dashDuration = 0.2f; // Dauer des Dashes in Sekunden
     public float dashCooldown = 1f; // Abklingzeit zwischen Dashes
     public Animator animator;  // Animation für Character
+    public Vector2 lastMoveDirection; // letzte Bewegungseingabe
 
     private Rigidbody2D rb; // Rigidbody2D-Komponente
     private Vector2 moveInput; // Bewegungseingabe
-    private Vector2 lastMoveDirection; // letzte Bewegungseingabe
     private bool isDashing = false; // Ob der Spieler aktuell dashen kann
     private float dashCooldownTimer = 0f; // Zeit bis zum nächsten Dash
     private bool isFacingRight = false; // der Spieler wendet sich rechte Seite zu
@@ -69,6 +69,8 @@ public class TopDownPlayerController : MonoBehaviour
         animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
         animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
         animator.SetFloat("Speed", moveInput.sqrMagnitude); // Bewegungsgeschwindigkeit
+
+        //Blickrichtung für Idle Animation
         animator.SetFloat("StayHorizontal", lastMoveDirection.x);  
         animator.SetFloat("StayVertical", lastMoveDirection.y);
     }
