@@ -50,6 +50,9 @@ TagManager:
   - name: auf weg
     uniqueID: 4136060283
     locked: 0
+  - name: Player
+    uniqueID: 2232285963
+    locked: 0
   - name: Baum layer 1
     uniqueID: 657882169
     locked: 0
@@ -61,7 +64,4 @@ TagManager:
     locked: 0
   - name: Baum layer 4
     uniqueID: 4132024321
-    locked: 0
-  - name: Player
-    uniqueID: 2232285963
     locked: 0
