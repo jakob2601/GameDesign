@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public Animator animator;
     public int maxHealth = 100;
     private int currentHealth;
+    public GameObject bloodParticlesPrefab;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,7 +24,12 @@ public class Enemy : MonoBehaviour
         // Play Hurt Animation
         Debug.Log("Enemy took " + damage + " damage.");
         animator.SetTrigger("Hurt");
-
+        // Instanziere die Blutpartikel
+        if (bloodParticlesPrefab != null)
+        {
+            Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity);
+        }
+    
         if(currentHealth <= 0) {
             Die();
         }
