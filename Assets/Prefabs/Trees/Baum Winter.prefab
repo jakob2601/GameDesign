@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 379866428840225113}
   - component: {fileID: 4912476549618544924}
   - component: {fileID: 2412842424095397016}
+  - component: {fileID: 3309065948733005788}
   m_Layer: 0
   m_Name: Baum Winter
   m_TagString: Untagged
@@ -120,3 +121,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0009755343, y: -0.0224431}
   m_Size: {x: 0.29853812, y: 0.29853812}
   m_Direction: 0
+--- !u!208 &3309065948733005788
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2645932929646436027}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.16000001, y: 0.24000001, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
