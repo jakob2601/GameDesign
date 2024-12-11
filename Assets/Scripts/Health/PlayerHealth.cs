@@ -5,75 +5,55 @@ using Scripts.Combat;
 
 namespace Scripts.Health
 {
-    public class PlayerHealth : MonoBehaviour
+    public class PlayerHealth : Health
     {
-        public int maxHealth = 5; // Maximale Gesundheit
-        public int currentHealth; // Aktuelle Gesundheit
+        
         public HealthBarController healthBarController;
 
-        private SpriteRenderer spriteRenderer;
 
-        private void Start()
+        protected override void Start()
         {
-            // Setze die Gesundheit auf das Maximum
-            currentHealth = maxHealth;
-
-            // Initialisiere und aktualisiere die Health Bar
-            healthBarController.InitializeHearts(maxHealth);
-            healthBarController.UpdateHearts(currentHealth, maxHealth);
-
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            // Rufe die gemeinsame Initialisierung der Basisklasse auf
+            base.Start();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             //Initialisieren Collision zu Gegner
-            Enemy enemy = collision.GetComponent<Enemy>();
+            EnemyCombat enemy = collision.GetComponent<EnemyCombat>();
 
             if (enemy)
             {
-                TakeDamage(enemy.damage);
+                Vector2 hitDirection = (transform.position - enemy.transform.position).normalized;
+                TakeDamage(enemy.attackDamage, hitDirection);
             }
         }
 
-        public void TakeDamage(int damage)
+        public override void TakeDamage(int damage, Vector2 hitDirection)
         {
-            // Reduziere die Gesundheit
-            currentHealth -= damage;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-            // Update die Health Bar
-            healthBarController.UpdateHearts(currentHealth, maxHealth);
-
-            //Rot aufleuchten nach Damage
-            StartCoroutine(FlashRed());
-
-            // Überprüfe, ob der Spieler tot ist
-            if (currentHealth == 0)
-            {
-                Die();
-            }
+            base.TakeDamage(damage, hitDirection);
         }
 
-        private IEnumerator FlashRed()
+        protected override void initializeHealthBar(int maxHealth)
         {
-            // Farbänderung nach Damage 
-            spriteRenderer.color = Color.red;
-            yield return new WaitForSeconds(0.2f);
-            spriteRenderer.color = Color.white;
+            // Initialisiere die Health Bar
+            healthBarController.InitializeHearts(maxHealth);
         }
 
-        public void Heal(int amount)
+        protected override void updateHealthBar(int currentHealth, int maxHealth)
         {
-            // Erhöhe die Gesundheit
-            currentHealth += amount;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
             // Update die Health Bar
             healthBarController.UpdateHearts(currentHealth, maxHealth);
         }
 
-        private void Die()
+        public override void Heal(int amount)
+        {
+            base.Heal(amount);
+            // Update die Health Bar
+            healthBarController.UpdateHearts(currentHealth, maxHealth);
+        }
+
+        protected override void Die()
         {
             Debug.Log("Player has died!");
             // Hier kannst du eine Logik für den Tod des Spielers einfügen

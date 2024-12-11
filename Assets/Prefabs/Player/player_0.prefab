@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7127369674428886474}
   - component: {fileID: 3237760347362161169}
   - component: {fileID: 152323377726260026}
-  - component: {fileID: 1719901393015336010}
+  - component: {fileID: 7464275693909124074}
   m_Layer: 3
   m_Name: player_0
   m_TagString: Untagged
@@ -239,13 +239,14 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
+  rb: {fileID: 7127369674428886474}
   attackPoint: {fileID: 7382996830281311783}
   attackRange: 0.7
   attackDamage: 20
   attackRate: 2
-  debugAttackRangeVisualizer: {fileID: 0}
   ifDebug: 0
---- !u!114 &1719901393015336010
+  debugAttackRangeVisualizer: {fileID: 0}
+--- !u!114 &7464275693909124074
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,4 +260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
+  knockbackForce: 10
+  animator: {fileID: 9014832005840109755}
+  spriteRenderer: {fileID: 5018518251418383697}
+  bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
   healthBarController: {fileID: 0}
