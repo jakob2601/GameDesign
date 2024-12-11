@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5633838053376101679}
   - component: {fileID: 6163050705436877438}
   - component: {fileID: -9007486442543918793}
+  - component: {fileID: 6064013631834567563}
   m_Layer: 0
   m_Name: "Baum Fr\xFChling"
   m_TagString: Untagged
@@ -120,3 +121,19 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0009755343, y: -0.0224431}
   m_Size: {x: 0.29853812, y: 0.29853812}
   m_Direction: 0
+--- !u!208 &6064013631834567563
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492845776833699992}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.16000001, y: 0.24000001, z: 0.1}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
