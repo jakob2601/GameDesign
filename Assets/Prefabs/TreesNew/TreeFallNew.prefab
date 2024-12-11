@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 939494435894707270}
   - component: {fileID: 758297691515283386}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: TreeFallNew
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -80,7 +80,7 @@ GameObject:
   - component: {fileID: 1958176469762987844}
   - component: {fileID: 5814946785052068521}
   - component: {fileID: 8159762137362511507}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Stump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 7501529870192223911}
   - component: {fileID: 7748459180016267925}
   - component: {fileID: 3253512410007017494}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Leaves
   m_TagString: Untagged
   m_Icon: {fileID: 0}
