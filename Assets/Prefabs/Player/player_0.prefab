@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 7127369674428886474}
   - component: {fileID: 3237760347362161169}
   - component: {fileID: 152323377726260026}
+  - component: {fileID: 1719901393015336010}
   m_Layer: 3
   m_Name: player_0
   m_TagString: Untagged
@@ -244,3 +245,18 @@ MonoBehaviour:
   attackRate: 2
   debugAttackRangeVisualizer: {fileID: 0}
   ifDebug: 0
+--- !u!114 &1719901393015336010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c210b1e7f09052f40aa5edcca66f0cf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 5
+  currentHealth: 0
+  healthBarController: {fileID: 0}

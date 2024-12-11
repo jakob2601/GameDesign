@@ -8,10 +8,19 @@ public class Enemy : MonoBehaviour
     public int maxHealth = 100;
     private int currentHealth;
     public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
+    public float knockbackForce = 10f; // Stärke des Rückstoßes
+
+    public Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start() {
         currentHealth = maxHealth;
+        rb = GetComponent<Rigidbody2D>();
+
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
+        }
     }
 
     // Update is called once per frame
@@ -19,7 +28,7 @@ public class Enemy : MonoBehaviour
         
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(int damage, Vector2 hitDirection) {
         currentHealth -= damage;
 
         // Play Hurt Animation
@@ -29,8 +38,22 @@ public class Enemy : MonoBehaviour
         // Blutpartikel abspielen
         SpawnBloodParticles();
 
+        // Rückstoß anwenden
+        ApplyKnockback(hitDirection);
+
         if(currentHealth <= 0) {
             Die();
+        }
+    }
+
+    void ApplyKnockback(Vector2 hitDirection)
+    {
+        if (rb != null)
+        {
+            Debug.Log("Applying knockback");
+            // Normalisiere die hitDirection und multipliziere sie mit der knockbackForce
+            Vector2 force = hitDirection.normalized * knockbackForce;
+            rb.AddForce(force, ForceMode2D.Impulse);
         }
     }
 
@@ -38,7 +61,7 @@ public class Enemy : MonoBehaviour
         if (bloodParticlesPrefab != null) {
             // Erstelle die Partikel an der Position des Gegners
             GameObject tempParticle = Instantiate(bloodParticlesPrefab, transform.position, Quaternion.identity);
-            Destroy(tempParticle, 1f);
+            Destroy(tempParticle, 2f); // Zerstöre die Partikel nach 2 Sekunden
         } else {
             Debug.LogWarning("No blood particle prefab assigned!");
         }

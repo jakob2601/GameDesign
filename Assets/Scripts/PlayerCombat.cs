@@ -102,7 +102,8 @@ public class PlayerCombat : MonoBehaviour
         foreach (Collider2D enemy in hitEnemies)
         {
             if(enemy.GetComponent<Enemy>() != null){
-                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+                Vector2 hitDirection = enemy.transform.position - transform.position;
+                enemy.GetComponent<Enemy>().TakeDamage(attackDamage, hitDirection);
             }
             else {
                 Debug.Log("Enemy script not found");
