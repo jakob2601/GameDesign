@@ -243,3 +243,4 @@ MonoBehaviour:
   attackDamage: 20
   attackRate: 2
   debugAttackRangeVisualizer: {fileID: 0}
+  ifDebug: 0

@@ -65,16 +65,48 @@ public class PlayerCombat : MonoBehaviour
     // Function to attack enemies in range
     void Attack()
     {
+        // Überprüfe, ob attackPoint nicht null ist
+        if (attackPoint == null)
+        {
+            Debug.LogError("Attack point is not assigned.");
+            return;
+        }
+
+        // Überprüfe, ob animator und playerDirection nicht null sind
+        if (animator == null)
+        {
+            Debug.LogError("Animator is not assigned.");
+            return;
+        }
+
+        if (playerDirection == null)
+        {
+            Debug.LogError("Player direction is not assigned.");
+            return;
+        }
+
         animator.SetFloat("StayHorizontal", playerDirection.lastMoveDirection.x);
         animator.SetFloat("StayVertical", playerDirection.lastMoveDirection.y);
         // Play an Attack Animation
         animator.SetTrigger("Attack");
         // Detect enemies in range
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+        if (hitEnemies.Length == 0)
+        {
+            Debug.Log("Enemies not found");
+            return;
+        }
+
         // Deal damage to enemies
         foreach (Collider2D enemy in hitEnemies)
         {
-            enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            if(enemy.GetComponent<Enemy>() != null){
+                enemy.GetComponent<Enemy>().TakeDamage(attackDamage);
+            }
+            else {
+                Debug.Log("Enemy script not found");
+            }
         }
 
         Debug.Log("Attacking");
