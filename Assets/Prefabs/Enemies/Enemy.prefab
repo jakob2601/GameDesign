@@ -158,6 +158,8 @@ MonoBehaviour:
   animator: {fileID: 2309280226520025970}
   maxHealth: 10000
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  knockbackForce: 10
+  rb: {fileID: 2579191884603178559}
 --- !u!1 &5590381219280098367
 GameObject:
   m_ObjectHideFlags: 0
