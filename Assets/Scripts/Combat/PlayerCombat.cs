@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Movement;
 
-public class PlayerCombat : MonoBehaviour
+namespace Scripts.Combat {
+    public class PlayerCombat : MonoBehaviour
 {
     public Animator animator;
     public LayerMask enemyLayers;
@@ -132,4 +134,6 @@ public class PlayerCombat : MonoBehaviour
             debugAttackRangeVisualizer.transform.localScale = new Vector3(scale, scale, 1);
         }
     }
+}
+
 }
