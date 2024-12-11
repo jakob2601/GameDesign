@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     public Animator animator;
     public int maxHealth = 100;
+    public int damage = 1;
     private int currentHealth;
     public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
 
