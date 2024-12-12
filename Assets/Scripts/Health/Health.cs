@@ -5,7 +5,7 @@ using Scripts.Combats;
 
 namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
-        public int maxHealth; // Maximale Gesundheit
+        public int maxHealth = 10; // Maximale Gesundheit
         public int currentHealth; // Aktuelle Gesundheit
         public float knockbackForce = 10f; // Stärke des Rückstoßes
 

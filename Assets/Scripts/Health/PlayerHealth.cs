@@ -6,9 +6,7 @@ using Scripts.Combats;
 namespace Scripts.Healths
 {
     public class PlayerHealth : Health
-    {
-        public new int maxHealth = 5;
-        
+    {   
         public HealthBarController healthBarController;
 
 

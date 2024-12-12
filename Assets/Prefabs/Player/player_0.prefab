@@ -241,7 +241,7 @@ MonoBehaviour:
     m_Bits: 64
   rb: {fileID: 7127369674428886474}
   attackPoint: {fileID: 7382996830281311783}
-  attackRange: 2
+  attackRange: 1
   attackDamage: 20
   attackRate: 2
   ifDebug: 0
@@ -264,4 +264,5 @@ MonoBehaviour:
   animator: {fileID: 9014832005840109755}
   spriteRenderer: {fileID: 5018518251418383697}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  maxHealth: 5
   healthBarController: {fileID: 0}
