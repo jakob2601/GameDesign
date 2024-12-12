@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Movement;
+using Scripts.Movements;
 
 namespace Scripts.Combats
 {
@@ -45,9 +45,9 @@ namespace Scripts.Combats
             }
         }
 
-        protected override TopDownPlayerController getCharacterDirection()
+        protected override PlayerMovement getCharacterDirection()
         {
-            return GetComponent<TopDownPlayerController>();
+            return GetComponent<PlayerMovement>();
         }
 
     }

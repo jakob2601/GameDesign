@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3288238988530123261}
   - component: {fileID: 1056930885647471817}
   - component: {fileID: 3253567361553378283}
+  - component: {fileID: 9157847260342593446}
   - component: {fileID: 4194403028306377578}
   m_Layer: 6
   m_Name: Enemy
@@ -172,10 +173,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d92bfae330e76984092967685d852f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  enemyGFX: {fileID: 7937483012282986140}
-  speed: 1000
-  nextWaypointDistance: 3
 --- !u!114 &3253567361553378283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,6 +196,24 @@ MonoBehaviour:
   attackRate: 2
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
+--- !u!114 &9157847260342593446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 085de92d2724c9144acd2efb5031898f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 200
+  animator: {fileID: 2309280226520025970}
+  lastMoveDirection: {x: 0, y: 0}
+  target: {fileID: 0}
+  enemyGFX: {fileID: 7937483012282986140}
+  nextWaypointDistance: 3
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0

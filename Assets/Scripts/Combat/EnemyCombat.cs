@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Scripts.Movement;
+using Scripts.Movements;
 using UnityEngine;
 
 namespace Scripts.Combats
@@ -19,7 +19,7 @@ namespace Scripts.Combats
 
         }
 
-        protected override TopDownPlayerController getCharacterDirection()
+        protected override PlayerMovement getCharacterDirection()
         {
             Debug.Log("Enemy Direction Noch nicht implementiert");
             return null;

@@ -1,28 +1,25 @@
 using UnityEngine;
 
-namespace Scripts.Movement
+namespace Scripts.Movements
 {
-    public class TopDownPlayerController : MonoBehaviour
+    public class PlayerMovement: Movement
     {
-        public float moveSpeed = 5f; // Normale Geschwindigkeit des Spielers
+        
         public float dashSpeed = 10f; // Geschwindigkeit während des Dashes
         public float dashDuration = 0.2f; // Dauer des Dashes in Sekunden
         public float dashCooldown = 1f; // Abklingzeit zwischen Dashes
-        public Animator animator;  // Animation für Character
-        public Vector2 lastMoveDirection; // letzte Bewegungseingabe
-
-        private Rigidbody2D rb; // Rigidbody2D-Komponente
+        
+        
+        
         private Vector2 moveInput; // Bewegungseingabe
         private bool isDashing = false; // Ob der Spieler aktuell dashen kann
         private float dashCooldownTimer = 0f; // Zeit bis zum nächsten Dash
-        private bool isFacingRight = false; // der Spieler wendet sich rechte Seite zu
+        
 
 
-        private void Start()
+        protected override void Start()
         {
-            rb = GetComponent<Rigidbody2D>(); // Rigidbody2D zuweisen
-
-            animator = GetComponent<Animator>();
+            base.Start();
         }
 
         private void Update()
@@ -32,7 +29,7 @@ namespace Scripts.Movement
 
             if (moveInput.x < 0 && !isFacingRight || moveInput.x > 0 && isFacingRight)
             {
-                flip();
+                Flip();
             }
 
             // Dash-Mechanik prüfen
@@ -48,7 +45,7 @@ namespace Scripts.Movement
             }
         }
 
-        void ProccessInputs()
+        protected void ProccessInputs()
         {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
@@ -77,17 +74,11 @@ namespace Scripts.Movement
             animator.SetFloat("StayVertical", lastMoveDirection.y);
         }
 
-        void flip()
-        {
-            // flip Sprite sheet,  Spieler sich nach links bewegen kann 
-            Vector3 scale = transform.localScale;
-            scale.x *= -1;
-            transform.localScale = scale;
-            isFacingRight = !isFacingRight;
-        }
+        
 
-        private void FixedUpdate()
+        protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             // Normale Bewegung, wenn nicht gedasht wird und Bewegungseingabe vorhanden ist
             if (!isDashing && moveInput.magnitude > 0.01f) // Schwellenwert für Bewegung
             {

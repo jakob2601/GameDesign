@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using Scripts.Movement;
+using Scripts.Movements;
 using Scripts.Healths;
 
 namespace Scripts.Combats {
@@ -11,7 +11,7 @@ namespace Scripts.Combats {
 
         public Rigidbody2D rb;
 
-        protected TopDownPlayerController playerDirection; // Referenz auf den PlayerController
+        protected PlayerMovement playerDirection; // Referenz auf den PlayerController
         public Transform attackPoint; // Referenzpunkt für den Angriff
 
         public float attackRange = 0.5f; // Radius des Angriffsbereichs
@@ -43,7 +43,7 @@ namespace Scripts.Combats {
             }
         }
 
-        abstract protected TopDownPlayerController getCharacterDirection();
+        abstract protected PlayerMovement getCharacterDirection();
 
 
         // Function to attack enemies in range

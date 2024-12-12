@@ -1,90 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
 
-namespace Scripts.Movement
+
+namespace Scripts.Movements
 {
     public class EnemyAI : MonoBehaviour
     {
-        public Transform target;
-        public Transform enemyGFX;
-
-        public float speed = 200f;
-        public float nextWaypointDistance = 3f;
-
-        Path path;
-        int currentWaypoint = 0;
-        bool reachedEndOfPath = false;
-
-        Seeker seeker;
-        Rigidbody2D rb;
-        private Vector3 originalScale;
+        private EnemyMovement enemyMovement;
+        public float detectionRange = 10f; // Reichweite, in der der Gegner den Spieler sehen kann
+        private Transform player;
 
         // Start is called before the first frame update
         void Start()
         {
-            seeker = GetComponent<Seeker>();
-            rb = GetComponent<Rigidbody2D>();
-
-            originalScale = enemyGFX.localScale;
-            InvokeRepeating("UpdatePath", 0f, 0.5f);
-        }
-
-        void UpdatePath()
-        {
-            if (seeker.IsDone())
+            enemyMovement = GetComponent<EnemyMovement>();
+            if (enemyMovement == null)
             {
-                seeker.StartPath(rb.position, target.position, OnPathComplete);
+                Debug.LogError("EnemyMovement component not found on " + gameObject.name);
+            }
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+            if (player == null)
+            {
+                Debug.LogError("Player not found in the scene.");
             }
         }
 
-        void OnPathComplete(Path p)
-        {
-            if (!p.error)
-            {
-                path = p;
-                currentWaypoint = 0;
-            }
-        }
-
-        // Update is called a persistent 50 times per second
         void FixedUpdate()
         {
-            if (path == null)
-                return;
-
-            if (currentWaypoint >= path.vectorPath.Count)
+            // Hier können Sie die Logik für die Entscheidungen des Gegners implementieren
+            // Zum Beispiel: Wenn der Gegner den Spieler sieht, bewegt er sich auf ihn zu
+            if (player != null && enemyMovement != null)
             {
-                reachedEndOfPath = true;
-                return;
-            }
-            else
-            {
-                reachedEndOfPath = false;
-            }
+                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-            Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-            Vector2 force = direction * speed * Time.deltaTime;
-
-            rb.AddForce(force);
-
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-            if (distance < nextWaypointDistance)
-            {
-                currentWaypoint++;
-            }
-
-            if (force.x >= 0.01f)
-            {
-                enemyGFX.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
-            }
-            else if (force.x <= -0.01f)
-            {
-                enemyGFX.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+                if (distanceToPlayer <= detectionRange)
+                {
+                    // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
+                    enemyMovement.target = player;
+                }
+                else
+                {
+                    // Wenn der Spieler nicht in Reichweite ist, kann der Gegner andere Aktionen ausführen
+                    enemyMovement.target = null; // Oder setzen Sie ein anderes Ziel
+                }
             }
         }
+
     }
 }
 
