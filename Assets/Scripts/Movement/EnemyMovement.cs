@@ -29,7 +29,7 @@ namespace Scripts.Movements
         // Update is called a persistent 50 times per second
         protected override void FixedUpdate()
         {
-            if (path == null)
+            if (path == null || target == null)
                 return;
 
             if (currentWaypoint >= path.vectorPath.Count)
@@ -66,7 +66,7 @@ namespace Scripts.Movements
 
         void UpdatePath()
         {
-            if (seeker.IsDone())
+            if (target != null && seeker.IsDone())
             {
                 seeker.StartPath(rb.position, target.position, OnPathComplete);
             }
