@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Scripts.Health {
+namespace Scripts.Healths {
     public class EnemyHealth : Health {
+        public new int maxHealth = 100;
 
         protected override void Start()
         {

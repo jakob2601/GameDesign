@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Scripts.Movement;
 using UnityEngine;
 
-namespace Scripts.Combat
+namespace Scripts.Combats
 {
     public class EnemyCombat : Combat
     {
@@ -19,8 +19,9 @@ namespace Scripts.Combat
 
         }
 
-        protected override TopDownPlayerController getPlayerDirection()
+        protected override TopDownPlayerController getCharacterDirection()
         {
+            Debug.Log("Enemy Direction Noch nicht implementiert");
             return null;
         }
     }

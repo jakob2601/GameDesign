@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Movement;
 
-namespace Scripts.Combat
+namespace Scripts.Combats
 {
     public class PlayerCombat : Combat
     {
@@ -45,7 +45,7 @@ namespace Scripts.Combat
             }
         }
 
-        protected override TopDownPlayerController getPlayerDirection()
+        protected override TopDownPlayerController getCharacterDirection()
         {
             return GetComponent<TopDownPlayerController>();
         }

@@ -1,12 +1,13 @@
 using System.Collections;
 using Scripts.UI;
 using UnityEngine;
-using Scripts.Combat;
+using Scripts.Combats;
 
-namespace Scripts.Health
+namespace Scripts.Healths
 {
     public class PlayerHealth : Health
     {
+        public new int maxHealth = 5;
         
         public HealthBarController healthBarController;
 

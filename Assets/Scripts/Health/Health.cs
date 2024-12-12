@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections;
 using Scripts.UI;
-using Scripts.Combat;
+using Scripts.Combats;
 
-namespace Scripts.Health {
+namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
-        public int maxHealth = 5; // Maximale Gesundheit
+        public int maxHealth; // Maximale Gesundheit
         public int currentHealth; // Aktuelle Gesundheit
         public float knockbackForce = 10f; // Stärke des Rückstoßes
 
@@ -22,7 +22,7 @@ namespace Scripts.Health {
             initializeHealthBar(maxHealth);
             updateHealthBar(currentHealth, maxHealth);
 
-            spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             if (spriteRenderer == null)
             {
                 Debug.LogWarning("SpriteRenderer not found on " + gameObject.name);
@@ -99,7 +99,7 @@ namespace Scripts.Health {
         {
             // Farbänderung nach Damage 
             spriteRenderer.color = Color.red;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.1f);
             spriteRenderer.color = Color.white;
         }
 

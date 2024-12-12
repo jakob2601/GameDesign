@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using Scripts.Movement;
-using Scripts.Health;
+using Scripts.Healths;
 
-namespace Scripts.Combat {
+namespace Scripts.Combats {
     public abstract class Combat : MonoBehaviour
     {
         public Animator animator;
@@ -32,8 +32,8 @@ namespace Scripts.Combat {
             }
 
             // Get Referenz zum PlayerController
-            playerDirection = getPlayerDirection();
-            playerDirection = GetComponent<TopDownPlayerController>();
+            playerDirection = getCharacterDirection();
+            attackPoint = transform.Find("AttackPoint");
 
             // Initialisiere das Attack-Visualizer-Sprite (falls zugewiesen)
             if (debugAttackRangeVisualizer != null)
@@ -43,7 +43,7 @@ namespace Scripts.Combat {
             }
         }
 
-        abstract protected TopDownPlayerController getPlayerDirection();
+        abstract protected TopDownPlayerController getCharacterDirection();
 
 
         // Function to attack enemies in range
@@ -78,14 +78,14 @@ namespace Scripts.Combat {
 
             if (hitEnemies.Length == 0)
             {
-                Debug.Log("Enemies not found");
+                Debug.Log("No enemies in range");
                 return;
             }
 
             // Deal damage to enemies
             foreach (Collider2D enemy in hitEnemies)
             {
-                Scripts.Health.Health enemyHealth = enemy.GetComponent<Scripts.Health.Health>();
+                Health enemyHealth = enemy.GetComponent<Health>();
                 if (enemyHealth != null)
                 {
                     Vector2 hitDirection = enemy.transform.position - transform.position;

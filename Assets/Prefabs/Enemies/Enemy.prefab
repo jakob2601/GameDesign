@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 3288238988530123261}
   - component: {fileID: 1056930885647471817}
   - component: {fileID: 3253567361553378283}
+  - component: {fileID: 4194403028306377578}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -198,6 +199,24 @@ MonoBehaviour:
   attackRate: 2
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
+--- !u!114 &4194403028306377578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  knockbackForce: 10
+  animator: {fileID: 2309280226520025970}
+  spriteRenderer: {fileID: 6346507499007160480}
+  bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
 --- !u!1 &5590381219280098367
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,7 +228,6 @@ GameObject:
   - component: {fileID: 7937483012282986140}
   - component: {fileID: 6346507499007160480}
   - component: {fileID: 2309280226520025970}
-  - component: {fileID: 4441406753588654772}
   m_Layer: 6
   m_Name: EnemyGFX
   m_TagString: Untagged
@@ -305,21 +323,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4441406753588654772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5590381219280098367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 5
-  currentHealth: 0
-  knockbackForce: 10
-  animator: {fileID: 2309280226520025970}
-  spriteRenderer: {fileID: 6346507499007160480}
-  bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
