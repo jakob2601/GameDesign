@@ -2,6 +2,7 @@ using System.Collections;
 using Scripts.UI;
 using UnityEngine;
 using Scripts.Combats;
+using System.Threading;
 
 namespace Scripts.Healths
 {
@@ -23,16 +24,17 @@ namespace Scripts.Healths
 
             if (enemy)
             {
+                float knockbackForce = enemy.knockbackForce;
                 Vector2 hitDirection = (transform.position - enemy.transform.position).normalized;
-                TakeDamage(enemy.attackDamage, hitDirection);
+                TakeDamage(enemy.attackDamage, hitDirection, knockbackForce);
             }
         }
 
-        public override void TakeDamage(int damage, Vector2 hitDirection)
+        public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce)
         {
-            base.TakeDamage(damage, hitDirection);
+            base.TakeDamage(damage, hitDirection, knockbackForce);
         }
-
+    
         protected override void initializeHealthBar(int maxHealth)
         {
             // Initialisiere die Health Bar

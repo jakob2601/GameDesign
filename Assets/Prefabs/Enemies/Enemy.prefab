@@ -111,7 +111,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 5
+  m_Mass: 1
   m_LinearDrag: 1.5
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -168,11 +168,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5413714183383202248}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d92bfae330e76984092967685d852f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detectionRange: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &3253567361553378283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,11 +195,13 @@ MonoBehaviour:
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
   attackPoint: {fileID: 8142096282676538681}
-  attackRange: 0.5
+  attackRange: 1
   attackDamage: 40
   attackRate: 2
+  knockbackForce: 1
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
+  startAttackRange: 1.5
 --- !u!114 &9157847260342593446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085de92d2724c9144acd2efb5031898f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 200
+  moveSpeed: 500
   animator: {fileID: 2309280226520025970}
   lastMoveDirection: {x: 0, y: 0}
   target: {fileID: 0}
@@ -228,7 +234,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  knockbackForce: 10
   animator: {fileID: 2309280226520025970}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}

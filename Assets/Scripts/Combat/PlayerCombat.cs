@@ -45,7 +45,7 @@ namespace Scripts.Combats
             }
         }
 
-        protected override PlayerMovement getCharacterDirection()
+        protected override Movement getCharacterDirection()
         {
             return GetComponent<PlayerMovement>();
         }

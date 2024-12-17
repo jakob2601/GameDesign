@@ -11,13 +11,14 @@ namespace Scripts.Combats {
 
         public Rigidbody2D rb;
 
-        protected PlayerMovement playerDirection; // Referenz auf den PlayerController
+        protected Movement playerDirection; // Referenz auf den PlayerController
         public Transform attackPoint; // Referenzpunkt für den Angriff
 
         public float attackRange = 0.5f; // Radius des Angriffsbereichs
         public int attackDamage = 40;
         public float attackRate = 2f;
         protected float nextAttackTime = 0f;
+        public float knockbackForce = 1f;
 
         public bool ifDebug = false;
         public GameObject debugAttackRangeVisualizer; // Referenz für das Visualisierungssprite^
@@ -43,7 +44,7 @@ namespace Scripts.Combats {
             }
         }
 
-        abstract protected PlayerMovement getCharacterDirection();
+        abstract protected Movement getCharacterDirection();
 
 
         // Function to attack enemies in range
@@ -89,7 +90,7 @@ namespace Scripts.Combats {
                 if (enemyHealth != null)
                 {
                     Vector2 hitDirection = enemy.transform.position - transform.position;
-                    enemyHealth.TakeDamage(attackDamage, hitDirection);
+                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce);
                 }
                 else
                 {

@@ -36,9 +36,9 @@ namespace Scripts.Healths {
             Destroy(gameObject, 3f);
         }
 
-        public override void TakeDamage(int damage, Vector2 hitDirection)
+        public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce)
         {
-            base.TakeDamage(damage, hitDirection);
+            base.TakeDamage(damage, hitDirection, knockbackForce);
             // Update die Health Bar
             // Hier kannst du die Health Bar des Gegners aktualisieren
         }

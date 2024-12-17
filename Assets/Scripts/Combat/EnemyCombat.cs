@@ -7,6 +7,8 @@ namespace Scripts.Combats
 {
     public class EnemyCombat : Combat
     {
+        private Transform player;
+        public float startAttackRange = 1f; // Reichweite, in der der Gegner den Spieler versucht anzugreifen 
         // Start is called before the first frame update
         protected override void Start()
         {
@@ -16,13 +18,25 @@ namespace Scripts.Combats
         // Update is called once per frame
         void Update()
         {
+            if (player != null)
+            {
+                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
+                if (distanceToPlayer <= attackRange)
+                {
+                    Attack();
+                }
+            }
         }
 
-        protected override PlayerMovement getCharacterDirection()
+        public void SetPlayer(Transform playerTransform)
         {
-            Debug.Log("Enemy Direction Noch nicht implementiert");
-            return null;
+            player = playerTransform;
+        }
+
+        protected override Movement getCharacterDirection()
+        {
+            return GetComponent<EnemyMovement>();
         }
     }
 

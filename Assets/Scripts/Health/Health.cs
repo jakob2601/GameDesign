@@ -7,10 +7,15 @@ namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
         public int maxHealth = 10; // Maximale Gesundheit
         public int currentHealth; // Aktuelle Gesundheit
-        public float knockbackForce = 10f; // Stärke des Rückstoßes
+
+        protected bool isInvincible = false; // Ist der Charakter unverwundbar?
+
+        public float invincibilityTime = 0.5f; // Zeit, in der der Charakter unverwundbar ist
+        public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
+
 
         public Animator animator; // Referenz auf den Animator
-        Rigidbody2D rb; // Referenz auf den Rigidbody2D
+        protected Rigidbody2D rb; // Referenz auf den Rigidbody2D
 
         public SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
         public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
@@ -43,42 +48,58 @@ namespace Scripts.Healths {
         }
 
         
-
-        public virtual void TakeDamage(int damage, Vector2 hitDirection)
+        public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce)
         {
             // Reduziere die Gesundheit
-            currentHealth -= damage;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
-            // Update die Health Bar
-            updateHealthBar(currentHealth, maxHealth);
-
-            // Blutpartikel abspielen
-            SpawnBloodParticles();
-
-
-            // Rückstoß anwenden
-            ApplyKnockback(hitDirection);
-
-            //Rot aufleuchten nach Damage
-            StartCoroutine(FlashRed());
-
-            // Überprüfe, ob der Spieler tot ist
-            if (currentHealth <= 0)
+            if(!isInvincible)
             {
-                Die();
+                
+                currentHealth -= damage;
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+                // Update die Health Bar
+                updateHealthBar(currentHealth, maxHealth);
+
+                // Blutpartikel abspielen
+                SpawnBloodParticles();
+
+                //Rot aufleuchten nach Damage
+                StartCoroutine(FlashRed());
+
+                // Rückstoß anwenden
+                StartCoroutine(ApplyKnockback(hitDirection, knockbackForce));
+
+                // Überprüfe, ob der Spieler tot ist
+                if (currentHealth <= 0)
+                {
+                    Die();
+                }
+
+                StartCoroutine(InvincibiltyTimer());
             }
         }
 
-        protected void ApplyKnockback(Vector2 hitDirection)
-        {
+        protected IEnumerator ApplyKnockback(Vector2 hitDirection, float knockbackForce)
+        {   
             if (rb != null)
             {
                 Debug.Log("Applying knockback");
-                // Normalisiere die hitDirection und multipliziere sie mit der knockbackForce
-                Vector2 force = hitDirection.normalized * knockbackForce;
-                rb.AddForce(force, ForceMode2D.Impulse);
+                float timer = 0;
+                while(timer <= knockbackDuration)
+                {
+                    rb.velocity = hitDirection * (knockbackForce / knockbackDuration) * Time.deltaTime;
+                    timer += Time.deltaTime;
+                    yield return null;
+                }
+                rb.velocity = Vector2.zero;
             }
+        }
+
+        protected IEnumerator InvincibiltyTimer() 
+        {
+            isInvincible = true;
+            yield return new WaitForSeconds(invincibilityTime);
+            isInvincible = false;
         }
 
         void SpawnBloodParticles()

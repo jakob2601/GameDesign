@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Combats;
 using UnityEngine;
 
 
@@ -8,6 +9,8 @@ namespace Scripts.Movements
     public class EnemyAI : MonoBehaviour
     {
         private EnemyMovement enemyMovement;
+        private EnemyCombat enemyCombat;
+
         public float detectionRange = 100f; // Reichweite, in der der Gegner den Spieler sehen kann
         private Transform player;
         public LayerMask playerLayer;
@@ -21,6 +24,12 @@ namespace Scripts.Movements
             if (enemyMovement == null)
             {
                 Debug.LogError("EnemyMovement component not found on " + gameObject.name);
+            }
+
+            enemyCombat = GetComponent<EnemyCombat>();
+            if (enemyCombat == null)
+            {
+                Debug.LogError("EnemyCombat component not found on " + gameObject.name);
             }
         }
 
@@ -36,8 +45,11 @@ namespace Scripts.Movements
                 if (distanceToPlayer <= detectionRange)
                 {
                     // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
+
                     enemyMovement.target = player;
                     enemyMovement.enabled = true; // Aktiviert die Bewegung
+
+                    enemyCombat.SetPlayer(player); // Setzt den Spieler als Ziel für den Angriff
                 }
                 else
                 {
@@ -48,7 +60,7 @@ namespace Scripts.Movements
             }
             else
             {
-                Debug.Log("Player not found in the area.");
+                // Debug.Log("Player not found in the area.");
                 enemyMovement.enabled = false; // Deaktiviert die Bewegung
             }
         }
