@@ -196,7 +196,7 @@ MonoBehaviour:
   rb: {fileID: 2579191884603178559}
   attackPoint: {fileID: 8142096282676538681}
   attackRange: 1
-  attackDamage: 40
+  attackDamage: 2
   attackRate: 2
   knockbackForce: 1
   ifDebug: 0
@@ -234,6 +234,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  invincibilityTime: 1
+  knockbackDuration: 0.2
   animator: {fileID: 2309280226520025970}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}

@@ -11,7 +11,7 @@ namespace Scripts.Movements
         private EnemyMovement enemyMovement;
         private EnemyCombat enemyCombat;
 
-        public float detectionRange = 100f; // Reichweite, in der der Gegner den Spieler sehen kann
+        public float detectionRange = 10f; // Reichweite, in der der Gegner den Spieler sehen kann
         private Transform player;
         public LayerMask playerLayer;
         float distanceToPlayer;
