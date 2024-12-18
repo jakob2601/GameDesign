@@ -19,7 +19,7 @@ namespace Scripts.Movements
         Seeker seeker;
 
         private Vector3 originalScale;
-        protected Vector3 lastPosition;
+
         private bool inCombat = false;
         private bool isUnstucking = false;
          private float stuckTimer = 0f;
@@ -91,8 +91,10 @@ namespace Scripts.Movements
 
             Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
             Vector2 force = moveSpeed * direction * Time.deltaTime;
+            lastMoveDirection = direction;
 
             rb.AddForce(force);
+            AnimateWalking(force);
 
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
@@ -118,6 +120,7 @@ namespace Scripts.Movements
 
                 Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
                 Vector2 force = direction * moveSpeed * Time.deltaTime;
+                lastMoveDirection = direction;
 
                 rb.AddForce(force);
                 UpdateScale(force);
@@ -139,7 +142,6 @@ namespace Scripts.Movements
             {
                 stuckTimer = 0f;
             }
-            lastPosition = transform.position;
         }
 
         private IEnumerator Unstuck(Vector2 obstaclePosition)
@@ -151,6 +153,7 @@ namespace Scripts.Movements
             while (timer < unstuckDuration)
             {
                 rb.AddForce(directionAwayFromObstacle * moveSpeed * Time.deltaTime);
+                lastMoveDirection = directionAwayFromObstacle;
                 timer += Time.deltaTime;
                 yield return null;
             }
