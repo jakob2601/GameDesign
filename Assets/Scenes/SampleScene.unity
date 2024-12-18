@@ -6658,12 +6658,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2016017159}
     - target: {fileID: 1056930885647471817, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
-      propertyPath: detectionRange
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1056930885647471817, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
-      propertyPath: playerLayer.m_Bits
-      value: 8
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2027770161769209171, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6705,9 +6701,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3253567361553378283, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
-      propertyPath: enemyLayers.m_Bits
-      value: 8
+    - target: {fileID: 3639023718791337387, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
+      propertyPath: detailedGizmos
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
+      propertyPath: knockbackForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5413714183383202248, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
       propertyPath: m_Name
@@ -6717,14 +6717,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 2016017159}
-    - target: {fileID: 9157847260342593446, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9157847260342593446, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
-      propertyPath: moveSpeed
-      value: 1200
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25848,6 +25840,10 @@ PrefabInstance:
     - target: {fileID: 6377654365571422507, guid: 28c806822a898514eabd46a838920fff, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7464275693909124074, guid: 28c806822a898514eabd46a838920fff, type: 3}
+      propertyPath: knockbackForce
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7464275693909124074, guid: 28c806822a898514eabd46a838920fff, type: 3}
       propertyPath: healthBarController

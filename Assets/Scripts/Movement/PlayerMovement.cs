@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Scripts.Movements
 {
-    public class PlayerMovement: Movement
+    public partial class PlayerMovement: Movement
     {
         
         public float dashSpeed = 10f; // Geschwindigkeit während des Dashes
@@ -10,9 +11,7 @@ namespace Scripts.Movements
         public float dashCooldown = 1f; // Abklingzeit zwischen Dashes
         
         
-        
-        private Vector2 moveInput; // Bewegungseingabe
-        private bool isDashing = false; // Ob der Spieler aktuell dashen kann
+        private Vector2 walkingInput; // Bewegungseingabe
         private float dashCooldownTimer = 0f; // Zeit bis zum nächsten Dash
         
 
@@ -22,18 +21,18 @@ namespace Scripts.Movements
             base.Start();
         }
 
-        private void Update()
+        protected override void Update()
         {
             ProccessInputs();
-            Animate();
+            AnimateWalking(walkingInput);
 
-            if (moveInput.x < 0 && !isFacingRight || moveInput.x > 0 && isFacingRight)
+            if (walkingInput.x < 0 && !isFacingRight || walkingInput.x > 0 && isFacingRight)
             {
                 Flip();
             }
 
             // Dash-Mechanik prüfen
-            if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0f && !isDashing && moveInput != Vector2.zero)
+            if (Input.GetKeyDown(KeyCode.Space) && dashCooldownTimer <= 0f && !isDashing && walkingInput != Vector2.zero)
             {
                 StartCoroutine(Dash());
             }
@@ -59,37 +58,24 @@ namespace Scripts.Movements
                 lastMoveDirection = new Vector2(moveX, moveY).normalized;
             }
 
-            moveInput = new Vector2(moveX, moveY).normalized;
+            walkingInput = new Vector2(moveX, moveY).normalized;
         }
 
 
-        void Animate()
-        {
-            animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
-            animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
-            animator.SetFloat("Speed", moveInput.sqrMagnitude); // Bewegungsgeschwindigkeit
-
-            //Blickrichtung für Idle Animation
-            animator.SetFloat("StayHorizontal", lastMoveDirection.x);
-            animator.SetFloat("StayVertical", lastMoveDirection.y);
-        }
-
-        
 
         protected override void FixedUpdate()
         {
-            base.FixedUpdate();
             // Normale Bewegung, wenn nicht gedasht wird und Bewegungseingabe vorhanden ist
-            if (!isDashing && moveInput.magnitude > 0.01f) // Schwellenwert für Bewegung
+            if (!isDashing && walkingInput.magnitude > 0.01f) // Schwellenwert für Bewegung
             {
-                rb.MovePosition(rb.position + moveInput * moveSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(rb.position + walkingInput * moveSpeed * Time.fixedDeltaTime);
             }
         }
 
-        private System.Collections.IEnumerator Dash()
+        private IEnumerator Dash()
         {
             isDashing = true;
-            Vector2 dashDirection = moveInput.normalized; // Richtung des Dashes basierend auf der Eingabe
+            Vector2 dashDirection = walkingInput.normalized; // Richtung des Dashes basierend auf der Eingabe
 
             float dashTime = 0f;
             while (dashTime < dashDuration)

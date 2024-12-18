@@ -214,12 +214,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 085de92d2724c9144acd2efb5031898f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 500
   animator: {fileID: 2309280226520025970}
+  moveSpeed: 150
   lastMoveDirection: {x: 0, y: 0}
   target: {fileID: 0}
   enemyGFX: {fileID: 7937483012282986140}
   nextWaypointDistance: 3
+  startUpdatePathTime: 0
+  updatePathRate: 0.5
+  circleRadius: 3
+  combatSpeed: 2
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0
