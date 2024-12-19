@@ -10,7 +10,7 @@ namespace Scripts.Movements
 
         protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
         protected bool isDashing = false; // Ob der Spieler aktuell dashen kann
-        public float moveSpeed = 5f; 
+        public float moveSpeed = 150f; 
         public Vector2 lastMoveDirection; // letzte Bewegungsrichtung
 
         protected virtual void Start()

@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 7127369674428886474}
   - component: {fileID: 3237760347362161169}
   - component: {fileID: 3960980809086202236}
-  - component: {fileID: 1535167734031329132}
   - component: {fileID: 152323377726260026}
   - component: {fileID: 7464275693909124074}
   - component: {fileID: 2677363681198226136}
@@ -223,24 +222,6 @@ MonoBehaviour:
   moveSpeed: 5
   lastMoveDirection: {x: 0, y: 0}
   dashSpeed: 15
-  dashDuration: 0.2
-  dashCooldown: 1
---- !u!114 &1535167734031329132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834915610557380560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef7f8900bf2c3945be84636330de909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 9014832005840109755}
-  moveSpeed: 5
-  lastMoveDirection: {x: 0, y: 0}
-  dashSpeed: 10
   dashDuration: 0.2
   dashCooldown: 1
 --- !u!114 &152323377726260026

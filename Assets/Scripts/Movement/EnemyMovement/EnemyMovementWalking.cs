@@ -38,8 +38,15 @@ namespace Scripts.Movements
             base.Start();
             seeker = GetComponent<Seeker>();
             enemyCombat = GetComponent<EnemyCombat>();
-
-            originalScale = enemyGFX.localScale;
+            enemyGFX = transform.Find("EnemyGFX");
+            if(enemyGFX != null) 
+            {
+                originalScale = enemyGFX.localScale;
+            }
+            else 
+            {
+                Debug.LogWarning("Enemy GFX not found");
+            }
             InvokeRepeating("UpdatePath", startUpdatePathTime, updatePathRate);
             InvokeRepeating("CheckIfStuck", stuckCheckInterval, stuckCheckInterval);
         }
