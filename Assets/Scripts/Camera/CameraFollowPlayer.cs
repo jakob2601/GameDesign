@@ -8,6 +8,14 @@ namespace Scripts.Camera
         public float smoothSpeed = 0.125f; // Geschmeidigkeit der Bewegung
         public Vector3 offset; // Optionaler Offset zwischen Spieler und Kamera
 
+        private void Start()
+        {
+            if (player == null)
+            {
+                Debug.LogError("Player not set in CameraFollow script!");
+            }
+        }
+
         private void LateUpdate()
         {
             if (player != null)
@@ -20,9 +28,6 @@ namespace Scripts.Camera
 
                 // Kamera aktualisieren
                 transform.position = smoothedPosition;
-            }
-            else
-            {
             }
         }
     }

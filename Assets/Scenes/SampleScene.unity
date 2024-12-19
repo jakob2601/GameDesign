@@ -6709,6 +6709,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5572920187082752397, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 2016017159}
     - target: {fileID: 9157847260342593446, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
       propertyPath: target
       value: 
@@ -9263,7 +9267,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.5779634
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -9307,7 +9311,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2016017159}
-  smoothSpeed: 1
+  smoothSpeed: 0.125
   offset: {x: 0, y: 0, z: -10}
 --- !u!1001 &527806398
 PrefabInstance:
