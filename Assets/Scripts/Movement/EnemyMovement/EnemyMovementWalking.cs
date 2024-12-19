@@ -27,7 +27,7 @@ namespace Scripts.Movements
 
         private float angle = 0f;
         public float circleRadius = 3f; // Radius, innerhalb dessen das Verhalten geändert wird
-        public float combatSpeed = 2f; // Geschwindigkeit des Kreisens um den Spieler
+        public float combatSpeed = 75f; // Geschwindigkeit des Kreisens um den Spieler
 
         public float stuckCheckInterval = 1f; // Intervall, um zu überprüfen, ob der Gegner feststeckt
         public float stuckDistanceThreshold = 0.1f; // Schwellenwert, um festzustellen, ob der Gegner feststeckt
@@ -128,7 +128,7 @@ namespace Scripts.Movements
                 Vector2 targetPosition = (Vector2)target.position + offset;
 
                 Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-                Vector2 force = direction * moveSpeed * Time.deltaTime;
+                Vector2 force = direction * combatSpeed * Time.deltaTime;
                 lastMoveDirection = direction;
 
                 rb.AddForce(force);

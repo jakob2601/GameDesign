@@ -259,7 +259,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
-  invincibilityTime: 0.5
+  invincibilityTime: 1
   knockbackDuration: 0.2
   animator: {fileID: 9014832005840109755}
   spriteRenderer: {fileID: 5018518251418383697}
@@ -280,7 +280,7 @@ MonoBehaviour:
   animator: {fileID: 9014832005840109755}
   attackPoint: {fileID: 7382996830281311783}
   combat: {fileID: 152323377726260026}
-  attackRange: 1
-  attackDamage: 20
+  attackRange: 1.25
+  attackDamage: 2
   attackRate: 2
-  knockbackForce: 50
+  knockbackForce: 125

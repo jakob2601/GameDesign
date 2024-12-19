@@ -10,7 +10,7 @@ namespace Scripts.Healths {
 
         protected bool isInvincible = false; // Ist der Charakter unverwundbar?
 
-        public float invincibilityTime = 0.5f; // Zeit, in der der Charakter unverwundbar ist
+        public float invincibilityTime = 1f; // Zeit, in der der Charakter unverwundbar ist
         public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
 
 

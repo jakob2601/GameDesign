@@ -215,8 +215,8 @@ MonoBehaviour:
   animator: {fileID: 2309280226520025970}
   attackPoint: {fileID: 8142096282676538681}
   combat: {fileID: 3253567361553378283}
-  attackRange: 1
-  attackDamage: 40
+  attackRange: 0.5
+  attackDamage: 2
   attackRate: 2
   knockbackForce: 50
 --- !u!114 &4194403028306377578
@@ -259,7 +259,7 @@ MonoBehaviour:
   startUpdatePathTime: 0
   updatePathRate: 0.5
   circleRadius: 3
-  combatSpeed: 2
+  combatSpeed: 100
   stuckCheckInterval: 1
   stuckDistanceThreshold: 0.1
   unstuckDuration: 1
