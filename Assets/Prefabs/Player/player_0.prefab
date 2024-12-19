@@ -302,4 +302,4 @@ MonoBehaviour:
   attackRange: 1
   attackDamage: 20
   attackRate: 2
-  knockbackForce: 1
+  knockbackForce: 50
