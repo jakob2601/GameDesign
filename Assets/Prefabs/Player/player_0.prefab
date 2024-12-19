@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 3237760347362161169}
   - component: {fileID: 152323377726260026}
   - component: {fileID: 7464275693909124074}
+  - component: {fileID: 2677363681198226136}
   m_Layer: 3
   m_Name: player_0
   m_TagString: Untagged
@@ -155,12 +156,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ef7f8900bf2c3945be84636330de909, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 9014832005840109755}
   moveSpeed: 5
+  lastMoveDirection: {x: 0, y: 0}
   dashSpeed: 15
   dashDuration: 0.2
   dashCooldown: 1
-  animator: {fileID: 9014832005840109755}
-  lastMoveDirection: {x: 0, y: 0}
 --- !u!50 &7127369674428886474
 Rigidbody2D:
   serializedVersion: 4
@@ -240,12 +241,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 7127369674428886474}
-  attackPoint: {fileID: 7382996830281311783}
-  attackRange: 1
-  attackDamage: 20
   attackRate: 2
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
+  inCombat: 0
 --- !u!114 &7464275693909124074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,9 +259,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
-  knockbackForce: 10
+  invincibilityTime: 0.5
+  knockbackDuration: 0.2
   animator: {fileID: 9014832005840109755}
   spriteRenderer: {fileID: 5018518251418383697}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
-  maxHealth: 5
   healthBarController: {fileID: 0}
+--- !u!114 &2677363681198226136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa13da85e05b1943a211a82a4afc5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9014832005840109755}
+  attackPoint: {fileID: 7382996830281311783}
+  combat: {fileID: 152323377726260026}
+  attackRange: 1
+  attackDamage: 20
+  attackRate: 2
+  knockbackForce: 1

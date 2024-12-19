@@ -1,6 +1,7 @@
 using UnityEngine;
 using Pathfinding;
 using System.Collections;
+using Scripts.Combats.CharacterCombats;
 
 namespace Scripts.Movements
 {
@@ -8,6 +9,7 @@ namespace Scripts.Movements
     {
         public Transform target;
         public Transform enemyGFX;
+        protected EnemyCombat enemyCombat; 
         public float nextWaypointDistance = 3f;
         public float startUpdatePathTime = 0f;
         public float updatePathRate = 0.5f;
@@ -20,7 +22,6 @@ namespace Scripts.Movements
 
         private Vector3 originalScale;
 
-        private bool inCombat = false;
         private bool isUnstucking = false;
          private float stuckTimer = 0f;
 
@@ -54,13 +55,13 @@ namespace Scripts.Movements
             if (distanceToTarget <= circleRadius || reachedEndOfPath)
             {
                 // Beginne das Kreisen um den Spieler
-                inCombat = true;
+                enemyCombat.inCombat = true;
                 CombatMovement();
             }
             else
             {
                 // Normale Bewegung zum Ziel
-                inCombat = false;
+                enemyCombat.inCombat = false;
                 MoveTowardsTarget();
             }
         }

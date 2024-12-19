@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Scripts.Combats.Weapons;
 using Scripts.Movements;
 using UnityEngine;
 
-namespace Scripts.Combats
+namespace Scripts.Combats.CharacterCombats
 {
     public class EnemyCombat : Combat
     {
         private Transform player;
+        private ContactDamage contactDamage;
         public float startAttackRange = 1f; // Reichweite, in der der Gegner den Spieler versucht anzugreifen 
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
+            contactDamage = GetComponent<ContactDamage>();
         }
 
         // Update is called once per frame
@@ -22,9 +25,9 @@ namespace Scripts.Combats
             {
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
 
-                if (distanceToPlayer <= attackRange)
+                if (distanceToPlayer <= startAttackRange)
                 {
-                    Attack();
+                    contactDamage.PerformAttack(playerDirection, enemyLayers);
                 }
             }
         }
@@ -34,7 +37,7 @@ namespace Scripts.Combats
             player = playerTransform;
         }
 
-        protected override Movement getCharacterDirection()
+        public override Movement getCharacterDirection()
         {
             return GetComponent<EnemyMovement>();
         }

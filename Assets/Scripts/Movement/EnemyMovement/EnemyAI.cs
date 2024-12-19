@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Scripts.Combats;
+using Scripts.Combats.CharacterCombats;
 using UnityEngine;
 
 
