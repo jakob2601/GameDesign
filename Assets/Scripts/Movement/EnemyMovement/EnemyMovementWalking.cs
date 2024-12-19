@@ -37,6 +37,7 @@ namespace Scripts.Movements
         {
             base.Start();
             seeker = GetComponent<Seeker>();
+            enemyCombat = GetComponent<EnemyCombat>();
 
             originalScale = enemyGFX.localScale;
             InvokeRepeating("UpdatePath", startUpdatePathTime, updatePathRate);

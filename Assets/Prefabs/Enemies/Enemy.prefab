@@ -46,8 +46,9 @@ GameObject:
   - component: {fileID: 1056930885647471817}
   - component: {fileID: 3253567361553378283}
   - component: {fileID: 907683653750093926}
-  - component: {fileID: 9157847260342593446}
   - component: {fileID: 4194403028306377578}
+  - component: {fileID: 9157847260342593446}
+  - component: {fileID: 5572920187082752397}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -219,6 +220,25 @@ MonoBehaviour:
   attackDamage: 40
   attackRate: 2
   knockbackForce: 1
+--- !u!114 &4194403028306377578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  invincibilityTime: 1
+  knockbackDuration: 0.2
+  animator: {fileID: 2309280226520025970}
+  spriteRenderer: {fileID: 6346507499007160480}
+  bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
 --- !u!114 &9157847260342593446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,7 +264,7 @@ MonoBehaviour:
   stuckCheckInterval: 1
   stuckDistanceThreshold: 0.1
   unstuckDuration: 1
---- !u!114 &4194403028306377578
+--- !u!114 &5572920187082752397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,16 +273,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5413714183383202248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
+  m_Script: {fileID: 11500000, guid: 085de92d2724c9144acd2efb5031898f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 0
-  invincibilityTime: 1
-  knockbackDuration: 0.2
   animator: {fileID: 2309280226520025970}
-  spriteRenderer: {fileID: 6346507499007160480}
-  bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  moveSpeed: 5
+  lastMoveDirection: {x: 0, y: 0}
+  target: {fileID: 0}
+  enemyGFX: {fileID: 0}
+  nextWaypointDistance: 3
+  startUpdatePathTime: 0
+  updatePathRate: 0.5
+  circleRadius: 3
+  combatSpeed: 2
+  stuckCheckInterval: 1
+  stuckDistanceThreshold: 0.1
+  unstuckDuration: 1
 --- !u!1 &5590381219280098367
 GameObject:
   m_ObjectHideFlags: 0

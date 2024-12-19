@@ -42,9 +42,10 @@ GameObject:
   - component: {fileID: 6377654365571422507}
   - component: {fileID: 5018518251418383697}
   - component: {fileID: 9014832005840109755}
-  - component: {fileID: 3960980809086202236}
   - component: {fileID: 7127369674428886474}
   - component: {fileID: 3237760347362161169}
+  - component: {fileID: 3960980809086202236}
+  - component: {fileID: 1535167734031329132}
   - component: {fileID: 152323377726260026}
   - component: {fileID: 7464275693909124074}
   - component: {fileID: 2677363681198226136}
@@ -144,24 +145,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3960980809086202236
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834915610557380560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef7f8900bf2c3945be84636330de909, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 9014832005840109755}
-  moveSpeed: 5
-  lastMoveDirection: {x: 0, y: 0}
-  dashSpeed: 15
-  dashDuration: 0.2
-  dashCooldown: 1
 --- !u!50 &7127369674428886474
 Rigidbody2D:
   serializedVersion: 4
@@ -224,6 +207,42 @@ CapsuleCollider2D:
   m_Offset: {x: 0.012413025, y: -0.3062067}
   m_Size: {x: 0.40563774, y: 0.7407837}
   m_Direction: 0
+--- !u!114 &3960980809086202236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef7f8900bf2c3945be84636330de909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9014832005840109755}
+  moveSpeed: 5
+  lastMoveDirection: {x: 0, y: 0}
+  dashSpeed: 15
+  dashDuration: 0.2
+  dashCooldown: 1
+--- !u!114 &1535167734031329132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef7f8900bf2c3945be84636330de909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 9014832005840109755}
+  moveSpeed: 5
+  lastMoveDirection: {x: 0, y: 0}
+  dashSpeed: 10
+  dashDuration: 0.2
+  dashCooldown: 1
 --- !u!114 &152323377726260026
 MonoBehaviour:
   m_ObjectHideFlags: 0
