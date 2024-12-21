@@ -5,20 +5,20 @@ using Scripts.Combats;
 
 namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
-        public int maxHealth = 10; // Maximale Gesundheit
-        public int currentHealth; // Aktuelle Gesundheit
+        [SerializeField] public int maxHealth = 10; // Maximale Gesundheit
+        [SerializeField] public int currentHealth; // Aktuelle Gesundheit
 
-        protected bool isInvincible = false; // Ist der Charakter unverwundbar?
+        [SerializeField] protected bool isInvincible = false; // Ist der Charakter unverwundbar?
 
-        public float invincibilityTime = 1f; // Zeit, in der der Charakter unverwundbar ist
-        public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
+        [SerializeField] public float invincibilityTime = 1f; // Zeit, in der der Charakter unverwundbar ist
+        [SerializeField] public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
 
 
-        public Animator animator; // Referenz auf den Animator
+        [SerializeField] public Animator animator; // Referenz auf den Animator
         protected Rigidbody2D rb; // Referenz auf den Rigidbody2D
 
         public SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
-        public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
+        [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
 
         protected virtual void Start() {
             // Setze die Gesundheit auf das Maximum

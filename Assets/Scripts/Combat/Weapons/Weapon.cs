@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Scripts.Healths;
 using Scripts.Combats.CharacterCombats;
-using Scripts.Movements;
+using Scripts.Movements.AI;
 
 namespace Scripts.Combats.Weapons {
     public abstract class Weapon : MonoBehaviour 
@@ -11,11 +11,11 @@ namespace Scripts.Combats.Weapons {
         public Transform attackPoint; // Referenzpunkt für den Angriff
         public Combat combat; 
 
-        public float attackRange = 0.5f; // Radius des Angriffsbereichs
-        public int attackDamage = 40;
-        public float attackRate = 2f;
-        protected float nextAttackTime = 0f;
-        public float knockbackForce = 1f;
+        [SerializeField] public float attackRange = 0.5f; // Radius des Angriffsbereichs
+        [SerializeField] public int attackDamage = 40;
+        [SerializeField] public float attackRate = 2f;
+        [SerializeField] protected float nextAttackTime = 0f;
+        [SerializeField] public float knockbackForce = 1f;
 
         protected bool ifDebug = false;
         protected GameObject debugAttackRangeVisualizer; // Referenz für das Visualisierungssprite
@@ -48,7 +48,7 @@ namespace Scripts.Combats.Weapons {
             }
             
         }
-        public virtual void PerformAttack(Movement characterDireciton, LayerMask enemyLayers) 
+        public virtual void PerformAttack(MovementAI characterDireciton, LayerMask enemyLayers) 
         {
             debugAttackRangeVisualizer.SetActive(true); // Visualisierung anzeigen
 

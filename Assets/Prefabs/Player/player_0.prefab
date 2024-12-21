@@ -48,6 +48,8 @@ GameObject:
   - component: {fileID: 152323377726260026}
   - component: {fileID: 7464275693909124074}
   - component: {fileID: 2677363681198226136}
+  - component: {fileID: 140400135506352222}
+  - component: {fileID: 1526314319241926698}
   m_Layer: 3
   m_Name: player_0
   m_TagString: Untagged
@@ -219,11 +221,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9014832005840109755}
-  moveSpeed: 5
   lastMoveDirection: {x: 0, y: 0}
-  dashSpeed: 15
-  dashDuration: 0.2
-  dashCooldown: 1
+  originalScale: {x: 0, y: 0, z: 0}
 --- !u!114 &152323377726260026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,3 +283,28 @@ MonoBehaviour:
   attackDamage: 2
   attackRate: 2
   knockbackForce: 125
+--- !u!114 &140400135506352222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558c1b524b82e434a83fcff830cf67db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 5.5
+--- !u!114 &1526314319241926698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f23181f44965f2b41bc9e6a9afbe5b71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

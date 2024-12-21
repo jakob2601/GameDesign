@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Movements;
+using Scripts.Movements.AI;
 using Scripts.Combats.Weapons;
+using Scripts.Movements;
 
 namespace Scripts.Combats.CharacterCombats
 {
@@ -32,9 +33,9 @@ namespace Scripts.Combats.CharacterCombats
             }
         }
 
-        public override Movement getCharacterDirection()
+        public override MovementAI getCharacterDirection()
         {
-            return GetComponent<PlayerMovement>();
+            return GetComponent<PlayerMovementAI>();
         }
 
     }

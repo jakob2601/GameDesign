@@ -47,7 +47,10 @@ GameObject:
   - component: {fileID: 3253567361553378283}
   - component: {fileID: 907683653750093926}
   - component: {fileID: 4194403028306377578}
-  - component: {fileID: 9157847260342593446}
+  - component: {fileID: 610034541743464483}
+  - component: {fileID: 2657349145213879096}
+  - component: {fileID: 7569245253550255710}
+  - component: {fileID: 9001278909043300127}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -169,12 +172,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5413714183383202248}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d92bfae330e76984092967685d852f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 10
+  animator: {fileID: 2309280226520025970}
+  rb: {fileID: 2579191884603178559}
+  GFX: {fileID: 7937483012282986140}
+  isDashing: 0
+  lastMoveDirection: {x: 0, y: 0}
+  originalScale: {x: 0, y: 0, z: 0}
+  enemyCombat: {fileID: 3253567361553378283}
+  unstuck: {fileID: 7569245253550255710}
+  followTarget: {fileID: 610034541743464483}
+  radiate: {fileID: 2657349145213879096}
+  walking: {fileID: 9001278909043300127}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -196,6 +209,7 @@ MonoBehaviour:
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
   attackRate: 2
+  nextAttackTime: 0
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
   inCombat: 0
@@ -218,6 +232,7 @@ MonoBehaviour:
   attackRange: 0.5
   attackDamage: 2
   attackRate: 2
+  nextAttackTime: 0
   knockbackForce: 50
 --- !u!114 &4194403028306377578
 MonoBehaviour:
@@ -233,12 +248,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  isInvincible: 0
   invincibilityTime: 1
   knockbackDuration: 0.2
   animator: {fileID: 2309280226520025970}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
---- !u!114 &9157847260342593446
+--- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,22 +263,76 @@ MonoBehaviour:
   m_GameObject: {fileID: 5413714183383202248}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 085de92d2724c9144acd2efb5031898f, type: 3}
+  m_Script: {fileID: 11500000, guid: b1c843a7a04506247abe568d5cdc9aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 2309280226520025970}
-  moveSpeed: 150
-  lastMoveDirection: {x: 0, y: 0}
   target: {fileID: 0}
-  enemyGFX: {fileID: 7937483012282986140}
+  GFX: {fileID: 7937483012282986140}
+  walking: {fileID: 9001278909043300127}
+  seeker: {fileID: 3639023718791337387}
+  rb: {fileID: 2579191884603178559}
   nextWaypointDistance: 3
   startUpdatePathTime: 0
   updatePathRate: 0.5
+  timeSinceLastUpdate: 0
+  reachedEndOfPath: 0
+  startRadius: 10
+  endRadius: 3
+  currentDistanceToTarget: 0
+  isEnabled: 1
+  isUnblocked: 0
+--- !u!114 &2657349145213879096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c174f3e508682e044b2e9684afc10f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  angle: 0
   circleRadius: 3
-  combatSpeed: 100
+  isRadiating: 0
+  walking: {fileID: 9001278909043300127}
+--- !u!114 &7569245253550255710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef8c9ca9730c0ff4382cfc9090603ed6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnstucking: 0
+  timeSinceStuck: 0
+  rb: {fileID: 2579191884603178559}
+  walking: {fileID: 9001278909043300127}
+  movementAI: {fileID: 1056930885647471817}
+  timeSinceLastUpdate: 0
+  stuckTimerThreshold: 1
   stuckCheckInterval: 1
+  startStuckCheckInterval: 0
   stuckDistanceThreshold: 0.1
   unstuckDuration: 1
+--- !u!114 &9001278909043300127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 558c1b524b82e434a83fcff830cf67db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!1 &5590381219280098367
 GameObject:
   m_ObjectHideFlags: 0

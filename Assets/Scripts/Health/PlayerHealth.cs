@@ -9,7 +9,7 @@ namespace Scripts.Healths
 {
     public class PlayerHealth : Health
     {   
-        public HealthBarController healthBarController;
+        [SerializeField] public HealthBarController healthBarController;
 
 
         protected override void Start()

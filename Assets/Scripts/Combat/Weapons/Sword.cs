@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using Scripts.Movements;
+using Scripts.Movements.AI;
 using Scripts.Healths;
 
 namespace Scripts.Combats.Weapons
 {
     public class Sword : Weapon {
-        public override void PerformAttack(Movement characterDirection, LayerMask enemyLayers)
+        public override void PerformAttack(MovementAI characterDirection, LayerMask enemyLayers)
         {
             base.Start();
             // Überprüfe, ob attackPoint nicht null ist

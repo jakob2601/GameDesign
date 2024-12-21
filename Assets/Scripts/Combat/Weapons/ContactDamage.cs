@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
-using Scripts.Movements;
+using Scripts.Movements.AI;
 using Scripts.Healths;
 
 namespace Scripts.Combats.Weapons
 {
     public class ContactDamage : Weapon
     {
-        public override void PerformAttack(Movement characterDirection, LayerMask enemyLayers)
+        public override void PerformAttack(MovementAI characterDirection, LayerMask enemyLayers)
         {
             // Überprüfe, ob attackPoint nicht null ist
             if (attackPoint == null)

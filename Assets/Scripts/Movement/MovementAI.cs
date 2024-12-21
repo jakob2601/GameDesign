@@ -1,22 +1,22 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Scripts.Movements
+namespace Scripts.Movements.AI
 {
-    public abstract class Movement : MonoBehaviour
+    public abstract class MovementAI : MonoBehaviour
     {
-        public Animator animator;  // Animation für Character
-        protected Rigidbody2D rb; // Rigidbody2D-Komponente
+        [SerializeField] public Animator animator;  // Animation für Character
+        [SerializeField] protected Rigidbody2D rb; // Rigidbody2D-Komponente
+        [SerializeField] protected Transform GFX;
 
         protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
-        protected bool isDashing = false; // Ob der Spieler aktuell dashen kann
-        public float moveSpeed = 150f; 
-        public Vector2 lastMoveDirection; // letzte Bewegungsrichtung
+        [SerializeField] protected bool isDashing = false; // Ob der Spieler aktuell dashen kann
+        [SerializeField] public Vector2 lastMoveDirection; // letzte Bewegungsrichtung
+        [SerializeField] public Vector3 originalScale; // Ursprüngliche Skalierung des Charakters
 
         protected virtual void Start()
         {
             rb = GetComponent<Rigidbody2D>(); // Rigidbody2D zuweisen
-            animator = GetComponent<Animator>(); // Animator zuweisen
         }
 
         protected abstract void FixedUpdate();
@@ -31,7 +31,7 @@ namespace Scripts.Movements
             isFacingRight = !isFacingRight;
         }
 
-        protected void AnimateWalking(Vector2 moveInput)
+        public void AnimateWalking(Vector2 moveInput)
         {
             animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
             animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
@@ -40,6 +40,18 @@ namespace Scripts.Movements
             //Blickrichtung für Idle Animation
             animator.SetFloat("StayHorizontal", lastMoveDirection.x);
             animator.SetFloat("StayVertical", lastMoveDirection.y);
+        }
+
+        public void UpdateScale(Vector2 force)
+        {
+            if (force.x >= 0.01f)
+            {
+                GFX.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+            }
+            else if (force.x <= -0.01f)
+            {
+                GFX.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+            }
         }
     }
 }

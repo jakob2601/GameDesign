@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Scripts.Combats.Weapons;
 using Scripts.Movements;
+using Scripts.Movements.AI;
 using UnityEngine;
 
 namespace Scripts.Combats.CharacterCombats
@@ -19,7 +20,7 @@ namespace Scripts.Combats.CharacterCombats
         }
 
         // Update is called once per frame
-        void Update()
+        public void Update()
         {
             if (player != null)
             {
@@ -37,9 +38,9 @@ namespace Scripts.Combats.CharacterCombats
             player = playerTransform;
         }
 
-        public override Movement getCharacterDirection()
+        public override MovementAI getCharacterDirection()
         {
-            return GetComponent<EnemyMovement>();
+            return GetComponent<EnemyMovementAI>();
         }
     }
 

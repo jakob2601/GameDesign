@@ -2,24 +2,25 @@ using UnityEngine;
 using System.Collections;
 using Scripts.Movements;
 using Scripts.Healths;
+using Scripts.Movements.AI;
 
 namespace Scripts.Combats.CharacterCombats {
     public abstract class Combat : MonoBehaviour
     {
         public Animator animator;
-        public LayerMask enemyLayers;
+        [SerializeField] public LayerMask enemyLayers;
 
         public Rigidbody2D rb;
 
-        protected Movement playerDirection; // Referenz auf den PlayerController
+        protected MovementAI playerDirection; // Referenz auf den PlayerController
 
-        public float attackRate = 2f;
-        protected float nextAttackTime = 0f;
+        [SerializeField] public float attackRate = 2f;
+        [SerializeField] protected float nextAttackTime = 0f;
 
         public bool ifDebug = false;
         public GameObject debugAttackRangeVisualizer; // Referenz für das Visualisierungssprite
 
-        public bool inCombat = false;
+        [SerializeField] public bool inCombat = false;
 
         protected virtual void Start()
         {
@@ -33,6 +34,6 @@ namespace Scripts.Combats.CharacterCombats {
             playerDirection = getCharacterDirection();
         }
 
-        abstract public Movement getCharacterDirection();
+        abstract public MovementAI getCharacterDirection();
     }
 }
