@@ -5,7 +5,7 @@ namespace Scripts.Movements.AI
 {
     public abstract class MovementAI : MonoBehaviour
     {
-        [SerializeField] public Animator animator;  // Animation für Character
+        [SerializeField] protected Animator animator;  // Animation für Character
         [SerializeField] protected Rigidbody2D rb; // Rigidbody2D-Komponente
         [SerializeField] protected Transform GFX;
 
@@ -13,6 +13,62 @@ namespace Scripts.Movements.AI
         [SerializeField] protected bool isDashing = false; // Ob der Spieler aktuell dashen kann
         [SerializeField] public Vector2 lastMoveDirection; // letzte Bewegungsrichtung
         [SerializeField] public Vector3 originalScale; // Ursprüngliche Skalierung des Charakters
+
+        public Animator GetAnimator() {
+            return animator;
+        }
+
+        protected void SetAnimator(Animator animator) {
+            this.animator = animator;
+        }
+
+        protected Rigidbody2D GetRigidbody2D() {
+            return rb;
+        }
+
+        protected void SetRigidbody2D(Rigidbody2D rb) {
+            this.rb = rb;
+        }
+
+        protected Transform GetGFX() {
+            return GFX;
+        }
+
+        protected void SetGFX(Transform GFX) {
+            this.GFX = GFX;
+        }
+
+        protected bool GetIsFacingRight() {
+            return isFacingRight;
+        }
+
+        protected void SetIsFacingRight(bool isFacingRight) {
+            this.isFacingRight = isFacingRight;
+        }  
+
+        protected bool GetIsDashing() {
+            return isDashing;
+        }
+
+        protected void SetIsDashing(bool isDashing) {
+            this.isDashing = isDashing;
+        }
+
+        protected Vector2 GetLastMoveDirection() {
+            return lastMoveDirection;
+        }
+
+        protected void SetLastMoveDirection(Vector2 lastMoveDirection) {
+            this.lastMoveDirection = lastMoveDirection;
+        }
+
+        protected Vector3 GetOriginalScale() {
+            return originalScale;
+        }
+
+        protected void SetOriginalScale(Vector3 originalScale) {
+            this.originalScale = originalScale;
+        }
 
         protected virtual void Start()
         {

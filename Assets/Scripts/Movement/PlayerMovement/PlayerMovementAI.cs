@@ -9,41 +9,74 @@ namespace Scripts.Movements.AI
         private Dash dash;
         private Walking walking;
         Vector2 walkingInput;
+
+        protected Dash GetDash() {
+            return dash;
+        }
+
+        protected void SetDash(Dash dash) {
+            this.dash = dash;
+        }   
+
+        protected Walking GetWalking() {
+            return walking;
+        }
+
+        protected void SetWalking(Walking walking) {
+            this.walking = walking;
+        }
+
+        protected Vector2 GetWalkingInput() {
+            return walkingInput;
+        }
+
+        protected void SetWalkingInput(Vector2 walkingInput) {
+            this.walkingInput = walkingInput;
+        }
+
         protected override void Start()
         {
             base.Start();
 
-            animator = GetComponent<Animator>(); // Animator zuweisen
+            Transform animatorTransform = transform.Find("Animator");
+            if (animatorTransform != null)
+            {
+                this.SetAnimator(animatorTransform.GetComponent<Animator>());
+            }
+            if (this.GetAnimator() == null)
+            {
+                Debug.LogError("Animator component not found on " + gameObject.name);
+            }
 
-            dash = GetComponent<Dash>();
+            this.SetDash(GetComponent<Dash>());
             if (dash == null)
             {
                 Debug.LogError("Dash component not found on " + gameObject.name);
             }
 
-            walking = GetComponent<Walking>();
+            this.SetWalking(GetComponent<Walking>());
             if (walking == null)
             {
                 Debug.LogError("Walking component not found on " + gameObject.name);
             }
 
-            walkingInput = Vector2.zero;
+            this.SetWalkingInput(Vector2.zero);
         }
 
         protected override void Update()
         {
-            walkingInput = ProccessInputs();
-            AnimateWalking(walkingInput);
+            this.SetWalkingInput(ProccessInputs());
+            this.AnimateWalking(walkingInput);
 
-            if (walkingInput.x < 0 && !isFacingRight || walkingInput.x > 0 && isFacingRight)
+            if (walkingInput.x < 0 && !this.isFacingRight || walkingInput.x > 0 && this.isFacingRight)
             {
-                Flip();
+                this.Flip();
             }
 
             // Dash-Mechanik prüfen
             if (Input.GetKeyDown(KeyCode.Space) && dash.GetCurrentDashCooldown() <= 0f && !isDashing && walkingInput != Vector2.zero)
             {
-                StartCoroutine(PerformPlayerDash());
+                StartCoroutine(this.PerformPlayerDash());
             }
         }
 
@@ -67,7 +100,7 @@ namespace Scripts.Movements.AI
 
             if (moveX != 0 || moveY != 0)
             {
-                lastMoveDirection = new Vector2(moveX, moveY).normalized;
+                this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
             }
 
             return new Vector2(moveX, moveY).normalized;
@@ -75,9 +108,9 @@ namespace Scripts.Movements.AI
 
         private IEnumerator PerformPlayerDash()
         {
-            isDashing = true;
+            this.SetIsDashing(true);
             yield return StartCoroutine(dash.PerformDash(rb, walkingInput));
-            isDashing = false;
+            this.SetIsDashing(false);
         }
     }
 }

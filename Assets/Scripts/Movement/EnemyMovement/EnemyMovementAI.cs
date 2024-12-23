@@ -17,8 +17,72 @@ namespace Scripts.Movements.AI
         [SerializeField] private Walking walking;
 
         private Transform player;
-        public LayerMask playerLayer;
-        Collider2D playerCollider;
+        protected LayerMask playerLayer;
+        private Collider2D playerCollider;
+
+        protected EnemyCombat GetEnemyCombat() {
+            return enemyCombat;
+        }
+
+        protected void SetEnemyCombat(EnemyCombat enemyCombat) {
+            this.enemyCombat = enemyCombat;
+        }
+
+        protected Unstuck GetUnstuck() {
+            return unstuck;
+        }
+
+        protected void SetUnstuck(Unstuck unstuck) {
+            this.unstuck = unstuck;
+        }
+
+        protected FollowTarget GetFollowTarget() {
+            return followTarget;
+        }
+
+        protected void SetFollowTarget(FollowTarget followTarget) {
+            this.followTarget = followTarget;
+        }
+
+        protected Radiate GetRadiate() {
+            return radiate;
+        }
+
+        protected void SetRadiate(Radiate radiate) {
+            this.radiate = radiate;
+        }
+
+        protected Walking GetWalking() {
+            return walking;
+        }
+
+        protected void SetWalking(Walking walking) {
+            this.walking = walking;
+        }
+
+        protected Transform GetPlayer() {
+            return player;
+        }
+
+        protected void SetPlayer(Transform player) {
+            this.player = player;
+        }
+
+        protected LayerMask GetPlayerLayer() {
+            return playerLayer;
+        }
+
+        protected void SetPlayerLayer(LayerMask playerLayer) {
+            this.playerLayer = playerLayer;
+        }
+
+        protected Collider2D GetPlayerCollider() {
+            return playerCollider;
+        }
+
+        protected void SetPlayerCollider(Collider2D playerCollider) {
+            this.playerCollider = playerCollider;
+        }
 
 
         // Start is called before the first frame update
@@ -26,31 +90,35 @@ namespace Scripts.Movements.AI
         {
             base.Start();
 
-            animator = transform.Find("Animator").GetComponent<Animator>();
-            if(animator == null) 
+            Transform animatorTransform = transform.Find("Animator");
+            if (animatorTransform != null)
+            {
+                this.SetAnimator(animatorTransform.GetComponent<Animator>());
+            }
+            if (animator == null)
             {
                 Debug.LogError("Animator component not found on " + gameObject.name);
             }
 
-            enemyCombat = GetComponent<EnemyCombat>();
+            this.SetEnemyCombat(GetComponent<EnemyCombat>());
             if (enemyCombat == null)
             {
                 Debug.LogError("EnemyCombat component not found on " + gameObject.name);
             }
 
-            walking = GetComponent<Walking>();
+            this.SetWalking(GetComponent<Walking>());
             if (walking == null)
             {
                 Debug.LogError("Walking component not found on " + gameObject.name);
             }
 
-            unstuck = GetComponent<Unstuck>();
+            this.SetUnstuck(GetComponent<Unstuck>());
             if (unstuck == null)
             {
                 Debug.LogError("Unstuck component not found on " + gameObject.name);
             }
 
-            followTarget = GetComponent<FollowTarget>();
+            this.SetFollowTarget(GetComponent<FollowTarget>());
             if (followTarget == null)
             {
                 Debug.LogError("FollowTarget component not found on " + gameObject.name);
@@ -62,7 +130,7 @@ namespace Scripts.Movements.AI
                 followTarget.SetUnblock(true);
             }
 
-            radiate = GetComponent<Radiate>();
+            this.SetRadiate(GetComponent<Radiate>());
             if (radiate == null)
             {
                 Debug.LogError("Radiate component not found on " + gameObject.name);
@@ -72,10 +140,10 @@ namespace Scripts.Movements.AI
         protected override void FixedUpdate()
         {
             // Finde den Spieler basierend auf der Layer
-            playerCollider = Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), playerLayer);
+            this.SetPlayerCollider(Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), playerLayer));
             if (playerCollider != null)
             {
-                player = playerCollider.transform;
+                this.SetPlayer(playerCollider.transform);
                 followTarget.setTarget(player);
                 enemyCombat.SetPlayer(player);
 
@@ -109,7 +177,7 @@ namespace Scripts.Movements.AI
 
         protected override void Update()
         {
-            AnimateWalking(lastMoveDirection);
+            this.AnimateWalking(lastMoveDirection);
         }
 
         void OnDrawGizmosSelected()
