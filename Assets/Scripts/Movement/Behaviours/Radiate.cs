@@ -12,14 +12,31 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] private float circleRadius = 3f; // Radius, innerhalb dessen das Verhalten geändert wird
         [SerializeField] private bool isRadiating = false;
         [SerializeField] private Walking walking;
+        [SerializeField] private bool isUnblocked = true;
 
-        private void Start()
+        public void SetIsUnblocked(bool unblocked) 
+        {
+            isUnblocked = unblocked;
+        }
+
+        public bool GetIsUnblocked() 
+        {
+            return isUnblocked;
+        }
+
+        public void Start()
         {
             walking = GetComponent<Walking>();
             if (walking == null)
             {
                 Debug.LogError("Walking component not found on " + gameObject.name);
             }
+        }
+
+
+        public void FixedUpdate() 
+        {
+
         }
 
         public bool GetIsRadiating() {
@@ -45,6 +62,11 @@ namespace Scripts.Movements.Behaviours
                 return;
             }
 
+            if(isUnblocked == false) 
+            {
+                Debug.Log("Radiate is blocked");
+                return;
+            }
             isRadiating = true;
             angle += combatSpeed * Time.deltaTime;
             float x = Mathf.Cos(angle) * circleRadius;

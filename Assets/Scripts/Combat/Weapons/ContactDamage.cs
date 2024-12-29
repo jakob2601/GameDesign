@@ -29,16 +29,18 @@ namespace Scripts.Combats.Weapons
                 return;
             }
 
-            animator.SetFloat("StayHorizontal", characterDirection.lastMoveDirection.x);
-            animator.SetFloat("StayVertical", characterDirection.lastMoveDirection.y);
+            // Setze die Animationen für den Angriff
+            //animator.SetFloat("StayHorizontal", characterDirection.lastMoveDirection.x);
+            //animator.SetFloat("StayVertical", characterDirection.lastMoveDirection.y);
             // Play an Attack Animation
-            animator.SetTrigger("Attack");
+            // animator.SetTrigger("Attack");
+
             // Detect enemies in range
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
             if (hitEnemies.Length == 0)
             {
-                Debug.Log("No enemies in range");
+                //Debug.Log("No enemies in range");
                 return;
             }
 

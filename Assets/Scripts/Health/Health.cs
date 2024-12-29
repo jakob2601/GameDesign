@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Scripts.UI;
 using Scripts.Combats;
+using Scripts.Movements.Behaviours;
 
 namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
@@ -15,9 +16,10 @@ namespace Scripts.Healths {
 
 
         [SerializeField] public Animator animator; // Referenz auf den Animator
-        protected Rigidbody2D rb; // Referenz auf den Rigidbody2D
+        [SerializeField] protected Rigidbody2D rb; // Referenz auf den Rigidbody2D
+        [SerializeField] protected Knockback knockback; // Referenz auf den Knockback
 
-        public SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
+        [SerializeField] public SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
         [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
 
         protected virtual void Start() {
@@ -32,7 +34,18 @@ namespace Scripts.Healths {
             {
                 Debug.LogWarning("SpriteRenderer not found on " + gameObject.name);
             }
+            
             rb = GetComponent<Rigidbody2D>();
+            if (rb == null)
+            {
+                Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
+            }
+
+            knockback = GetComponent<Knockback>();
+            if (knockback == null)
+            {
+                Debug.LogWarning("Knockback not found on " + gameObject.name);
+            }
         }
 
         abstract protected void initializeHealthBar(int maxHealth);
@@ -50,11 +63,12 @@ namespace Scripts.Healths {
         
         public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce)
         {
+            Debug.Log(gameObject.name + " took damage: " + damage);
             // Reduziere die Gesundheit
             if(!isInvincible)
             {
-                
                 currentHealth -= damage;
+                Debug.Log("Current Health: " + currentHealth + "GameObject: " + gameObject.name + "damaged by " + damage);
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
                 // Update die Health Bar
@@ -66,32 +80,20 @@ namespace Scripts.Healths {
                 //Rot aufleuchten nach Damage
                 StartCoroutine(FlashRed());
 
-                // Rückstoß anwenden
-                StartCoroutine(ApplyKnockback(hitDirection, knockbackForce));
-
                 // Überprüfe, ob der Spieler tot ist
                 if (currentHealth <= 0)
                 {
                     Die();
+                    //return;
                 }
+                // Rückstoß anwenden
+                StartCoroutine(knockback.KnockbackCharacter(rb, hitDirection, knockbackForce, knockbackDuration));
 
                 StartCoroutine(InvincibiltyTimer());
             }
-        }
-
-        protected IEnumerator ApplyKnockback(Vector2 hitDirection, float knockbackForce)
-        {   
-            if (rb != null)
+            else 
             {
-                Debug.Log("Applying knockback");
-                float timer = 0;
-                while(timer <= knockbackDuration)
-                {
-                    rb.velocity = hitDirection * (knockbackForce / knockbackDuration) * Time.deltaTime;
-                    timer += Time.deltaTime;
-                    yield return null;
-                }
-                rb.velocity = Vector2.zero;
+                Debug.Log("Player is invincible");
             }
         }
 

@@ -10,9 +10,9 @@ namespace Scripts.Combats.CharacterCombats {
         public Animator animator;
         [SerializeField] public LayerMask enemyLayers;
 
-        public Rigidbody2D rb;
+        [SerializeField] public Rigidbody2D rb;
 
-        protected MovementAI playerDirection; // Referenz auf den PlayerController
+        [SerializeField] protected MovementAI playerDirection; // Referenz auf den PlayerController
 
         [SerializeField] public float attackRate = 2f;
         [SerializeField] protected float nextAttackTime = 0f;

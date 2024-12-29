@@ -15,10 +15,11 @@ namespace Scripts.Movements.AI
         [SerializeField] private FollowTarget followTarget;
         [SerializeField] private Radiate radiate;
         [SerializeField] private Walking walking;
+        [SerializeField] private Knockback knockback;
 
-        private Transform player;
-        protected LayerMask playerLayer;
-        private Collider2D playerCollider;
+        [SerializeField] private Transform player;
+        [SerializeField] protected LayerMask playerLayer;
+        [SerializeField] private Collider2D playerCollider;
 
         protected EnemyCombat GetEnemyCombat() {
             return enemyCombat;
@@ -58,6 +59,14 @@ namespace Scripts.Movements.AI
 
         protected void SetWalking(Walking walking) {
             this.walking = walking;
+        }
+
+        protected Knockback GetKnockback() {
+            return knockback;
+        }
+
+        protected void SetKnockback(Knockback knockback) {
+            this.knockback = knockback;
         }
 
         protected Transform GetPlayer() {
@@ -118,6 +127,12 @@ namespace Scripts.Movements.AI
                 Debug.LogError("Unstuck component not found on " + gameObject.name);
             }
 
+            this.SetKnockback(GetComponent<Knockback>());
+            if (knockback == null)
+            {
+                Debug.LogError("Knockback component not found on " + gameObject.name);
+            }
+
             this.SetFollowTarget(GetComponent<FollowTarget>());
             if (followTarget == null)
             {
@@ -140,12 +155,23 @@ namespace Scripts.Movements.AI
         protected override void FixedUpdate()
         {
             // Finde den Spieler basierend auf der Layer
-            this.SetPlayerCollider(Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), playerLayer));
+            this.SetPlayerCollider(Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), this.GetPlayerLayer()));
             if (playerCollider != null)
             {
                 this.SetPlayer(playerCollider.transform);
-                followTarget.setTarget(player);
+                followTarget.SetTarget(player);
                 enemyCombat.SetPlayer(player);
+
+                if(knockback.GetKnockbackActive())
+                {
+                    followTarget.SetUnblock(false); 
+                    radiate.SetIsUnblocked(false);
+                }
+                else
+                {
+                    followTarget.SetUnblock(true); 
+                    radiate.SetIsUnblocked(true);
+                }
 
                 if(followTarget.GetCurrentDistanceToTarget() <= radiate.GetCircleRadius()) {
                     followTarget.SetUnblock(false); 
@@ -156,7 +182,7 @@ namespace Scripts.Movements.AI
                 {
                     // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
                     followTarget.SetUnblock(true); 
-                    Debug.Log("Player in range.");
+                    // Debug.Log("Player in range.");
                 }
                 else if(followTarget.GetCurrentDistanceToTarget() > followTarget.GetStartRadius())
                 {
@@ -171,13 +197,13 @@ namespace Scripts.Movements.AI
             else
             {
                 Debug.Log("Player not found in the area.");
-                followTarget.SetEnabled(false); 
+                followTarget.SetUnblock(false); 
             }
         }
 
         protected override void Update()
         {
-            this.AnimateWalking(lastMoveDirection);
+            //this.AnimateWalking(lastMoveDirection);
         }
 
         void OnDrawGizmosSelected()

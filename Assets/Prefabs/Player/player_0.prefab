@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 2677363681198226136}
   - component: {fileID: 140400135506352222}
   - component: {fileID: 1526314319241926698}
+  - component: {fileID: 4691762652494968890}
   m_Layer: 3
   m_Name: player_0
   m_TagString: Untagged
@@ -221,6 +222,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9014832005840109755}
+  rb: {fileID: 7127369674428886474}
+  GFX: {fileID: 6377654365571422507}
+  isDashing: 0
   lastMoveDirection: {x: 0, y: 0}
   originalScale: {x: 0, y: 0, z: 0}
 --- !u!114 &152323377726260026
@@ -240,7 +244,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 7127369674428886474}
+  playerDirection: {fileID: 3960980809086202236}
   attackRate: 2
+  nextAttackTime: 0
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
   inCombat: 0
@@ -258,9 +264,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   currentHealth: 0
+  isInvincible: 0
   invincibilityTime: 1
   knockbackDuration: 0.2
   animator: {fileID: 9014832005840109755}
+  rb: {fileID: 0}
+  knockback: {fileID: 0}
   spriteRenderer: {fileID: 5018518251418383697}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
   healthBarController: {fileID: 0}
@@ -282,7 +291,8 @@ MonoBehaviour:
   attackRange: 1.25
   attackDamage: 2
   attackRate: 2
-  knockbackForce: 125
+  nextAttackTime: 0
+  knockbackForce: 10
 --- !u!114 &140400135506352222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -308,3 +318,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f23181f44965f2b41bc9e6a9afbe5b71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashSpeed: 18
+  dashDuration: 0.2
+  dashCooldown: 1
+--- !u!114 &4691762652494968890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570e3f4f980d811448b772a58987c291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isKnockbackActive: 0

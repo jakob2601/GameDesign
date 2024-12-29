@@ -9,9 +9,9 @@ namespace Scripts.Combats.CharacterCombats
 {
     public class EnemyCombat : Combat
     {
-        private Transform player;
-        private ContactDamage contactDamage;
-        public float startAttackRange = 1f; // Reichweite, in der der Gegner den Spieler versucht anzugreifen 
+        [SerializeField] private Transform player;
+        [SerializeField] private ContactDamage contactDamage;
+        [SerializeField] public float startAttackRange = 1f; // Reichweite, in der der Gegner den Spieler versucht anzugreifen 
         // Start is called before the first frame update
         protected override void Start()
         {

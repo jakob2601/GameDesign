@@ -51,6 +51,7 @@ GameObject:
   - component: {fileID: 2657349145213879096}
   - component: {fileID: 7569245253550255710}
   - component: {fileID: 9001278909043300127}
+  - component: {fileID: 2081608683695642961}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -188,9 +189,12 @@ MonoBehaviour:
   followTarget: {fileID: 610034541743464483}
   radiate: {fileID: 2657349145213879096}
   walking: {fileID: 9001278909043300127}
+  knockback: {fileID: 0}
+  player: {fileID: 0}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
+  playerCollider: {fileID: 0}
 --- !u!114 &3253567361553378283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,11 +212,14 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
+  playerDirection: {fileID: 0}
   attackRate: 2
   nextAttackTime: 0
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
   inCombat: 0
+  player: {fileID: 0}
+  contactDamage: {fileID: 0}
   startAttackRange: 1.5
 --- !u!114 &907683653750093926
 MonoBehaviour:
@@ -233,7 +240,7 @@ MonoBehaviour:
   attackDamage: 2
   attackRate: 2
   nextAttackTime: 0
-  knockbackForce: 50
+  knockbackForce: 10
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,9 +256,11 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   isInvincible: 0
-  invincibilityTime: 1
-  knockbackDuration: 0.2
+  invincibilityTime: 0.1
+  knockbackDuration: 0.5
   animator: {fileID: 2309280226520025970}
+  rb: {fileID: 2579191884603178559}
+  knockback: {fileID: 0}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
 --- !u!114 &610034541743464483
@@ -333,6 +342,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+--- !u!114 &2081608683695642961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 570e3f4f980d811448b772a58987c291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isKnockbackActive: 0
 --- !u!1 &5590381219280098367
 GameObject:
   m_ObjectHideFlags: 0

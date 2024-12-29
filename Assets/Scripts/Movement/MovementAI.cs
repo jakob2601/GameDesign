@@ -54,11 +54,11 @@ namespace Scripts.Movements.AI
             this.isDashing = isDashing;
         }
 
-        protected Vector2 GetLastMoveDirection() {
+        public Vector2 GetLastMoveDirection() {
             return lastMoveDirection;
         }
 
-        protected void SetLastMoveDirection(Vector2 lastMoveDirection) {
+        public void SetLastMoveDirection(Vector2 lastMoveDirection) {
             this.lastMoveDirection = lastMoveDirection;
         }
 

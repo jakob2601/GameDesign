@@ -25,6 +25,11 @@ namespace Scripts.Combats.Weapons {
         {
             // Get Referenz zum PlayerController
             attackPoint = transform.Find("AttackPoint");
+            if(attackPoint == null)
+            {
+                Debug.LogError("AttackPoint not found on " + gameObject.name);
+            }
+
             debugAttackRangeVisualizer = transform.Find("AttackPoint").gameObject;
 
             // Initialisiere das Attack-Visualizer-Sprite (falls zugewiesen)
@@ -33,6 +38,12 @@ namespace Scripts.Combats.Weapons {
                 UpdateAttackRangeVisualizer(); // Größe anpassen
                 debugAttackRangeVisualizer.SetActive(false); // Zunächst ausblenden
             }
+
+            else 
+            {
+                Debug.LogWarning("Attack Range Visualizer not found on " + gameObject.name);
+            }
+
         }
 
         protected virtual void Update() 
