@@ -29,15 +29,121 @@ namespace Scripts.Movements.Behaviours
             return isUnstucking;
         }
 
-        public float GetStartStuckCheckInterval() 
+        protected void setIsUnstucking(bool isUnstucking) 
+        {
+            this.isUnstucking = isUnstucking;
+        }
+
+        public float GetTimeSinceStuck() 
+        {
+            return timeSinceStuck;
+        }
+
+        public void SetTimeSinceStuck(float timeSinceStuck) 
+        {
+            this.timeSinceStuck = timeSinceStuck;
+        }
+
+        public Rigidbody2D GetRigidbody() 
+        {
+            return rb;
+        }
+
+        public void SetRigidbody(Rigidbody2D rb) 
+        {
+            this.rb = rb;
+        }
+
+        public Walking GetWalking() 
+        {
+            return walking;
+        }
+
+        protected void SetWalking(Walking walking) 
+        {
+            this.walking = walking;
+        }
+
+        public MovementAI GetMovementAI() 
+        {
+            return movementAI;
+        }
+
+        protected void SetMovementAI(MovementAI movementAI) 
+        {
+            this.movementAI = movementAI;
+        }
+
+        public Transform GetCharacterTransform() 
+        {
+            return characterTransform;
+        }
+
+        protected void SetCharacterTransform(Transform characterTransform) 
+        {
+            this.characterTransform = characterTransform;
+        }
+
+        public float GetTimeSinceLastUpdate() 
+        {
+            return timeSinceLastUpdate;
+        }
+
+        protected void SetTimeSinceLastUpdate(float timeSinceLastUpdate) 
+        {
+            this.timeSinceLastUpdate = timeSinceLastUpdate;
+        }
+
+        protected float GetStuckTimerThreshold() 
+        {
+            return stuckTimerThreshold;
+        }
+
+        protected void SetStuckTimerThreshold(float stuckTimerThreshold) 
+        {
+            this.stuckTimerThreshold = stuckTimerThreshold;
+        }
+
+        protected float GetStuckCheckInterval() 
+        {
+            return stuckCheckInterval;
+        }
+
+        protected void SetStuckCheckInterval(float stuckCheckInterval) 
+        {
+            this.stuckCheckInterval = stuckCheckInterval;
+        }
+
+        protected float GetStartStuckCheckInterval() 
         {
             return startStuckCheckInterval;
         }
 
-        public float GetStuckCheckInterval() 
+        protected void SetStartStuckCheckInterval(float startStuckCheckInterval) 
         {
-            return stuckCheckInterval;
+            this.startStuckCheckInterval = startStuckCheckInterval;
         }
+
+        protected float GetStuckDistanceThreshold() 
+        {
+            return stuckDistanceThreshold;
+        }
+
+        protected void SetStuckDistanceThreshold(float stuckDistanceThreshold) 
+        {
+            this.stuckDistanceThreshold = stuckDistanceThreshold;
+        }
+
+        public float GetUnstuckDuration() 
+        {
+            return unstuckDuration;
+        }
+
+        protected void SetUnstuckDuration(float unstuckDuration) 
+        {
+            this.unstuckDuration = unstuckDuration;
+        }
+
 
         public void Start() 
         {

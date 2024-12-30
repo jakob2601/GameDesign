@@ -8,11 +8,54 @@ namespace Scripts.Movements.Behaviours
 {
     public class Radiate: MonoBehaviour 
     {
-        [SerializeField] private float angle = 0f;
-        [SerializeField] private float circleRadius = 3f; // Radius, innerhalb dessen das Verhalten geändert wird
-        [SerializeField] private bool isRadiating = false;
-        [SerializeField] private Walking walking;
-        [SerializeField] private bool isUnblocked = true;
+        [SerializeField] protected float angle = 0f;
+        [SerializeField] protected float circleRadius = 3f; // Radius, innerhalb dessen das Verhalten geändert wird
+        [SerializeField] protected bool isRadiating = false;
+        [SerializeField] protected bool isEnabled = false;
+        [SerializeField] protected bool isUnblocked = true;
+        [SerializeField] protected Walking walking;
+        [SerializeField] protected Rigidbody2D rb;
+
+
+        public float GetAngle() 
+        {
+            return angle;
+        }
+
+        public void SetAngle(float angle) 
+        {
+            this.angle = angle;
+        }
+
+        public float GetCircleRadius() 
+        {
+            return circleRadius;
+        }
+
+        protected void SetCircleRadius(float circleRadius) 
+        {
+            this.circleRadius = circleRadius;
+        }   
+
+        public bool GetIsRadiating() 
+        {
+            return isRadiating;
+        }
+
+        protected void SetIsRadiating(bool isRadiating) 
+        {
+            this.isRadiating = isRadiating;
+        }
+
+        public bool GetIsEnabled() 
+        {
+            return isEnabled;
+        }
+
+        protected void SetIsEnabled(bool enabled) 
+        {
+            isEnabled = enabled;
+        }
 
         public void SetIsUnblocked(bool unblocked) 
         {
@@ -24,6 +67,27 @@ namespace Scripts.Movements.Behaviours
             return isUnblocked;
         }
 
+        protected Walking GetWalking() 
+        {
+            return walking;
+        }
+
+        protected void SetWalking(Walking walking) 
+        {
+            this.walking = walking;
+        }
+
+        protected Rigidbody2D GetRigidbody() 
+        {
+            return rb;
+        }
+
+        protected void SetRigidbody(Rigidbody2D rb) 
+        {
+            this.rb = rb;
+        }
+
+
         public void Start()
         {
             walking = GetComponent<Walking>();
@@ -31,30 +95,21 @@ namespace Scripts.Movements.Behaviours
             {
                 Debug.LogError("Walking component not found on " + gameObject.name);
             }
+
+            rb = GetComponent<Rigidbody2D>();
+            if (rb == null)
+            {
+                Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
+            }
         }
 
-
-        public void FixedUpdate() 
+        public void Update() 
         {
-
-        }
-
-        public bool GetIsRadiating() {
-            return isRadiating;
-        }
-
-        public void SetCircleRadius(float radius) 
-        {
-            circleRadius = radius;
-        }
-
-        public float GetCircleRadius() 
-        {
-            return circleRadius;
+            
         }
 
 
-        public void RadiateAroundTarget(Transform target, float combatSpeed, Rigidbody2D rb, ref Vector2 lastMoveDirection) 
+        public void RadiateAroundTarget(Transform target, float combatSpeed, ref Vector2 lastMoveDirection) 
         {
             if (walking == null)
             {
@@ -67,6 +122,11 @@ namespace Scripts.Movements.Behaviours
                 Debug.Log("Radiate is blocked");
                 return;
             }
+            if(isEnabled == false) 
+            {
+                return;
+            }
+            
             isRadiating = true;
             angle += combatSpeed * Time.deltaTime;
             float x = Mathf.Cos(angle) * circleRadius;

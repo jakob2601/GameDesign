@@ -175,7 +175,7 @@ namespace Scripts.Movements.AI
 
                 if(followTarget.GetCurrentDistanceToTarget() <= radiate.GetCircleRadius()) {
                     followTarget.SetUnblock(false); 
-                    radiate.RadiateAroundTarget(player, walking.GetMoveSpeed() * 2/3, rb, ref lastMoveDirection);
+                    radiate.RadiateAroundTarget(player, walking.GetMoveSpeed() * 2/3, ref lastMoveDirection);
                     followTarget.SetUnblock(true);
                 }
                 else if (followTarget.GetEnabled() && followTarget.GetUnblocked())
