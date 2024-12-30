@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
-  enemyLayers:
+  enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
@@ -219,7 +219,7 @@ MonoBehaviour:
   debugAttackRangeVisualizer: {fileID: 0}
   inCombat: 0
   player: {fileID: 0}
-  contactDamage: {fileID: 0}
+  contactDamage: {fileID: 907683653750093926}
   startAttackRange: 1.5
 --- !u!114 &907683653750093926
 MonoBehaviour:
@@ -236,11 +236,15 @@ MonoBehaviour:
   animator: {fileID: 2309280226520025970}
   attackPoint: {fileID: 8142096282676538681}
   combat: {fileID: 3253567361553378283}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
   attackRange: 0.5
   attackDamage: 2
   attackRate: 2
   nextAttackTime: 0
   knockbackForce: 10
+  knockbackDuration: 0.2
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -257,10 +261,9 @@ MonoBehaviour:
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
-  knockbackDuration: 0.5
   animator: {fileID: 2309280226520025970}
   rb: {fileID: 2579191884603178559}
-  knockback: {fileID: 0}
+  knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
 --- !u!114 &610034541743464483
@@ -306,6 +309,7 @@ MonoBehaviour:
   circleRadius: 3
   isRadiating: 0
   walking: {fileID: 9001278909043300127}
+  isUnblocked: 1
 --- !u!114 &7569245253550255710
 MonoBehaviour:
   m_ObjectHideFlags: 0

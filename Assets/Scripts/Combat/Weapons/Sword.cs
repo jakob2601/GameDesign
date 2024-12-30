@@ -6,7 +6,7 @@ using Scripts.Healths;
 namespace Scripts.Combats.Weapons
 {
     public class Sword : Weapon {
-        public override void PerformAttack(MovementAI characterDirection, LayerMask enemyLayers)
+        public override void PerformAttack(MovementAI characterDirection)
         {
             base.Start();
             // Überprüfe, ob attackPoint nicht null ist
@@ -34,7 +34,7 @@ namespace Scripts.Combats.Weapons
             // Play an Attack Animation
             animator.SetTrigger("Attack");
             // Detect enemies in range
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
             if (hitEnemies.Length == 0)
             {
@@ -49,7 +49,7 @@ namespace Scripts.Combats.Weapons
                 if (enemyHealth != null)
                 {
                     Vector2 hitDirection = enemy.transform.position - transform.position;
-                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce);
+                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
                 }
                 else
                 {

@@ -17,6 +17,7 @@ namespace Scripts.Combats.CharacterCombats
         {
             base.Start();
             contactDamage = GetComponent<ContactDamage>();
+            contactDamage.SetEnemyLayer(enemyLayer);
         }
 
         // Update is called once per frame
@@ -28,7 +29,7 @@ namespace Scripts.Combats.CharacterCombats
 
                 if (distanceToPlayer <= startAttackRange)
                 {
-                    contactDamage.PerformAttack(playerDirection, enemyLayers);
+                    contactDamage.PerformAttack(playerDirection);
                 }
             }
         }

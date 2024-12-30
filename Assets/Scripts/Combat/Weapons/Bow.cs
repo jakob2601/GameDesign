@@ -7,7 +7,7 @@ namespace Scripts.Combats.Weapons
     public class Bow : Weapon
     {
 
-        public override void PerformAttack(MovementAI characterDirection, LayerMask enemyLayers)
+        public override void PerformAttack(MovementAI characterDirection)
         {
             base.Start();
             // Füge hier die Logik für den Pfeil hinzu

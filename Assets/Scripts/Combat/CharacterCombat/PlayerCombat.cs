@@ -16,6 +16,7 @@ namespace Scripts.Combats.CharacterCombats
         {
             base.Start();
             sword = GetComponent<Sword>();
+            sword.SetEnemyLayer(enemyLayer);
         }
 
         // Update is called once per frame
@@ -27,7 +28,7 @@ namespace Scripts.Combats.CharacterCombats
             {
                 if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0))
                 {   
-                    sword.PerformAttack(playerDirection, enemyLayers);
+                    sword.PerformAttack(playerDirection);
                     nextAttackTime = Time.time + 1f / attackRate;
                 }
             }

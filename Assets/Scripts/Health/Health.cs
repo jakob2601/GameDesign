@@ -12,7 +12,7 @@ namespace Scripts.Healths {
         [SerializeField] protected bool isInvincible = false; // Ist der Charakter unverwundbar?
 
         [SerializeField] public float invincibilityTime = 1f; // Zeit, in der der Charakter unverwundbar ist
-        [SerializeField] public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
+        //[SerializeField] public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
 
 
         [SerializeField] public Animator animator; // Referenz auf den Animator
@@ -61,7 +61,7 @@ namespace Scripts.Healths {
         }
 
         
-        public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce)
+        public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
             Debug.Log(gameObject.name + " took damage: " + damage);
             // Reduziere die Gesundheit

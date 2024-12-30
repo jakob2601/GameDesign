@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 9014832005840109755}
-  enemyLayers:
+  enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 7127369674428886474}
@@ -266,10 +266,9 @@ MonoBehaviour:
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 1
-  knockbackDuration: 0.2
   animator: {fileID: 9014832005840109755}
-  rb: {fileID: 0}
-  knockback: {fileID: 0}
+  rb: {fileID: 7127369674428886474}
+  knockback: {fileID: 4691762652494968890}
   spriteRenderer: {fileID: 5018518251418383697}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
   healthBarController: {fileID: 0}
@@ -288,11 +287,15 @@ MonoBehaviour:
   animator: {fileID: 9014832005840109755}
   attackPoint: {fileID: 7382996830281311783}
   combat: {fileID: 152323377726260026}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
   attackRange: 1.25
   attackDamage: 2
   attackRate: 2
   nextAttackTime: 0
   knockbackForce: 10
+  knockbackDuration: 0.2
 --- !u!114 &140400135506352222
 MonoBehaviour:
   m_ObjectHideFlags: 0

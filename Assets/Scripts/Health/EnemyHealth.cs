@@ -39,12 +39,12 @@ namespace Scripts.Healths {
             Destroy(gameObject, 3f);
         }
 
-        public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce)
+        public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
             // Reduziere die Gesundheit
             // Update die Health Bar
             // Hier kannst du die Health Bar des Gegners aktualisieren
-            base.TakeDamage(damage, hitDirection, knockbackForce);
+            base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
         }
     } 
 

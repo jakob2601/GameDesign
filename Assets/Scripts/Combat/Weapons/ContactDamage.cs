@@ -7,7 +7,8 @@ namespace Scripts.Combats.Weapons
 {
     public class ContactDamage : Weapon
     {
-        public override void PerformAttack(MovementAI characterDirection, LayerMask enemyLayers)
+
+        public override void PerformAttack(MovementAI characterDirection)
         {
             // Überprüfe, ob attackPoint nicht null ist
             if (attackPoint == null)
@@ -29,20 +30,8 @@ namespace Scripts.Combats.Weapons
                 return;
             }
 
-            // Setze die Animationen für den Angriff
-            //animator.SetFloat("StayHorizontal", characterDirection.lastMoveDirection.x);
-            //animator.SetFloat("StayVertical", characterDirection.lastMoveDirection.y);
-            // Play an Attack Animation
-            // animator.SetTrigger("Attack");
-
             // Detect enemies in range
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
-
-            if (hitEnemies.Length == 0)
-            {
-                //Debug.Log("No enemies in range");
-                return;
-            }
+            Collider2D[] hitEnemies = Physics2D.OverlapCapsuleAll(attackPoint.position, new Vector2(attackRange, attackRange), CapsuleDirection2D.Vertical, 0, enemyLayer);
 
             // Deal damage to enemies
             foreach (Collider2D enemy in hitEnemies)
@@ -51,7 +40,7 @@ namespace Scripts.Combats.Weapons
                 if (enemyHealth != null)
                 {
                     Vector2 hitDirection = enemy.transform.position - transform.position;
-                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce);
+                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
                 }
                 else
                 {
@@ -59,7 +48,6 @@ namespace Scripts.Combats.Weapons
                 }
             }
 
-            Debug.Log("Attacking");
         }
     }
 }

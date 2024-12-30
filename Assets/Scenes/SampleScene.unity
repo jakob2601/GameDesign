@@ -6658,12 +6658,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2016017159}
     - target: {fileID: 1056930885647471817, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1056930885647471817, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 2016017159}
     - target: {fileID: 1056930885647471817, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: playerCollider
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2027770161769209171, guid: b8d78247c961e4d45ad05798627dff1b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -7,8 +7,8 @@ using Scripts.Movements.AI;
 namespace Scripts.Combats.CharacterCombats {
     public abstract class Combat : MonoBehaviour
     {
-        public Animator animator;
-        [SerializeField] public LayerMask enemyLayers;
+        [SerializeField] public Animator animator;
+        [SerializeField] public LayerMask enemyLayer;
 
         [SerializeField] public Rigidbody2D rb;
 
@@ -30,8 +30,14 @@ namespace Scripts.Combats.CharacterCombats {
             {
                 Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
             }
-            // Get Referenz zum PlayerController
+            
             playerDirection = getCharacterDirection();
+            if(playerDirection == null)
+            {
+                Debug.LogError("Player direction is not assigned.");
+            }
+
+
         }
 
         abstract public MovementAI getCharacterDirection();
