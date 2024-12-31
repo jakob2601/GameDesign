@@ -46,6 +46,8 @@ namespace Scripts.Healths
         {
             Debug.Log("Player has died!");
             // Hier kannst du eine Logik für den Tod des Spielers einfügen
+            // GameManager.instance.EndGame();
+            // Destroy(gameObject);
         }
     }
 
