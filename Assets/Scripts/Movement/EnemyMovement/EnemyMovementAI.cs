@@ -20,6 +20,7 @@ namespace Scripts.Movements.AI
         [SerializeField] private Transform player;
         [SerializeField] protected LayerMask playerLayer;
         [SerializeField] private Collider2D playerCollider;
+        
 
         protected EnemyCombat GetEnemyCombat() {
             return enemyCombat;
@@ -204,6 +205,44 @@ namespace Scripts.Movements.AI
         protected override void Update()
         {
             //this.AnimateWalking(lastMoveDirection);
+
+            // Aktualisiere die letzte Bewegungsrichtung, falls eine Bewegung stattfindet
+            Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+
+            // Bewegung animieren
+            AnimateMovement(moveDirection);
+
+        }
+
+        private void AnimateMovement(Vector2 moveDirection)
+        {
+            if (animator == null) return;
+
+            // Berechne die Bewegungsgeschwindigkeit (Magnitude)
+            float movementMagnitude = moveDirection.magnitude;
+
+            // Debug-Output, um zu sehen, ob die Bewegung erkannt wird
+            Debug.Log($"MoveDirection: {moveDirection}, Magnitude: {movementMagnitude}");
+
+            // Überprüfen, ob der Gegner sich bewegt
+            if (movementMagnitude > 0.1f)
+            {
+                // Bewegung abspielen
+                animator.SetBool("IsMoving", true);
+
+                // Richtung setzen
+                animator.SetFloat("Horizontal", moveDirection.normalized.x);
+                animator.SetFloat("Vertical", moveDirection.normalized.y);
+            }
+            else
+            {
+                // Idle abspielen
+                animator.SetBool("IsMoving", false);
+
+                // Idle-Richtung speichern
+                animator.SetFloat("StayHorizontal", lastMoveDirection.x);
+                animator.SetFloat("StayVertical", lastMoveDirection.y);
+            }
         }
 
         void OnDrawGizmosSelected()
