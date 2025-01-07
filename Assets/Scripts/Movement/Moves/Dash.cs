@@ -3,12 +3,35 @@ using System.Collections;
 
 namespace Scripts.Movements.Moves
 {
-    public class Dash: Move
+    public class Dash : Move
     {
         [SerializeField] private float dashSpeed = 18f; // Geschwindigkeit während des Dashes
         [SerializeField] private float dashDuration = 0.2f; // Dauer des Dashes in Sekunden
         [SerializeField] private float dashCooldown = 1f; // Abklingzeit zwischen Dashes
         private float dashCooldownTimer = 0f; // Zeit bis zum nächsten Dash
+
+        [SerializeField] private GameObject dashParticles; // Referenz auf das GameObject mit dem TrailRenderer
+        private TrailRenderer trailRenderer; // Referenz auf den TrailRenderer
+
+        public void Start()
+        {
+            // Sicherstellen, dass das GameObject mit TrailRenderer zugewiesen ist
+            if (dashParticles == null)
+            {
+                dashParticles = GameObject.Find("DashPartikel"); // Suche das GameObject mit dem Namen "DashPartikel"
+                if (dashParticles == null)
+                {
+                    Debug.LogError("DashPartikel GameObject nicht gefunden!");
+                    return;
+                }
+            }
+
+            trailRenderer = dashParticles.GetComponent<TrailRenderer>();
+            if (trailRenderer == null)
+            {
+                Debug.LogError("TrailRenderer im DashPartikel GameObject nicht gefunden!");
+            }
+        }
 
         public void Update()
         {
@@ -77,6 +100,10 @@ namespace Scripts.Movements.Moves
         public IEnumerator PerformDash(Rigidbody2D rb, Vector2 walkingInput)
         {
             Vector2 dashDirection = walkingInput.normalized; // Richtung des Dashes basierend auf der Eingabe
+            if (trailRenderer != null)
+            {
+                trailRenderer.emitting = true; // Aktiviere den TrailRenderer
+            }
 
             float dashTime = 0f;
             while (dashTime < dashDuration)
@@ -88,6 +115,10 @@ namespace Scripts.Movements.Moves
 
             // Starte den Dash-Cooldown
             dashCooldownTimer = dashCooldown;
+            if (trailRenderer != null)
+            {
+                trailRenderer.emitting = false; // Deaktiviere den TrailRenderer
+            }
         }
     }
 }
