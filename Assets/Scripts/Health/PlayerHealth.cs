@@ -4,6 +4,7 @@ using UnityEngine;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Combats.Weapons;
 using System.Threading;
+using UnityEngine.SceneManagement;
 
 namespace Scripts.Healths
 {
@@ -40,12 +41,16 @@ namespace Scripts.Healths
             base.Heal(amount);
             // Update die Health Bar
             healthBarController.UpdateHearts(currentHealth, maxHealth);
+          
         }
 
         protected override void Die()
         {
             Debug.Log("Player has died!");
             // Hier kannst du eine Logik für den Tod des Spielers einfügen
+
+            Debug.Log("Spieler ist gestorben. Lade GameOver-Szene...");
+            SceneManager.LoadScene("GameOverMenu"); // Lade die GameOver
         }
     }
 
