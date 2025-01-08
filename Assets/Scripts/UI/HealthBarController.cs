@@ -55,6 +55,7 @@ namespace Scripts.UI
                 else
                 {
                     heartImages[i].sprite = emptyHeart; // Leeres Herz
+                    
                 }
             }
         }
