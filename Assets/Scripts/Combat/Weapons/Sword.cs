@@ -52,6 +52,8 @@ namespace Scripts.Combats.Weapons
                 {
                     Vector2 hitDirection = enemy.transform.position - transform.position;
                     enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                    SoundManager.PlaySound(SoundType.HIT);
+                    SoundManager.PlaySound(SoundType.HURT);
                 }
                 else
                 {
