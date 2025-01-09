@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using MyGame;
 
 namespace Scripts.Movements.Moves
 {

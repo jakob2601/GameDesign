@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using MyGame;
 
 namespace Scripts.Movements.Moves
 {
@@ -100,6 +101,7 @@ namespace Scripts.Movements.Moves
         public IEnumerator PerformDash(Rigidbody2D rb, Vector2 walkingInput)
         {
             Vector2 dashDirection = walkingInput.normalized; // Richtung des Dashes basierend auf der Eingabe
+            SoundManager.PlaySound(SoundType.DASH); // Spiele den Dash-Sound ab
             if (trailRenderer != null)
             {
                 trailRenderer.emitting = true; // Aktiviere den TrailRenderer

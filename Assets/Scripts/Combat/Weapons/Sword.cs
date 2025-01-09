@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Scripts.Movements.AI;
 using Scripts.Healths;
+using MyGame;
 
 namespace Scripts.Combats.Weapons
 {
@@ -33,6 +34,7 @@ namespace Scripts.Combats.Weapons
             animator.SetFloat("StayVertical", characterDirection.lastMoveDirection.y);
             // Play an Attack Animation
             animator.SetTrigger("Attack");
+            SoundManager.PlaySound(SoundType.SWING);
             // Detect enemies in range
             Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
 
