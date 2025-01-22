@@ -1,0 +1,435 @@
+diff --cc Assets/Characters Pack/NPC Movements/NPC.controller
+index ebf1c46,f2455b4..0000000
+--- a/Assets/Characters Pack/NPC Movements/NPC.controller
++++ b/Assets/Characters Pack/NPC Movements/NPC.controller
+@@@ -7,10 -7,11 +7,10 @@@ AnimatorState
+    m_CorrespondingSourceObject: {fileID: 0}
+    m_PrefabInstance: {fileID: 0}
+    m_PrefabAsset: {fileID: 0}
+-   m_Name: EnemyIdle
++   m_Name: NPCIdle
+    m_Speed: 1
+    m_CycleOffset: 0
+ -  m_Transitions:
+ -  - {fileID: -6973141520360205441}
+ +  m_Transitions: []
+    m_StateMachineBehaviours: []
+    m_Position: {x: 50, y: 50, z: 0}
+    m_IKOnFeet: 0
+@@@ -26,6 -27,93 +26,96 @@@
+    m_MirrorParameter: 
+    m_CycleOffsetParameter: 
+    m_TimeParameter: 
+++<<<<<<< Updated upstream:Assets/Characters Pack/Enemy.controller
+++=======
++ --- !u!1101 &-6973141520360205441
++ AnimatorStateTransition:
++   m_ObjectHideFlags: 1
++   m_CorrespondingSourceObject: {fileID: 0}
++   m_PrefabInstance: {fileID: 0}
++   m_PrefabAsset: {fileID: 0}
++   m_Name: 
++   m_Conditions:
++   - m_ConditionMode: 1
++     m_ConditionEvent: IsMoving
++     m_EventTreshold: 0
++   m_DstStateMachine: {fileID: 0}
++   m_DstState: {fileID: 873552909765847477}
++   m_Solo: 0
++   m_Mute: 0
++   m_IsExit: 0
++   serializedVersion: 3
++   m_TransitionDuration: 0
++   m_TransitionOffset: 0
++   m_ExitTime: 0.516129
++   m_HasExitTime: 0
++   m_HasFixedDuration: 1
++   m_InterruptionSource: 0
++   m_OrderedInterruption: 1
++   m_CanTransitionToSelf: 1
++ --- !u!206 &-5049718380285501416
++ BlendTree:
++   m_ObjectHideFlags: 1
++   m_CorrespondingSourceObject: {fileID: 0}
++   m_PrefabInstance: {fileID: 0}
++   m_PrefabAsset: {fileID: 0}
++   m_Name: Blend Tree
++   m_Childs:
++   - serializedVersion: 2
++     m_Motion: {fileID: 7400000, guid: c68de35ba54727c428ee7fcc1cb49cd5, type: 2}
++     m_Threshold: 0
++     m_Position: {x: 0, y: 1}
++     m_TimeScale: 1
++     m_CycleOffset: 0
++     m_DirectBlendParameter: Blend
++     m_Mirror: 0
++   - serializedVersion: 2
++     m_Motion: {fileID: 7400000, guid: 27ac579b774d2f240a38dd1c133780ba, type: 2}
++     m_Threshold: 0.33333334
++     m_Position: {x: -1, y: 0}
++     m_TimeScale: 1
++     m_CycleOffset: 0
++     m_DirectBlendParameter: Blend
++     m_Mirror: 0
++   - serializedVersion: 2
++     m_Motion: {fileID: 7400000, guid: 4cd5e7566adc6b44e999ed74ef022c12, type: 2}
++     m_Threshold: 0.6666667
++     m_Position: {x: 1, y: 0}
++     m_TimeScale: 1
++     m_CycleOffset: 0
++     m_DirectBlendParameter: Blend
++     m_Mirror: 0
++   - serializedVersion: 2
++     m_Motion: {fileID: 7400000, guid: 36bf3800c57a708419b7a95bcb98b946, type: 2}
++     m_Threshold: 1
++     m_Position: {x: 0, y: -1}
++     m_TimeScale: 1
++     m_CycleOffset: 0
++     m_DirectBlendParameter: Blend
++     m_Mirror: 0
++   m_BlendParameter: Horizontal
++   m_BlendParameterY: Vertical
++   m_MinThreshold: 0
++   m_MaxThreshold: 1
++   m_UseAutomaticThresholds: 1
++   m_NormalizedBlendValues: 0
++   m_BlendType: 1
++ --- !u!206 &-4862730485820390122
++ BlendTree:
++   m_ObjectHideFlags: 1
++   m_CorrespondingSourceObject: {fileID: 0}
++   m_PrefabInstance: {fileID: 0}
++   m_PrefabAsset: {fileID: 0}
++   m_Name: BlendTree
++   m_Childs: []
++   m_BlendParameter: Blend
++   m_BlendParameterY: Blend
++   m_MinThreshold: 0
++   m_MaxThreshold: 1
++   m_UseAutomaticThresholds: 1
++   m_NormalizedBlendValues: 0
++   m_BlendType: 0
+++>>>>>>> Stashed changes:Assets/Characters Pack/NPC Movements/NPC.controller
+  --- !u!1101 &-4677041951234066526
+  AnimatorStateTransition:
+    m_ObjectHideFlags: 1
+@@@ -171,6 -298,58 +261,61 @@@ AnimatorState
+    m_MirrorParameter: 
+    m_CycleOffsetParameter: 
+    m_TimeParameter: 
+++<<<<<<< Updated upstream:Assets/Characters Pack/Enemy.controller
+++=======
++ --- !u!1102 &873552909765847477
++ AnimatorState:
++   serializedVersion: 6
++   m_ObjectHideFlags: 1
++   m_CorrespondingSourceObject: {fileID: 0}
++   m_PrefabInstance: {fileID: 0}
++   m_PrefabAsset: {fileID: 0}
++   m_Name: NPCMove
++   m_Speed: 1
++   m_CycleOffset: 0
++   m_Transitions:
++   - {fileID: 2297272728682678922}
++   m_StateMachineBehaviours: []
++   m_Position: {x: 50, y: 50, z: 0}
++   m_IKOnFeet: 0
++   m_WriteDefaultValues: 1
++   m_Mirror: 0
++   m_SpeedParameterActive: 0
++   m_MirrorParameterActive: 0
++   m_CycleOffsetParameterActive: 0
++   m_TimeParameterActive: 0
++   m_Motion: {fileID: -5049718380285501416}
++   m_Tag: 
++   m_SpeedParameter: 
++   m_MirrorParameter: 
++   m_CycleOffsetParameter: 
++   m_TimeParameter: 
++ --- !u!1101 &2297272728682678922
++ AnimatorStateTransition:
++   m_ObjectHideFlags: 1
++   m_CorrespondingSourceObject: {fileID: 0}
++   m_PrefabInstance: {fileID: 0}
++   m_PrefabAsset: {fileID: 0}
++   m_Name: 
++   m_Conditions:
++   - m_ConditionMode: 2
++     m_ConditionEvent: IsMoving
++     m_EventTreshold: 0
++   m_DstStateMachine: {fileID: 0}
++   m_DstState: {fileID: -7391757858973830747}
++   m_Solo: 0
++   m_Mute: 0
++   m_IsExit: 0
++   serializedVersion: 3
++   m_TransitionDuration: 0
++   m_TransitionOffset: 0
++   m_ExitTime: 0.75409836
++   m_HasExitTime: 0
++   m_HasFixedDuration: 1
++   m_InterruptionSource: 0
++   m_OrderedInterruption: 1
++   m_CanTransitionToSelf: 1
+++>>>>>>> Stashed changes:Assets/Characters Pack/NPC Movements/NPC.controller
+  --- !u!206 &6116681926792202119
+  BlendTree:
+    m_ObjectHideFlags: 1
+diff --cc Assets/Scripts/Movement/EnemyMovement/EnemyMovementAI.cs
+index c6c468b,5f41674..0000000
+--- a/Assets/Scripts/Movement/EnemyMovement/EnemyMovementAI.cs
++++ b/Assets/Scripts/Movement/EnemyMovement/EnemyMovementAI.cs
+@@@ -14,11 -14,76 +14,84 @@@ namespace Scripts.Movements.A
+          [SerializeField] private Unstuck unstuck;
+          [SerializeField] private FollowTarget followTarget;
+          [SerializeField] private Radiate radiate;
+++<<<<<<< Updated upstream
+ +        [SerializeField] private Walking walking;
+ +
+ +        private Transform player;
+ +        public LayerMask playerLayer;
+ +        Collider2D playerCollider;
+++=======
++         [SerializeField] private Knockback knockback;
++ 
++         [SerializeField] private Transform player;
++         [SerializeField] protected LayerMask playerLayer;
++         [SerializeField] private Collider2D playerCollider;
++         
++ 
++         protected EnemyCombat GetEnemyCombat() {
++             return enemyCombat;
++         }
++ 
++         protected void SetEnemyCombat(EnemyCombat enemyCombat) {
++             this.enemyCombat = enemyCombat;
++         }
++ 
++         protected Unstuck GetUnstuck() {
++             return unstuck;
++         }
++ 
++         protected void SetUnstuck(Unstuck unstuck) {
++             this.unstuck = unstuck;
++         }
++ 
++         protected FollowTarget GetFollowTarget() {
++             return followTarget;
++         }
++ 
++         protected void SetFollowTarget(FollowTarget followTarget) {
++             this.followTarget = followTarget;
++         }
++ 
++         protected Radiate GetRadiate() {
++             return radiate;
++         }
++ 
++         protected void SetRadiate(Radiate radiate) {
++             this.radiate = radiate;
++         }
++ 
++         protected Knockback GetKnockback() {
++             return knockback;
++         }
++ 
++         protected void SetKnockback(Knockback knockback) {
++             this.knockback = knockback;
++         }
++ 
++         protected Transform GetPlayer() {
++             return player;
++         }
++ 
++         protected void SetPlayer(Transform player) {
++             this.player = player;
++         }
++ 
++         protected LayerMask GetPlayerLayer() {
++             return playerLayer;
++         }
++ 
++         protected void SetPlayerLayer(LayerMask playerLayer) {
++             this.playerLayer = playerLayer;
++         }
++ 
++         protected Collider2D GetPlayerCollider() {
++             return playerCollider;
++         }
++ 
++         protected void SetPlayerCollider(Collider2D playerCollider) {
++             this.playerCollider = playerCollider;
++         }
+++>>>>>>> Stashed changes
+  
+  
+          // Start is called before the first frame update
+@@@ -26,31 -91,25 +99,39 @@@
+          {
+              base.Start();
+  
+++<<<<<<< Updated upstream
+ +            animator = transform.Find("Animator").GetComponent<Animator>();
+ +            if(animator == null) 
+ +            {
+ +                Debug.LogError("Animator component not found on " + gameObject.name);
+ +            }
+ +
+ +            enemyCombat = GetComponent<EnemyCombat>();
+++=======
++             this.SetEnemyCombat(GetComponent<EnemyCombat>());
+++>>>>>>> Stashed changes
+              if (enemyCombat == null)
+              {
+                  Debug.LogError("EnemyCombat component not found on " + gameObject.name);
+              }
+  
+ -            this.SetUnstuck(GetComponent<Unstuck>());
+ -            if (unstuck == null)
+++<<<<<<< Updated upstream
+ +            walking = GetComponent<Walking>();
+ +            if (walking == null)
+              {
+ -                Debug.LogError("Unstuck component not found on " + gameObject.name);
+ +                Debug.LogError("Walking component not found on " + gameObject.name);
+              }
+  
+ -            this.SetKnockback(GetComponent<Knockback>());
+ -            if (knockback == null)
+ +            unstuck = GetComponent<Unstuck>();
+++=======
+++            this.SetUnstuck(GetComponent<Unstuck>());
+++>>>>>>> Stashed changes
+ +            if (unstuck == null)
+              {
+ -                Debug.LogError("Knockback component not found on " + gameObject.name);
+ +                Debug.LogError("Unstuck component not found on " + gameObject.name);
+              }
+  
+ -            this.SetFollowTarget(GetComponent<FollowTarget>());
+ +            followTarget = GetComponent<FollowTarget>();
+              if (followTarget == null)
+              {
+                  Debug.LogError("FollowTarget component not found on " + gameObject.name);
+@@@ -71,17 -130,29 +152,18 @@@
+  
+          protected override void FixedUpdate()
+          {
++             base.FixedUpdate();
+              // Finde den Spieler basierend auf der Layer
+ -            this.SetPlayerCollider(Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), this.GetPlayerLayer()));
+ +            playerCollider = Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), playerLayer);
+              if (playerCollider != null)
+              {
+ -                this.SetPlayer(playerCollider.transform);
+ -                followTarget.SetTarget(player);
+ +                player = playerCollider.transform;
+ +                followTarget.setTarget(player);
+                  enemyCombat.SetPlayer(player);
+  
+ -                if(knockback.GetKnockbackActive())
+ -                {
+ -                    followTarget.SetUnblock(false); 
+ -                    radiate.SetIsUnblocked(false);
+ -                }
+ -                else
+ -                {
+ -                    followTarget.SetUnblock(true); 
+ -                    radiate.SetIsUnblocked(true);
+ -                }
+ -
+                  if(followTarget.GetCurrentDistanceToTarget() <= radiate.GetCircleRadius()) {
+                      followTarget.SetUnblock(false); 
+ -                    radiate.RadiateAroundTarget(player, walking.GetMoveSpeed() * 2/3, ref lastMoveDirection);
+ +                    radiate.RadiateAroundTarget(player, walking.GetMoveSpeed() * 2/3, rb, ref lastMoveDirection);
+                      followTarget.SetUnblock(true);
+                  }
+                  else if (followTarget.GetEnabled() && followTarget.GetUnblocked())
+@@@ -109,8 -180,41 +191,46 @@@
+  
+          protected override void Update()
+          {
+++<<<<<<< Updated upstream
+ +            AnimateWalking(lastMoveDirection);
+ +        }
+++=======
++             base.Update();
++         }
++         /*
++         private void AnimateMovement()
++         {
++             if (animator == null) return;
++             Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
++ 
++             // Berechne die Bewegungsgeschwindigkeit (Magnitude)
++             float movementMagnitude = moveDirection.magnitude;
++ 
++             // Debug-Output, um zu sehen, ob die Bewegung erkannt wird
++             Debug.Log($"MoveDirection: {moveDirection}, Magnitude: {movementMagnitude}");
++ 
++             // Überprüfen, ob der Gegner sich bewegt
++             if (movementMagnitude > 0.2f)
++             {
++                 // Bewegung abspielen
++                 animator.SetBool("IsMoving", true);
++ 
++                 // Richtung setzen
++                 animator.SetFloat("Horizontal", moveDirection.normalized.x);
++                 animator.SetFloat("Vertical", moveDirection.normalized.y);
++                 this.SetLastMoveDirection(moveDirection.normalized);
++             }
++             else
++             {
++                 // Idle abspielen
++                 animator.SetBool("IsMoving", false);
++ 
++                 // Idle-Richtung speichern
++                 animator.SetFloat("StayHorizontal", lastMoveDirection.x);
++                 animator.SetFloat("StayVertical", lastMoveDirection.y);
++             }
++         } */
+++>>>>>>> Stashed changes
+  
+          void OnDrawGizmosSelected()
+          {
+diff --git a/.idea/.name b/.idea/.name
+index 1d351d0..6a3e04c 100644
+--- a/.idea/.name
++++ b/.idea/.name
+@@ -1 +1 @@
+-main_menu.cs
+\ No newline at end of file
++NPCStayOnTop.anim
+\ No newline at end of file
+* Unmerged path Assets/Characters Pack/Enemy(1)/EnemyIdle.anim
+* Unmerged path Assets/Characters Pack/Enemy(1)/EnemyIdle.anim.meta
+* Unmerged path Assets/Characters Pack/EnemyIdle.anim
+* Unmerged path Assets/Characters Pack/EnemyIdle.anim.meta
+diff --git a/Assets/Characters Pack/EnemyIdle.anim.meta b/Assets/Characters Pack/EnemyIdle.anim.meta
+index 7494da8..9a90bb2 100644
+--- a/Assets/Characters Pack/EnemyIdle.anim.meta	
++++ b/Assets/Characters Pack/EnemyIdle.anim.meta	
+@@ -1,5 +1,5 @@
+ fileFormatVersion: 2
+-guid: 13f4d317a453d2742978867bdc8f9e84
++guid: 74b7341b7777b4c4cacd57d8d899919b
+ NativeFormatImporter:
+   externalObjects: {}
+   mainObjectFileID: 7400000
+* Unmerged path Assets/Characters Pack/NPC Movements.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCIdle.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCIdle.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToBottom.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToBottom.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToLeft.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToLeft.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToRight.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToRight.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToTop.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCMoveToTop.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCStayOnLeft.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCStayOnLeft.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCStayOnRight.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCStayOnRight.anim.meta
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCStayOnTop.anim
+* Unmerged path Assets/Characters Pack/NPC Movements/NPCStayOnTop.anim.meta
