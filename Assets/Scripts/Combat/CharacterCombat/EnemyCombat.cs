@@ -26,7 +26,6 @@ namespace Scripts.Combats.CharacterCombats
             if (player != null)
             {
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-
                 if (distanceToPlayer <= startAttackRange)
                 {
                     contactDamage.PerformAttack(playerDirection);
