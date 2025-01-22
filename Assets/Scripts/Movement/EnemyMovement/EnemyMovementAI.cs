@@ -14,7 +14,6 @@ namespace Scripts.Movements.AI
         [SerializeField] private Unstuck unstuck;
         [SerializeField] private FollowTarget followTarget;
         [SerializeField] private Radiate radiate;
-        [SerializeField] private Walking walking;
         [SerializeField] private Knockback knockback;
 
         [SerializeField] private Transform player;
@@ -54,13 +53,6 @@ namespace Scripts.Movements.AI
             this.radiate = radiate;
         }
 
-        protected Walking GetWalking() {
-            return walking;
-        }
-
-        protected void SetWalking(Walking walking) {
-            this.walking = walking;
-        }
 
         protected Knockback GetKnockback() {
             return knockback;
@@ -100,11 +92,6 @@ namespace Scripts.Movements.AI
         {
             base.Start();
 
-            Transform animatorTransform = transform.Find("Animator");
-            if (animatorTransform != null)
-            {
-                this.SetAnimator(animatorTransform.GetComponent<Animator>());
-            }
             if (animator == null)
             {
                 Debug.LogError("Animator component not found on " + gameObject.name);
@@ -155,6 +142,7 @@ namespace Scripts.Movements.AI
 
         protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             // Finde den Spieler basierend auf der Layer
             this.SetPlayerCollider(Physics2D.OverlapCircle(transform.position, followTarget.GetStartRadius(), this.GetPlayerLayer()));
             if (playerCollider != null)
@@ -203,47 +191,11 @@ namespace Scripts.Movements.AI
         }
 
         protected override void Update()
-        {
-            //this.AnimateWalking(lastMoveDirection);
-
-            // Aktualisiere die letzte Bewegungsrichtung, falls eine Bewegung stattfindet
-            Vector2 moveDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-
-            // Bewegung animieren
-            AnimateMovement(moveDirection);
+        {   
+            base.Update();
 
         }
 
-        private void AnimateMovement(Vector2 moveDirection)
-        {
-            if (animator == null) return;
-
-            // Berechne die Bewegungsgeschwindigkeit (Magnitude)
-            float movementMagnitude = moveDirection.magnitude;
-
-            // Debug-Output, um zu sehen, ob die Bewegung erkannt wird
-            Debug.Log($"MoveDirection: {moveDirection}, Magnitude: {movementMagnitude}");
-
-            // Überprüfen, ob der Gegner sich bewegt
-            if (movementMagnitude > 0.1f)
-            {
-                // Bewegung abspielen
-                animator.SetBool("IsMoving", true);
-
-                // Richtung setzen
-                animator.SetFloat("Horizontal", moveDirection.normalized.x);
-                animator.SetFloat("Vertical", moveDirection.normalized.y);
-            }
-            else
-            {
-                // Idle abspielen
-                animator.SetBool("IsMoving", false);
-
-                // Idle-Richtung speichern
-                animator.SetFloat("StayHorizontal", lastMoveDirection.x);
-                animator.SetFloat("StayVertical", lastMoveDirection.y);
-            }
-        }
 
         void OnDrawGizmosSelected()
         {
