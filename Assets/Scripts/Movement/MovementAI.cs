@@ -122,10 +122,7 @@ namespace Scripts.Movements.AI
             this.SetWalkingInput(ProccessInputs());
             this.AnimateWalking();
 
-            if (walkingInput.x < 0 && !this.isFacingRight || walkingInput.x > 0 && this.isFacingRight)
-            {
-                this.Flip();
-            }
+            
 
         }
         

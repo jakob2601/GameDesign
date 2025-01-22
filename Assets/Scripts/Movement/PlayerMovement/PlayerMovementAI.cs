@@ -35,6 +35,10 @@ namespace Scripts.Movements.AI
         {
             base.Update();
             
+            if (walkingInput.x < 0 && !this.isFacingRight || walkingInput.x > 0 && this.isFacingRight)
+            {
+                this.Flip();
+            }
 
             // Dash-Mechanik prüfen
             if (Input.GetKeyDown(KeyCode.Space) && dash.GetCurrentDashCooldown() <= 0f && !isDashing && walkingInput != Vector2.zero)
