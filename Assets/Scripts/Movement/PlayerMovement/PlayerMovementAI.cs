@@ -49,6 +49,7 @@ namespace Scripts.Movements.AI
 
         protected override void FixedUpdate()
         {
+            base.FixedUpdate();
             // Normale Bewegung, wenn nicht gedasht wird und Bewegungseingabe vorhanden ist
             if (!isDashing && walkingInput.magnitude > 0.01f) // Schwellenwert für Bewegung
             {

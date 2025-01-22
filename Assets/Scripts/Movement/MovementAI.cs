@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Scripts.Movements.Moves;
 
 namespace Scripts.Movements.AI
 {
@@ -17,10 +18,61 @@ namespace Scripts.Movements.AI
         protected virtual void Start()
         {
             rb = GetComponent<Rigidbody2D>(); // Rigidbody2D zuweisen
+
+            Transform animatorTransform = transform.Find("Animator");
+            if (animatorTransform != null)
+            {
+                this.SetAnimator(animatorTransform.GetComponent<Animator>());
+            }
+            if (this.GetAnimator() == null)
+            {
+                Debug.LogError("Animator component not found on " + gameObject.name);
+            }
+
+            this.SetWalking(GetComponent<Walking>());
+            if (walking == null)
+            {
+                Debug.LogError("Walking component not found on " + gameObject.name);
+            }
+
+            this.SetWalkingInput(Vector2.zero);
         }
 
-        protected abstract void FixedUpdate();
-        protected abstract void Update();
+        
+
+        protected virtual void FixedUpdate() {
+
+        }
+        protected virtual void Update() {
+            this.SetWalkingInput(ProccessInputs());
+            this.AnimateWalking();
+
+            if (walkingInput.x < 0 && !this.isFacingRight || walkingInput.x > 0 && this.isFacingRight)
+            {
+                this.Flip();
+            }
+
+        }
+        
+        protected Vector2 ProccessInputs() {
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
+
+            // Toleranz für kleine Eingabewerte
+            if (Mathf.Abs(moveX) < 0.1f) moveX = 0;
+            if (Mathf.Abs(moveY) < 0.1f) moveY = 0;
+
+            if (moveX != 0 || moveY != 0)
+            {
+                this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
+                animator.SetBool("IsMoving", true);
+            }
+            else {
+                animator.SetBool("IsMoving", false);
+            }
+
+            return new Vector2(moveX, moveY).normalized;
+        }
 
         protected void Flip()
         {
@@ -31,8 +83,9 @@ namespace Scripts.Movements.AI
             isFacingRight = !isFacingRight;
         }
 
-        public void AnimateWalking(Vector2 moveInput)
-        {
+        public void AnimateWalking()
+        {   
+            Vector2 moveInput = GetWalkingInput();
             animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
             animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
             animator.SetFloat("Speed", moveInput.sqrMagnitude); // Bewegungsgeschwindigkeit
