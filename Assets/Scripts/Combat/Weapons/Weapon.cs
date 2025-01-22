@@ -184,7 +184,7 @@ namespace Scripts.Combats.Weapons
             debugAttackRangeVisualizer.SetActive(true); // Visualisierung anzeigen
         }
 
-
+        /*
         protected void OnDrawGizmosSelected()
         {
             if (attackPoint == null)
@@ -192,7 +192,7 @@ namespace Scripts.Combats.Weapons
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        }
+        }*/
 
         // Aktualisiert die Größe des Visualisierungs-Sprites basierend auf attackRange
         protected void UpdateAttackRangeVisualizer()

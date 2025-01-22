@@ -6,37 +6,41 @@ using MyGame;
 
 namespace Scripts.Combats.Weapons
 {
-    public class Sword : Weapon {
+    public class Sword : Weapon
+    {
+        MovementAI characterDirectionGlobal;
+
         public override void PerformAttack(MovementAI characterDirection)
         {
+            characterDirectionGlobal = characterDirection;
             base.Start();
-            // Überprüfe, ob attackPoint nicht null ist
+
             if (attackPoint == null)
             {
                 Debug.LogError("Attack point is not assigned.");
                 return;
             }
 
-            // Überprüfe, ob animator und playerDirection nicht null sind
-            if (animator == null)
+            if (animator == null || characterDirection == null)
             {
-                Debug.LogError("Animator is not assigned.");
+                Debug.LogError("Animator or player direction is not assigned.");
                 return;
             }
 
-            if (characterDirection == null)
-            {
-                Debug.LogError("Player direction is not assigned.");
-                return;
-            }
-
+            // Set animation parameters
             animator.SetFloat("StayHorizontal", characterDirection.lastMoveDirection.x);
             animator.SetFloat("StayVertical", characterDirection.lastMoveDirection.y);
-            // Play an Attack Animation
+
+            // NEU: Berechne die Angriffsposition in Weltkoordinaten (statt lokale Position)
+            Vector2 attackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterDirectionGlobal.lastMoveDirection.normalized * attackRange;
+
+            // Play attack animation
             animator.SetTrigger("Attack");
             SoundManager.PlaySound(SoundType.SWING);
-            // Detect enemies in range
-            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
+
+            // NEU: Verwende die Angriffsposition statt attackPoint.position
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(
+                 attackPosition  /*attackPoint.position*/, attackRange, enemyLayer);
 
             if (hitEnemies.Length == 0)
             {
@@ -44,24 +48,51 @@ namespace Scripts.Combats.Weapons
                 return;
             }
 
-            // Deal damage to enemies
+            // Damage enemies only in the direction the character is facing
             foreach (Collider2D enemy in hitEnemies)
             {
-                Health enemyHealth = enemy.GetComponent<Health>();
-                if (enemyHealth != null)
+                Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
+
+                // NEU: Winkelprüfung mit engerem Schwellenwert (z. B. 45 Grad)
+                float angleThreshold = 0.7f; // Entspricht ca. 45 Grad
+                //if (Vector2.Dot(characterDirection.lastMoveDirection.normalized, hitDirection.normalized) >= angleThreshold)
                 {
-                    Vector2 hitDirection = enemy.transform.position - transform.position;
-                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
-                    SoundManager.PlaySound(SoundType.HIT);
-                    SoundManager.PlaySound(SoundType.HURT);
-                }
-                else
-                {
-                    Debug.Log("Enemy script not found");
+                    Health enemyHealth = enemy.GetComponent<Health>();
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                        SoundManager.PlaySound(SoundType.HIT);
+                        SoundManager.PlaySound(SoundType.HURT);
+                    }
+                    else
+                    {
+                        Debug.Log("Enemy script not found");
+                    }
                 }
             }
 
             Debug.Log("Attacking");
+        }
+
+
+        private void OnDrawGizmos()
+        {
+            if (attackPoint == null)
+                return;
+
+            // Zeigt den aktuellen Angriffspunkt
+            //Gizmos.color = Color.red;
+            //Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+
+            // Optional: Weltkoordinaten basierter Angriffspunkt
+            if (Application.isPlaying) // Nur zur Laufzeit anzeigen
+            {
+                Vector2 attackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterDirectionGlobal.lastMoveDirection.normalized * attackRange;
+                Gizmos.color = Color.blue;
+                Gizmos.DrawWireSphere(attackPosition, attackRange);
+
+
+            }
         }
     }
 }
