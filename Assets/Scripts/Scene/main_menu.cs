@@ -11,7 +11,7 @@ namespace MyGame
     {
       public void PlayGame()
       {
-      SceneManager.LoadScene("SampleScene"); // startet unsere aktuelle arbeitsfläche
+      SceneManager.LoadScene("Arena lvl1"); // startet unsere aktuelle arbeitsfläche
 
       }
       public void Settings()

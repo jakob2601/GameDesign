@@ -37,7 +37,7 @@ namespace MyGame
         public void Menu()
         {
             Time.timeScale = 1;
-            SceneManager.LoadScene("StartMenu");
+            SceneManager.LoadScene("Main Menu");
         }
 
         public void Resume()
@@ -58,7 +58,7 @@ namespace MyGame
         public void Restart()
         {
             Time.timeScale = 1;
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Arena lvl1");
         }
 
 

@@ -9,7 +9,7 @@ namespace MyGame
     {
         public void OnStartClick()
         {
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene("Arena lvl1");
         }
 
         public void OnExitClick()
