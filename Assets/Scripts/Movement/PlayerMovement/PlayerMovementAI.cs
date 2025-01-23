@@ -72,12 +72,13 @@ namespace Scripts.Movements.AI
         public override void AnimateWalking()
         {
             base.AnimateWalking();
-            UpdateSwordSortingOrder();
+            // UpdateSwordSortingOrder();
         }
-
+        
+        /*
         private void UpdateSwordSortingOrder()
         {
-            if (lastMoveDirection.y < 0)
+            if (lastMoveDirection.y < 0 && lastMoveDirection.x == 0)
             {
                 // Spieler schaut nach unten, Schwert vor dem Spieler anzeigen
                 swordRenderer.sortingOrder = 1;
@@ -107,7 +108,7 @@ namespace Scripts.Movements.AI
                 swordTransform.localPosition = new Vector3(-0.13f,-0.4f,-0.18f);
             }
             
-        }
+        } */
 
         private IEnumerator PerformPlayerDash()
         {
