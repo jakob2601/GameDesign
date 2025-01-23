@@ -150,38 +150,41 @@ namespace Scripts.Movements.AI
                 this.SetPlayer(playerCollider.transform);
                 followTarget.SetTarget(player);
                 enemyCombat.SetPlayer(player);
+                radiate.SetTarget(player);
 
-                if(knockback.GetKnockbackActive())
-                {
+                if(knockback.GetKnockbackActive()) {
+                    // Debug.Log("Knockback active.");
+                    followTarget.SetUnblock(false); 
+                    radiate.SetIsUnblocked(false);
+                    return;
+                }
+                if(unstuck.getIsUnstucking()) {
+                    // Debug.Log("Is Unstucking");
                     followTarget.SetUnblock(false); 
                     radiate.SetIsUnblocked(false);
                 }
-                else
-                {
-                    followTarget.SetUnblock(true); 
-                    radiate.SetIsUnblocked(true);
-                }
-
-                if(followTarget.GetCurrentDistanceToTarget() <= radiate.GetCircleRadius()) {
+                else if(followTarget.GetCurrentDistanceToTarget() <= radiate.GetCircleRadius()) {
+                    // Debug.Log("Is Radiating");
                     followTarget.SetUnblock(false); 
-                    radiate.RadiateAroundTarget(player, walking.GetMoveSpeed() * 2/3, ref lastMoveDirection);
+                    radiate.SetIsUnblocked(true);
+                    radiate.RadiateAroundTarget();
                     followTarget.SetUnblock(true);
                 }
                 else if (followTarget.GetEnabled() && followTarget.GetUnblocked())
                 {
                     // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
+                    // Debug.Log("Is Following Target");
                     followTarget.SetUnblock(true); 
-                    // Debug.Log("Player in range.");
+                    radiate.SetIsUnblocked(false);
                 }
                 else if(followTarget.GetCurrentDistanceToTarget() > followTarget.GetStartRadius())
                 {
                     // Wenn der Spieler nicht in Reichweite ist, kann der Gegner andere Aktionen ausführen
+                    // Debug.Log("Is doing other things");
                     followTarget.SetUnblock(false); 
+                    radiate.SetIsUnblocked(false);
                 }
-                if(unstuck.getIsUnstucking())
-                {
-                    followTarget.SetUnblock(false); 
-                }
+                
             }
             else
             {

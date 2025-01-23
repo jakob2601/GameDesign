@@ -6,7 +6,7 @@ using Scripts.Movements.Moves;
 
 namespace Scripts.Movements.Behaviours
 {
-    public class Radiate: MonoBehaviour 
+    public class Radiate : MonoBehaviour
     {
         [SerializeField] protected float angle = 0f;
         [SerializeField] protected float circleRadius = 3f; // Radius, innerhalb dessen das Verhalten geändert wird
@@ -15,77 +15,118 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] protected bool isUnblocked = true;
         [SerializeField] protected Walking walking;
         [SerializeField] protected Rigidbody2D rb;
+        [SerializeField] protected Transform target;
+        [SerializeField] protected float currentDistanceToTarget;
+        [SerializeField] protected float radiateSpeed;
 
 
-        public float GetAngle() 
+        public float GetAngle()
         {
             return angle;
         }
 
-        public void SetAngle(float angle) 
+        public void SetAngle(float angle)
         {
             this.angle = angle;
         }
 
-        public float GetCircleRadius() 
+        public float GetCircleRadius()
         {
             return circleRadius;
         }
 
-        protected void SetCircleRadius(float circleRadius) 
+        protected void SetCircleRadius(float circleRadius)
         {
             this.circleRadius = circleRadius;
-        }   
+        }
 
-        public bool GetIsRadiating() 
+        public bool GetIsRadiating()
         {
             return isRadiating;
         }
 
-        protected void SetIsRadiating(bool isRadiating) 
+        protected void SetIsRadiating(bool isRadiating)
         {
             this.isRadiating = isRadiating;
         }
 
-        public bool GetIsEnabled() 
+        public bool GetIsEnabled()
         {
             return isEnabled;
         }
 
-        protected void SetIsEnabled(bool enabled) 
+        protected void SetIsEnabled(bool enabled)
         {
             isEnabled = enabled;
         }
 
-        public void SetIsUnblocked(bool unblocked) 
+        public void SetIsUnblocked(bool unblocked)
         {
             isUnblocked = unblocked;
         }
 
-        public bool GetIsUnblocked() 
+        public bool GetIsUnblocked()
         {
             return isUnblocked;
         }
 
-        protected Walking GetWalking() 
+        protected Walking GetWalking()
         {
             return walking;
         }
 
-        protected void SetWalking(Walking walking) 
+        protected void SetWalking(Walking walking)
         {
             this.walking = walking;
         }
 
-        protected Rigidbody2D GetRigidbody() 
+        protected Rigidbody2D GetRigidbody()
         {
             return rb;
         }
 
-        protected void SetRigidbody(Rigidbody2D rb) 
+        protected void SetRigidbody(Rigidbody2D rb)
         {
             this.rb = rb;
         }
+
+        protected Transform GetTarget() 
+        {
+            return target;
+        }
+
+        public void SetTarget(Transform target) 
+        {
+            this.target = target;
+        }
+
+        public float GetCurrentDistanceToTarget()
+        {
+            if (currentDistanceToTarget <= circleRadius)
+            {
+                isEnabled = true;
+            }
+            else 
+            {
+                isEnabled = false;
+            }
+            return currentDistanceToTarget;
+        }
+
+        protected void UpdateCurrentDistanceToTarget()
+        {
+            currentDistanceToTarget = Vector2.Distance(transform.position, target.position);
+        }
+
+        public void SetRadiateSpeed(float moveSpeed) 
+        {
+            this.radiateSpeed = moveSpeed;
+        }
+
+        public float GetRadiateSpeed() 
+        {
+            return radiateSpeed;
+        } 
 
 
         public void Start()
@@ -103,13 +144,33 @@ namespace Scripts.Movements.Behaviours
             }
         }
 
-        public void Update() 
+        public void Update()
         {
-            
+            if (target == null)
+            {
+                Debug.LogWarning("Target not found on " + gameObject.name + " in Script FollowTarget.cs");
+                return;
+            }
+            else if (walking == null)
+            {
+                Debug.LogWarning("Walking not found on " + gameObject.name + " in Script FollowTarget.cs");
+                return;
+            }
+            else if (rb == null)
+            {
+                Debug.LogWarning("RigidBody2D not found on " + gameObject.name + " in Script FollowTarget.cs");
+                return;
+            }
+            UpdateCurrentDistanceToTarget();
+            GetCurrentDistanceToTarget();
+            if (this.isEnabled && this.isUnblocked)
+            {
+                RadiateAroundTarget();
+            }
         }
 
 
-        public void RadiateAroundTarget(Transform target, float combatSpeed, ref Vector2 lastMoveDirection) 
+        public void RadiateAroundTarget()
         {
             if (walking == null)
             {
@@ -117,26 +178,25 @@ namespace Scripts.Movements.Behaviours
                 return;
             }
 
-            if(isUnblocked == false) 
+            if (isUnblocked == false)
             {
                 Debug.Log("Radiate is blocked");
                 return;
             }
-            if(isEnabled == false) 
+            if (isEnabled == false)
             {
                 return;
             }
-            
+
             isRadiating = true;
-            angle += combatSpeed * Time.deltaTime;
+            angle += this.radiateSpeed * Time.deltaTime;
             float x = Mathf.Cos(angle) * circleRadius;
             float y = Mathf.Sin(angle) * circleRadius;
             Vector2 offset = new Vector2(x, y);
-            Vector2 targetPosition = (Vector2)target.position + offset;                    
+            Vector2 targetPosition = (Vector2)target.position + offset;
 
             Vector2 direction = (targetPosition - (Vector2)transform.position).normalized;
-            lastMoveDirection = direction;
- 
+
             rb.MovePosition(walking.getNewPosition(rb.position, direction));
 
             isRadiating = false;

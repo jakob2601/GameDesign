@@ -7,7 +7,7 @@ using Scripts.Movements.AI;
 
 namespace Scripts.Movements.Behaviours
 {
-    public class FollowTarget: MonoBehaviour 
+    public class FollowTarget : MonoBehaviour
     {
         [SerializeField] private Transform target;
         [SerializeField] private Transform GFX;
@@ -16,228 +16,246 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] private Seeker seeker;
         [SerializeField] private Path path;
         [SerializeField] private Rigidbody2D rb;
-        
+
         [SerializeField] private float nextWaypointDistance = 3f;
         [SerializeField] private float startUpdatePathTime = 0f;
         [SerializeField] private float updatePathRate = 0.5f;
         [SerializeField] private float timeSinceLastUpdate = 0f;
         private int currentWaypoint = 0;
         [SerializeField] private bool reachedEndOfPath = false;
-        
+
         [SerializeField] private float startRadius = 10f;
         [SerializeField] private float endRadius = 3f;
-        
+
         [SerializeField] protected float currentDistanceToTarget;
 
         [SerializeField] private bool isEnabled = true; // Is Enabled by interior
         [SerializeField] private bool isUnblocked; // Unblocked by outerior
 
-        public void SetNextWaypointDistance(float nextWaypointDistance) 
+        public void SetNextWaypointDistance(float nextWaypointDistance)
         {
             this.nextWaypointDistance = nextWaypointDistance;
         }
 
-        public void SetCurrentWaypoint(int currentWaypoint) 
+        public void SetCurrentWaypoint(int currentWaypoint)
         {
             this.currentWaypoint = currentWaypoint;
         }
 
-        public void SetTimeSinceLastUpdate(float timeSinceLastUpdate) 
+        public void SetTimeSinceLastUpdate(float timeSinceLastUpdate)
         {
             this.timeSinceLastUpdate = timeSinceLastUpdate;
         }
 
-        public void SetStartUpdatePathTime(float startUpdatePathTime) 
+        public void SetStartUpdatePathTime(float startUpdatePathTime)
         {
             this.startUpdatePathTime = startUpdatePathTime;
         }
 
-        public void SetUpdatePathRate(float updatePathRate) 
+        public void SetUpdatePathRate(float updatePathRate)
         {
             this.updatePathRate = updatePathRate;
         }
-        
-        public Path GetPath() 
+
+        public Path GetPath()
         {
             return path;
         }
 
-        public void SetPath(Path path) 
+        public void SetPath(Path path)
         {
             this.path = path;
         }
 
-        public void SetEnabled(bool isEnabled) 
+        public void SetEnabled(bool isEnabled)
         {
             this.isEnabled = isEnabled;
         }
-        public bool GetEnabled() 
+        public bool GetEnabled()
         {
             return isEnabled;
         }
 
-        public void SetUnblock(bool isUnblocked) 
+        public void SetUnblock(bool isUnblocked)
         {
             this.isUnblocked = isUnblocked;
         }
-        public bool GetUnblocked() 
+        public bool GetUnblocked()
         {
             return isUnblocked;
         }
 
-       
 
-        public Transform GetTarget() 
+
+        public Transform GetTarget()
         {
-            if(target != null) 
+            if (target != null)
             {
                 return target;
             }
-            else 
+            else
             {
                 return null;
             }
         }
 
-        public void SetTarget(Transform target) 
+        public void SetTarget(Transform target)
         {
             this.target = target;
-            if(target == null)
+            if (target == null)
             {
                 isEnabled = false;
             }
         }
 
-        public void SetReachedEndOfPath(bool reachedEndOfPath) 
+        public void SetReachedEndOfPath(bool reachedEndOfPath)
         {
             this.reachedEndOfPath = reachedEndOfPath;
-            if(reachedEndOfPath)
+            if (reachedEndOfPath)
                 isEnabled = false;
         }
 
-        public bool GetReachedEndOfPath() 
+        public bool GetReachedEndOfPath()
         {
             return reachedEndOfPath;
         }
-        
-        public void SetRigidbody(Rigidbody2D rb) 
+
+        public void SetRigidbody(Rigidbody2D rb)
         {
             this.rb = rb;
         }
 
-        public float GetStartUpdatePathTime() 
+        public float GetStartUpdatePathTime()
         {
             return startUpdatePathTime;
         }
-        public float GetUpdatePathRate() 
+        public float GetUpdatePathRate()
         {
             return updatePathRate;
         }
 
-        public float GetStartRadius() 
+        public float GetStartRadius()
         {
             return startRadius;
         }
 
-        public float GetEndRadius() 
+        public float GetEndRadius()
         {
             return endRadius;
         }
 
-        public void SetCurrentDistanceToTarget(float currentDistanceToTarget) 
+        protected void SetCurrentDistanceToTarget(float currentDistanceToTarget)
         {
             this.currentDistanceToTarget = currentDistanceToTarget;
         }
 
-        public float GetCurrentDistanceToTarget() 
+        public float GetCurrentDistanceToTarget()
         {
-            if(currentDistanceToTarget <= startRadius && currentDistanceToTarget > endRadius) {
+            if (currentDistanceToTarget <= startRadius && currentDistanceToTarget > endRadius)
+            {
                 isEnabled = true;
                 reachedEndOfPath = false;
             }
-            else 
+            else
                 isEnabled = false;
             return currentDistanceToTarget;
         }
 
-        private void UpdateCurrentDistanceToTarget() {
+        private void UpdateCurrentDistanceToTarget()
+        {
             currentDistanceToTarget = Vector2.Distance(transform.position, target.position);
         }
-        
-        public void Start() 
+
+        public void Start()
         {
             seeker = GetComponent<Seeker>();
-            if(seeker == null)
+            if (seeker == null)
             {
                 Debug.LogWarning("Seeker not found on " + gameObject.name + " in Script FollowTarget.cs");
             }
-            GFX = transform.Find("EnemyGFX");
-            if(GFX == null) 
+            foreach (Transform child in transform)
             {
-                Debug.LogWarning("GFX not found on " + gameObject.name + " in Script FollowTarget.cs");
+                if (child.name.EndsWith("GFX"))
+                {
+                    GFX = child;
+                    break;
+                }
             }
-            
+
+            if (GFX == null)
+            {
+                Debug.LogError("No child with name ending in 'GFX' found.");
+            }
+
             walking = GetComponent<Walking>();
-            if(walking == null)
+            if (walking == null)
             {
                 Debug.LogWarning("Walking not found on " + gameObject.name + " in Script FollowTarget.cs");
             }
         }
 
-        public void Update() 
+        public void Update()
         {
             if (timeSinceLastUpdate >= updatePathRate)
             {
                 UpdatePath(rb);
                 timeSinceLastUpdate = 0f;
             }
-            else 
+            else
             {
                 timeSinceLastUpdate += Time.deltaTime;
             }
-            
+
         }
 
         public void FixedUpdate()
-        {            
-            if(target == null) {
-                Debug.LogWarning("Target not found on " + gameObject.name + " in Script FollowTarget.cs");
+        {
+            if (target == null)
+            {
+                // Debug.LogWarning("Target not found on " + gameObject.name + " in Script FollowTarget.cs");
                 return;
             }
-            else if(walking == null) {
+            else if (walking == null)
+            {
                 Debug.LogWarning("Walking not found on " + gameObject.name + " in Script FollowTarget.cs");
                 return;
             }
-            else if(rb == null) {
+            else if (rb == null)
+            {
                 Debug.LogWarning("RigidBody2D not found on " + gameObject.name + " in Script FollowTarget.cs");
                 return;
             }
             UpdateCurrentDistanceToTarget();
-            
-            if(this.currentDistanceToTarget <= this.endRadius)
+
+            if (this.currentDistanceToTarget <= this.endRadius)
             {
                 this.reachedEndOfPath = true;
             }
-            else if(this.isEnabled)
+            else if (this.isEnabled)
             {
-                if (this.path == null) {
-                    Debug.LogWarning("Path not found on " + gameObject.name + " in Script FollowTarget.cs");
+                if (this.path == null)
+                {
+                    // Debug.LogWarning("Path not completed on " + gameObject.name + " in Script FollowTarget.cs");
                     return;
                 }
-                if(this.isUnblocked)
+                if (this.isUnblocked)
+                {
                     this.MoveTowardsTarget(rb, GetComponent<MovementAI>());
+                }
             }
         }
 
-        protected void MoveTowardsTarget(Rigidbody2D rb, MovementAI movementAI) 
+        protected void MoveTowardsTarget(Rigidbody2D rb, MovementAI movementAI)
         {
-            if(!this.isEnabled || !this.isUnblocked)
+            if (!this.isEnabled || !this.isUnblocked)
                 return;
-            if (this.path == null){
+            if (this.path == null)
+            {
                 Debug.LogWarning("Path is null");
                 return;
             }
-            else if(this.target == null){
+            else if (this.target == null)
+            {
                 Debug.LogWarning("Target is null");
                 return;
             }
@@ -250,13 +268,13 @@ namespace Scripts.Movements.Behaviours
             }
 
             Vector2 direction = ((Vector2)this.path.vectorPath[currentWaypoint] - this.rb.position).normalized;
-            
-            if(direction.magnitude >= 0.1f)
+
+            if (direction.magnitude >= 0.1f)
             {
                 this.rb.MovePosition(walking.getNewPosition(rb.position, direction));
                 movementAI.SetLastMoveDirection(direction);
             }
-        
+
             float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 
             if (distance < this.nextWaypointDistance)
@@ -266,7 +284,7 @@ namespace Scripts.Movements.Behaviours
             // movementAI.UpdateScale(directedForce);
         }
 
-        
+
 
         private void UpdatePath(Rigidbody2D rb)
         {
@@ -280,10 +298,10 @@ namespace Scripts.Movements.Behaviours
         {
             if (!p.error)
             {
-                this.path = p;
+                SetPath(p);
                 currentWaypoint = 0;
             }
-            else 
+            else
             {
                 Debug.LogWarning(p.error);
             }

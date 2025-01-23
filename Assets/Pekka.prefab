@@ -307,12 +307,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   angle: 0
-  circleRadius: 3
+  circleRadius: 5
   isRadiating: 0
   isEnabled: 0
   isUnblocked: 1
   walking: {fileID: 9001278909043300127}
   rb: {fileID: 2579191884603178559}
+  target: {fileID: 0}
+  currentDistanceToTarget: 0
+  radiateSpeed: 1.5
 --- !u!114 &7569245253550255710
 MonoBehaviour:
   m_ObjectHideFlags: 0
