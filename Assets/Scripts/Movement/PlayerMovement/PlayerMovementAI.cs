@@ -31,7 +31,7 @@ namespace Scripts.Movements.AI
             {
                 Debug.LogError("Dash component not found on " + gameObject.name);
             }
-
+            
             swordTransform = transform.Find("Sword");
             if (swordTransform != null)
             {
@@ -72,17 +72,17 @@ namespace Scripts.Movements.AI
         public override void AnimateWalking()
         {
             base.AnimateWalking();
-            // UpdateSwordSortingOrder();
+            UpdateSwordSortingOrder();
         }
         
-        /*
+        
         private void UpdateSwordSortingOrder()
         {
             if (lastMoveDirection.y < 0 && lastMoveDirection.x == 0)
             {
                 // Spieler schaut nach unten, Schwert vor dem Spieler anzeigen
                 swordRenderer.sortingOrder = 1;
-                swordTransform.localPosition = new Vector3(-0.13f,-0.4f,-0.18f);
+                swordTransform.localPosition = new Vector3(-0.111f,-0.363f,-0.217f);
             }
             else if (lastMoveDirection.y > 0)
             {
@@ -108,7 +108,7 @@ namespace Scripts.Movements.AI
                 swordTransform.localPosition = new Vector3(-0.13f,-0.4f,-0.18f);
             }
             
-        } */
+        } 
 
         private IEnumerator PerformPlayerDash()
         {
