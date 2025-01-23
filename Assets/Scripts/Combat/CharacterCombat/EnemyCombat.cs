@@ -21,16 +21,22 @@ namespace Scripts.Combats.CharacterCombats
         }
 
         // Update is called once per frame
-        public void Update()
+        protected override void Update()
         {
+            base.Update();
             if (player != null)
             {
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
                 if (distanceToPlayer <= startAttackRange)
                 {
-                    contactDamage.PerformAttack(playerDirection);
+                    contactDamage.PerformAttack();
                 }
             }
+        }
+
+        protected override void FixedUpdate()
+        {
+            base.FixedUpdate();
         }
 
         public void SetPlayer(Transform playerTransform)

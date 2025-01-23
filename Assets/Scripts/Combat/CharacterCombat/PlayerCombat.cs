@@ -20,15 +20,15 @@ namespace Scripts.Combats.CharacterCombats
         }
 
         // Update is called once per frame
-        void Update()
+        protected override void Update()
         {
-
+            base.Update();
             // Angriff ausführen
             if (Time.time >= nextAttackTime)
             {
                 if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0))
                 {   
-                    sword.PerformAttack(playerDirection);
+                    sword.PerformAttack();
                     nextAttackTime = Time.time + 1f / attackRate;
                 }
             }

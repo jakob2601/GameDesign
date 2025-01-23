@@ -8,7 +8,7 @@ namespace Scripts.Combats.Weapons
     public class ContactDamage : Weapon
     {
 
-        public override void PerformAttack(MovementAI characterDirection)
+        public override void PerformAttack()
         {
             // Überprüfe, ob attackPoint nicht null ist
             if (attackPoint == null)
@@ -24,7 +24,7 @@ namespace Scripts.Combats.Weapons
                 return;
             }
 
-            if (characterDirection == null)
+            if (characterMovement == null)
             {
                 Debug.LogError("Player direction is not assigned.");
                 return;

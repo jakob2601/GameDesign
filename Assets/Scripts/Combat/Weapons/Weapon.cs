@@ -12,6 +12,7 @@ namespace Scripts.Combats.Weapons
         [SerializeField] public Transform attackPoint; // Referenzpunkt für den Angriff
         [SerializeField] public Combat combat;
         [SerializeField] public LayerMask enemyLayer;
+        [SerializeField] public MovementAI characterMovement;
 
         [SerializeField] public float attackRange = 0.5f; // Radius des Angriffsbereichs
         [SerializeField] public int attackDamage = 40;
@@ -164,6 +165,12 @@ namespace Scripts.Combats.Weapons
                 Debug.LogWarning("Attack Range Visualizer not found on " + gameObject.name);
             }
 
+            characterMovement = GetComponent<MovementAI>();
+            if (characterMovement == null)
+            {
+                Debug.LogError("MovementAI component not found on " + gameObject.name);
+            }
+
         }
 
         protected virtual void Update()
@@ -179,7 +186,13 @@ namespace Scripts.Combats.Weapons
             }
 
         }
-        public virtual void PerformAttack(MovementAI characterDireciton)
+
+        protected virtual void FixedUpdate()
+        {
+
+        }
+
+        public virtual void PerformAttack()
         {
             debugAttackRangeVisualizer.SetActive(true); // Visualisierung anzeigen
         }

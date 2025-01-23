@@ -36,8 +36,16 @@ namespace Scripts.Combats.CharacterCombats {
             {
                 Debug.LogError("Player direction is not assigned.");
             }
+        }
 
+        protected virtual void Update()
+        {
+            
+        }
 
+        protected virtual void FixedUpdate()
+        {
+            
         }
 
         abstract public MovementAI getCharacterDirection();
