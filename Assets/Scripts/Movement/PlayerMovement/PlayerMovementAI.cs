@@ -8,6 +8,8 @@ namespace Scripts.Movements.AI
     public class PlayerMovementAI: MovementAI
     {
         private Dash dash;
+        [SerializeField] public SpriteRenderer swordRenderer; // #TODO: exchange this with Sword class 
+        [SerializeField] public Transform swordTransform; // #TODO: exchange this with Sword class
         
 
         protected Dash GetDash() {
@@ -28,6 +30,16 @@ namespace Scripts.Movements.AI
             if (dash == null)
             {
                 Debug.LogError("Dash component not found on " + gameObject.name);
+            }
+
+            swordTransform = transform.Find("Sword");
+            if (swordTransform != null)
+            {
+                swordRenderer = swordTransform.Find("SwordGFX").GetComponent<SpriteRenderer>();
+            }
+            if (swordRenderer == null)
+            {
+                Debug.LogError("Sword SpriteRenderer component not found on " + gameObject.name);
             }
         }
 
@@ -57,6 +69,45 @@ namespace Scripts.Movements.AI
             }
         }
 
+        public override void AnimateWalking()
+        {
+            base.AnimateWalking();
+            UpdateSwordSortingOrder();
+        }
+
+        private void UpdateSwordSortingOrder()
+        {
+            if (lastMoveDirection.y < 0)
+            {
+                // Spieler schaut nach unten, Schwert vor dem Spieler anzeigen
+                swordRenderer.sortingOrder = 1;
+                swordTransform.localPosition = new Vector3(-0.13f,-0.4f,-0.18f);
+            }
+            else if (lastMoveDirection.y > 0)
+            {
+                // Spieler schaut nach oben, Schwert hinter dem Spieler anzeigen
+                swordRenderer.sortingOrder = -1;
+                swordTransform.localPosition = new Vector3(0.13f,-0.4f,-0.18f);
+                
+            }
+            else if(lastMoveDirection.x > 0 && lastMoveDirection.y == 0)
+            {
+                // Spieler schaut nach rechts, Schwert vor dem Spieler anzeigen
+                swordRenderer.sortingOrder = 1;
+                swordTransform.localPosition = new Vector3(-0.13f,-0.4f,-0.18f);
+            }
+            else if(lastMoveDirection.x < 0 && lastMoveDirection.y == 0)
+            {
+                //  Spieler schaut nach rechts, Schwert vor dem Spieler anzeigen
+                swordRenderer.sortingOrder = 1;
+                swordTransform.localPosition = new Vector3(0.13f,-0.4f,-0.18f);
+            }
+            else {
+                swordRenderer.sortingOrder = 1;
+                swordTransform.localPosition = new Vector3(-0.13f,-0.4f,-0.18f);
+            }
+            
+        }
 
         private IEnumerator PerformPlayerDash()
         {

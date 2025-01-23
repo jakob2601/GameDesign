@@ -11,82 +11,100 @@ namespace Scripts.Movements.AI
         [SerializeField] protected Transform GFX;
 
         protected Walking walking;
-        protected   Vector2 walkingInput;
+        protected Vector2 walkingInput;
 
         protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
         [SerializeField] protected bool isDashing = false; // Ob der Spieler aktuell dashen kann
         [SerializeField] public Vector2 lastMoveDirection; // letzte Bewegungsrichtung
         [SerializeField] public Vector3 originalScale; // Ursprüngliche Skalierung des Charakters
 
-        public Animator GetAnimator() {
+        public Animator GetAnimator()
+        {
             return animator;
         }
 
-        protected void SetAnimator(Animator animator) {
+        protected void SetAnimator(Animator animator)
+        {
             this.animator = animator;
         }
 
-        protected Rigidbody2D GetRigidbody2D() {
+        protected Rigidbody2D GetRigidbody2D()
+        {
             return rb;
         }
 
-        protected void SetRigidbody2D(Rigidbody2D rb) {
+        protected void SetRigidbody2D(Rigidbody2D rb)
+        {
             this.rb = rb;
         }
 
-        protected Transform GetGFX() {
+        protected Transform GetGFX()
+        {
             return GFX;
         }
 
-        protected void SetGFX(Transform GFX) {
+        protected void SetGFX(Transform GFX)
+        {
             this.GFX = GFX;
         }
 
-        protected bool GetIsFacingRight() {
+        protected bool GetIsFacingRight()
+        {
             return isFacingRight;
         }
 
-        protected void SetIsFacingRight(bool isFacingRight) {
+        protected void SetIsFacingRight(bool isFacingRight)
+        {
             this.isFacingRight = isFacingRight;
-        }  
+        }
 
-        protected bool GetIsDashing() {
+        protected bool GetIsDashing()
+        {
             return isDashing;
         }
 
-        protected void SetIsDashing(bool isDashing) {
+        protected void SetIsDashing(bool isDashing)
+        {
             this.isDashing = isDashing;
         }
 
-        protected Walking GetWalking() {
+        protected Walking GetWalking()
+        {
             return walking;
         }
 
-        protected void SetWalking(Walking walking) {
+        protected void SetWalking(Walking walking)
+        {
             this.walking = walking;
         }
 
-        protected Vector2 GetWalkingInput() {
+        protected Vector2 GetWalkingInput()
+        {
             return walkingInput;
         }
 
-        protected void SetWalkingInput(Vector2 walkingInput) {
+        protected void SetWalkingInput(Vector2 walkingInput)
+        {
             this.walkingInput = walkingInput;
         }
 
-        public Vector2 GetLastMoveDirection() {
+        public Vector2 GetLastMoveDirection()
+        {
             return lastMoveDirection;
         }
 
-        public void SetLastMoveDirection(Vector2 lastMoveDirection) {
+        public void SetLastMoveDirection(Vector2 lastMoveDirection)
+        {
             this.lastMoveDirection = lastMoveDirection;
         }
 
-        protected Vector3 GetOriginalScale() {
+        protected Vector3 GetOriginalScale()
+        {
             return originalScale;
         }
 
-        protected void SetOriginalScale(Vector3 originalScale) {
+        protected void SetOriginalScale(Vector3 originalScale)
+        {
             this.originalScale = originalScale;
         }
 
@@ -113,20 +131,21 @@ namespace Scripts.Movements.AI
             this.SetWalkingInput(Vector2.zero);
         }
 
-        
 
-        protected virtual void FixedUpdate() {
+
+        protected virtual void FixedUpdate()
+        {
 
         }
-        protected virtual void Update() {
+        protected virtual void Update()
+        {
             this.SetWalkingInput(ProccessInputs());
             this.AnimateWalking();
 
-            
-
         }
-        
-        protected Vector2 ProccessInputs() {
+
+        protected Vector2 ProccessInputs()
+        {
             float moveX = Input.GetAxisRaw("Horizontal");
             float moveY = Input.GetAxisRaw("Vertical");
 
@@ -139,7 +158,8 @@ namespace Scripts.Movements.AI
                 this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
                 animator.SetBool("IsMoving", true);
             }
-            else {
+            else
+            {
                 animator.SetBool("IsMoving", false);
             }
 
@@ -155,8 +175,10 @@ namespace Scripts.Movements.AI
             isFacingRight = !isFacingRight;
         }
 
-        public void AnimateWalking()
-        {   
+       
+
+        public virtual void AnimateWalking()
+        {
             Vector2 moveInput = GetWalkingInput();
             animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
             animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
