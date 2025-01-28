@@ -20,7 +20,6 @@ namespace Scripts.Movements.AI
         [SerializeField] protected LayerMask playerLayer;
         [SerializeField] private Collider2D playerCollider;
         
-
         protected EnemyCombat GetEnemyCombat() {
             return enemyCombat;
         }

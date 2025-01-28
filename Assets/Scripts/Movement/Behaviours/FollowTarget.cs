@@ -23,6 +23,7 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] private float timeSinceLastUpdate = 0f;
         private int currentWaypoint = 0;
         [SerializeField] private bool reachedEndOfPath = false;
+        [SerializeField] private bool hasLineOfSight = false;
 
         [SerializeField] private float startRadius = 10f;
         [SerializeField] private float endRadius = 3f;
@@ -116,6 +117,20 @@ namespace Scripts.Movements.Behaviours
         }
 
         public bool GetReachedEndOfPath()
+        {
+            return reachedEndOfPath;
+        }
+
+        public void SetHasLineOfSight(bool hasLineOfSight)
+        {
+            this.hasLineOfSight = hasLineOfSight;
+            if (!hasLineOfSight)
+                isEnabled = false;
+            else
+                isEnabled = true;
+        }
+
+        public bool GetHasLineOfSight()
         {
             return reachedEndOfPath;
         }
@@ -226,12 +241,40 @@ namespace Scripts.Movements.Behaviours
                 return;
             }
             UpdateCurrentDistanceToTarget();
-
+            
             if (this.currentDistanceToTarget <= this.endRadius)
             {
                 this.reachedEndOfPath = true;
             }
-            else if (this.isEnabled)
+            
+            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, target.position - transform.position);
+            bool targetFound = false;
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+                {
+                    // If an obstacle is hit, stop checking further
+                    break;
+                }
+                if (hit.collider != null && hit.collider.transform == target)
+                {
+                    targetFound = true;
+                    break;
+                }
+            }
+
+            if (targetFound)
+            {
+                SetHasLineOfSight(true);
+                Debug.DrawRay(transform.position, target.position - transform.position, Color.green);
+            }
+            else
+            {
+                SetHasLineOfSight(false);
+                Debug.DrawRay(transform.position, target.position - transform.position, Color.red);
+            }
+            
+            if (this.isEnabled)
             {
                 if (this.path == null)
                 {
