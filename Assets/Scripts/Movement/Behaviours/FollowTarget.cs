@@ -24,9 +24,12 @@ namespace Scripts.Movements.Behaviours
         private int currentWaypoint = 0;
         [SerializeField] private bool reachedEndOfPath = false;
         [SerializeField] private bool hasLineOfSight = false;
+        [SerializeField] private bool targetLost = false;
 
         [SerializeField] private float startRadius = 10f;
         [SerializeField] private float endRadius = 3f;
+
+        [SerializeField] protected Vector2 lastKnownPosition;
 
         [SerializeField] protected float currentDistanceToTarget;
 
@@ -70,8 +73,8 @@ namespace Scripts.Movements.Behaviours
 
         public void SetEnabled()
         {
-            if(this.target != null && !this.reachedEndOfPath && this.hasLineOfSight
-             && this.currentDistanceToTarget > this.endRadius && this.currentDistanceToTarget <= startRadius) 
+            if (this.target != null && !this.reachedEndOfPath && this.hasLineOfSight
+             && this.currentDistanceToTarget > this.endRadius && this.currentDistanceToTarget <= startRadius)
                 isEnabled = true;
             else
                 isEnabled = false;
@@ -128,6 +131,16 @@ namespace Scripts.Movements.Behaviours
         public bool GetHasLineOfSight()
         {
             return hasLineOfSight;
+        }
+
+        public void SetTargetLost(bool targetLost)
+        {
+            this.targetLost = targetLost;
+        }
+
+        public bool GetTargetLost()
+        {
+            return targetLost;
         }
 
         public void SetRigidbody(Rigidbody2D rb)
@@ -229,30 +242,20 @@ namespace Scripts.Movements.Behaviours
                 return;
             }
             UpdateCurrentDistanceToTarget();
-            
+
             if (this.currentDistanceToTarget <= this.endRadius)
             {
                 SetReachedEndOfPath(true);
             }
-            
+
             UpdateLineOfSight();
             SetEnabled();
 
-            if (this.isEnabled)
-            {
-                if (this.path == null)
-                {
-                    // Debug.LogWarning("Path not completed on " + gameObject.name + " in Script FollowTarget.cs");
-                    return;
-                }
-                if (this.isUnblocked)
-                {
-                    this.MoveTowardsTarget(rb, GetComponent<MovementAI>());
-                }
-            }
+            MoveTowardsTarget(rb, GetComponent<MovementAI>());
         }
 
-        protected void UpdateLineOfSight() {
+        protected void UpdateLineOfSight()
+        {
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, target.position - transform.position);
             bool targetFound = false;
             foreach (RaycastHit2D hit in hits)
@@ -272,15 +275,17 @@ namespace Scripts.Movements.Behaviours
             if (targetFound)
             {
                 SetHasLineOfSight(true);
+                SetTargetLost(false);
                 Debug.DrawRay(transform.position, target.position - transform.position, Color.green);
             }
             else
             {
                 SetHasLineOfSight(false);
+                SetTargetLost(true);
                 Debug.DrawRay(transform.position, target.position - transform.position, Color.red);
             }
-            
-        } 
+
+        }
 
         protected void MoveTowardsTarget(Rigidbody2D rb, MovementAI movementAI)
         {
@@ -304,21 +309,28 @@ namespace Scripts.Movements.Behaviours
                 return;
             }
 
-            Vector2 direction = ((Vector2)this.path.vectorPath[currentWaypoint] - this.rb.position).normalized;
-
-            if (direction.magnitude >= 0.1f)
+            if (targetLost)
             {
-                this.rb.MovePosition(walking.getNewPosition(rb.position, direction));
-                movementAI.SetLastMoveDirection(direction);
+                Vector2 
+
             }
-
-            float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-
-            if (distance < this.nextWaypointDistance)
+            else
             {
-                this.currentWaypoint++;
+                Vector2 direction = ((Vector2)this.path.vectorPath[currentWaypoint] - this.rb.position).normalized;
+
+                if (direction.magnitude >= 0.1f)
+                {
+                    this.rb.MovePosition(walking.getNewPosition(rb.position, direction));
+                    movementAI.SetLastMoveDirection(direction);
+                }
+
+                float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+
+                if (distance < this.nextWaypointDistance)
+                {
+                    this.currentWaypoint++;
+                }
             }
-            // movementAI.UpdateScale(directedForce);
         }
 
 
