@@ -68,10 +68,15 @@ namespace Scripts.Movements.Behaviours
             this.path = path;
         }
 
-        public void SetEnabled(bool isEnabled)
+        public void SetEnabled()
         {
-            this.isEnabled = isEnabled;
+            if(this.target != null && !this.reachedEndOfPath && this.hasLineOfSight
+             && this.currentDistanceToTarget > this.endRadius && this.currentDistanceToTarget <= startRadius) 
+                isEnabled = true;
+            else
+                isEnabled = false;
         }
+
         public bool GetEnabled()
         {
             return isEnabled;
@@ -103,17 +108,11 @@ namespace Scripts.Movements.Behaviours
         public void SetTarget(Transform target)
         {
             this.target = target;
-            if (target == null)
-            {
-                isEnabled = false;
-            }
         }
 
         public void SetReachedEndOfPath(bool reachedEndOfPath)
         {
             this.reachedEndOfPath = reachedEndOfPath;
-            if (reachedEndOfPath)
-                isEnabled = false;
         }
 
         public bool GetReachedEndOfPath()
@@ -124,15 +123,11 @@ namespace Scripts.Movements.Behaviours
         public void SetHasLineOfSight(bool hasLineOfSight)
         {
             this.hasLineOfSight = hasLineOfSight;
-            if (!hasLineOfSight)
-                isEnabled = false;
-            else
-                isEnabled = true;
         }
 
         public bool GetHasLineOfSight()
         {
-            return reachedEndOfPath;
+            return hasLineOfSight;
         }
 
         public void SetRigidbody(Rigidbody2D rb)
@@ -166,13 +161,6 @@ namespace Scripts.Movements.Behaviours
 
         public float GetCurrentDistanceToTarget()
         {
-            if (currentDistanceToTarget <= startRadius && currentDistanceToTarget > endRadius)
-            {
-                isEnabled = true;
-                reachedEndOfPath = false;
-            }
-            else
-                isEnabled = false;
             return currentDistanceToTarget;
         }
 
@@ -244,9 +232,27 @@ namespace Scripts.Movements.Behaviours
             
             if (this.currentDistanceToTarget <= this.endRadius)
             {
-                this.reachedEndOfPath = true;
+                SetReachedEndOfPath(true);
             }
             
+            UpdateLineOfSight();
+            SetEnabled();
+
+            if (this.isEnabled)
+            {
+                if (this.path == null)
+                {
+                    // Debug.LogWarning("Path not completed on " + gameObject.name + " in Script FollowTarget.cs");
+                    return;
+                }
+                if (this.isUnblocked)
+                {
+                    this.MoveTowardsTarget(rb, GetComponent<MovementAI>());
+                }
+            }
+        }
+
+        protected void UpdateLineOfSight() {
             RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, target.position - transform.position);
             bool targetFound = false;
             foreach (RaycastHit2D hit in hits)
@@ -274,19 +280,7 @@ namespace Scripts.Movements.Behaviours
                 Debug.DrawRay(transform.position, target.position - transform.position, Color.red);
             }
             
-            if (this.isEnabled)
-            {
-                if (this.path == null)
-                {
-                    // Debug.LogWarning("Path not completed on " + gameObject.name + " in Script FollowTarget.cs");
-                    return;
-                }
-                if (this.isUnblocked)
-                {
-                    this.MoveTowardsTarget(rb, GetComponent<MovementAI>());
-                }
-            }
-        }
+        } 
 
         protected void MoveTowardsTarget(Rigidbody2D rb, MovementAI movementAI)
         {
