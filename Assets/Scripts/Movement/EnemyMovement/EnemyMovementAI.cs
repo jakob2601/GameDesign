@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Scripts.Combats.CharacterCombats;
 using UnityEngine;
 using Scripts.Movements.Moves;
-using Scripts.Movements.Behaviours;
+using Scripts.Movements.Behaviours; 
 
 
 namespace Scripts.Movements.AI
