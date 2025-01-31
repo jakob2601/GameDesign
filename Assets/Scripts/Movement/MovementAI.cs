@@ -11,7 +11,7 @@ namespace Scripts.Movements.AI
         [SerializeField] protected Transform GFX;
 
         protected Walking walking;
-        protected   Vector2 walkingInput;
+        protected Vector2 walkingInput;
 
         protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
         [SerializeField] protected bool isDashing = false; // Ob der Spieler aktuell dashen kann

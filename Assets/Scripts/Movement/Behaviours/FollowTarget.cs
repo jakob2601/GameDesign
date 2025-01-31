@@ -29,7 +29,6 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] private float startRadius = 10f;
         [SerializeField] private float endRadius = 3f;
 
-        [SerializeField] protected Vector2 lastKnownPosition;
 
         [SerializeField] protected float currentDistanceToTarget;
 
@@ -74,10 +73,14 @@ namespace Scripts.Movements.Behaviours
         public void SetEnabled()
         {
             if (this.target != null && !this.reachedEndOfPath && this.hasLineOfSight
-             && this.currentDistanceToTarget > this.endRadius && this.currentDistanceToTarget <= startRadius)
+             && this.currentDistanceToTarget > this.endRadius && this.currentDistanceToTarget <= startRadius) 
+            {
                 isEnabled = true;
-            else
+            }
+            else 
+            {
                 isEnabled = false;
+            }
         }
 
         public bool GetEnabled()
@@ -113,9 +116,14 @@ namespace Scripts.Movements.Behaviours
             this.target = target;
         }
 
-        public void SetReachedEndOfPath(bool reachedEndOfPath)
+        public void SetReachedEndOfPath()
         {
-            this.reachedEndOfPath = reachedEndOfPath;
+            this.reachedEndOfPath = true;
+        }
+
+        public void ResetReachedEndOfPath()
+        {
+            this.reachedEndOfPath = false;
         }
 
         public bool GetReachedEndOfPath()
@@ -245,10 +253,17 @@ namespace Scripts.Movements.Behaviours
 
             if (this.currentDistanceToTarget <= this.endRadius)
             {
-                SetReachedEndOfPath(true);
+                SetReachedEndOfPath();
             }
 
-            UpdateLineOfSight();
+            if (path == null)
+            {
+                return;
+            }
+            if(this.currentDistanceToTarget <= this.startRadius) {
+                UpdateLineOfSight();
+            }
+               
             SetEnabled();
 
             MoveTowardsTarget(rb, GetComponent<MovementAI>());
@@ -256,33 +271,22 @@ namespace Scripts.Movements.Behaviours
 
         protected void UpdateLineOfSight()
         {
-            RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, target.position - transform.position);
-            bool targetFound = false;
-            foreach (RaycastHit2D hit in hits)
+            if (path == null)
             {
-                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
-                {
-                    // If an obstacle is hit, stop checking further
-                    break;
-                }
-                if (hit.collider != null && hit.collider.transform == target)
-                {
-                    targetFound = true;
-                    break;
-                }
+                return;
             }
+            bool targetFound = HasCombinedLOSPoint();
 
             if (targetFound)
             {
                 SetHasLineOfSight(true);
                 SetTargetLost(false);
-                Debug.DrawRay(transform.position, target.position - transform.position, Color.green);
             }
             else
             {
+                Debug.DrawRay(transform.position, target.position - transform.position, Color.red);
                 SetHasLineOfSight(false);
                 SetTargetLost(true);
-                Debug.DrawRay(transform.position, target.position - transform.position, Color.red);
             }
 
         }
@@ -305,13 +309,16 @@ namespace Scripts.Movements.Behaviours
             if (this.currentWaypoint >= this.path.vectorPath.Count)
             {
                 Debug.Log("End of path reached");
-                this.reachedEndOfPath = true;
+                SetReachedEndOfPath();
                 return;
+            }
+            else 
+            {
+                ResetReachedEndOfPath();
             }
 
             if (targetLost)
             {
-                //Vector2 
 
             }
             else
@@ -333,6 +340,58 @@ namespace Scripts.Movements.Behaviours
             }
         }
 
+        // Check if the character and the target have line of sight to the same point on the path
+        private bool HasCombinedLOSPoint()
+        {
+            if (path == null || path.vectorPath == null)
+            {
+                Debug.LogError("Path or path.vectorPath is null");
+                return false;
+            }
+
+            bool pointFound = false;
+            for (int i = 0; i < path.vectorPath.Count; i++)
+            {
+
+                // Check if the character has line of sight to the waypoint
+                bool characterHasLineOfSight = HasLineOfSight(this.path.vectorPath[i],  transform);
+
+                // Check if the target has line of sight to the waypoint
+                bool targetHasLineOfSight = HasLineOfSight(this.path.vectorPath[i], target);
+
+                // If both the character and the target have line of sight to the same point on the path and the distance between the character and the path is less than the start radius
+                if (characterHasLineOfSight && targetHasLineOfSight && Vector2.Distance(transform.position, this.path.vectorPath[i]) < startRadius)
+                {
+                    Debug.DrawRay(transform.position, this.path.vectorPath[i] - transform.position, Color.green);
+                    Debug.DrawRay(target.position, this.path.vectorPath[i] - target.position, Color.green);
+
+                    pointFound = true;
+                    break;
+                }
+            }
+
+            return pointFound;
+        }
+
+        // Check if there is line of sight between one point and a target
+        private bool HasLineOfSight(Vector3 start, Transform endTarget) 
+        {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(start, endTarget.position - start);
+            bool targetFound = false;
+            foreach (RaycastHit2D hit in hits)
+            {
+                if (hit.collider != null && hit.collider.gameObject.layer == LayerMask.NameToLayer("Obstacle"))
+                {
+                    break;
+                }
+                if (hit.collider != null && hit.collider.transform == endTarget)
+                {
+                    targetFound = true;
+                    break;
+                }
+            }
+            return targetFound;
+        }
 
 
         private void UpdatePath(Rigidbody2D rb)

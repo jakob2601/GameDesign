@@ -157,7 +157,7 @@ namespace Scripts.Movements.AI
                     radiate.SetIsUnblocked(false);
                     return;
                 }
-                if(unstuck.getIsUnstucking()) {
+                else if(unstuck.getIsUnstucking()) {
                     // Debug.Log("Is Unstucking");
                     followTarget.SetUnblock(false); 
                     radiate.SetIsUnblocked(false);

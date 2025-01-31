@@ -148,7 +148,7 @@ namespace Scripts.Movements.Behaviours
         {
             if (target == null)
             {
-                Debug.LogWarning("Target not found on " + gameObject.name + " in Script FollowTarget.cs");
+                // Debug.LogWarning("Target not found on " + gameObject.name + " in Script FollowTarget.cs");
                 return;
             }
             else if (walking == null)

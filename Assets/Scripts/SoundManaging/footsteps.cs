@@ -4,12 +4,44 @@ using UnityEngine;
 
 public class FootstepScript : MonoBehaviour
 {
-    public GameObject footstep;
+    public AudioSource footstepAudioSource;
+
+    private void setFootStep(AudioSource footstepAudioSource)
+    {
+        this.footstepAudioSource = footstepAudioSource;
+    }
+
+    private AudioSource getFootStep()
+    {
+        return footstepAudioSource;
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        footstep.SetActive(false);
+        Transform footStepTransform = transform.Find("Footsteps");
+
+        if (footStepTransform == null)
+        {
+            Debug.LogError("Footstep object not found");
+        }
+        else
+        {
+            AudioSource audioSource = footStepTransform.GetComponent<AudioSource>();
+            if (audioSource == null)
+            {
+                Debug.LogError("AudioSource component not found on Footsteps object");
+            }
+            else
+            {
+                this.setFootStep(audioSource);
+            }
+        }
+
+        if (footstepAudioSource != null)
+        {
+            footstepAudioSource.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -20,27 +52,21 @@ public class FootstepScript : MonoBehaviour
         bool aPressed = Input.GetKey("a");
         bool dPressed = Input.GetKey("d");
 
-        if ((wPressed && sPressed) || (dPressed && aPressed))
+        if (wPressed || sPressed || aPressed || dPressed)
         {
-            StopFootsteps();
-        }
-        else if (wPressed || sPressed || aPressed || dPressed)
-        {
-            footsteps();
+            if (footstepAudioSource != null && !footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.enabled = true;
+                footstepAudioSource.Play();
+            }
         }
         else
         {
-            StopFootsteps();
+            if (footstepAudioSource != null && footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Stop();
+                footstepAudioSource.enabled = false;
+            }
         }
-    }
-
-    void footsteps()
-    {
-        footstep.SetActive(true);
-    }
-
-    void StopFootsteps()
-    {
-        footstep.SetActive(false);
     }
 }
