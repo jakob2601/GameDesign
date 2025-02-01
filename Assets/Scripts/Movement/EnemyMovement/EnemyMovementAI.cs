@@ -162,7 +162,7 @@ namespace Scripts.Movements.AI
             }
             else
             {
-                Debug.Log("Player not found in the area.");
+                // Debug.Log("Player not found in the area.");
             }
         }
 
