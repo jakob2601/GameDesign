@@ -13,7 +13,6 @@ namespace Scripts.Movements.AI
         [SerializeField] private EnemyCombat enemyCombat;
         [SerializeField] private Unstuck unstuck;
         [SerializeField] private FollowTarget followTarget;
-        [SerializeField] private Radiate radiate;
         [SerializeField] private Knockback knockback;
 
         [SerializeField] private Transform player;
@@ -42,14 +41,6 @@ namespace Scripts.Movements.AI
 
         protected void SetFollowTarget(FollowTarget followTarget) {
             this.followTarget = followTarget;
-        }
-
-        protected Radiate GetRadiate() {
-            return radiate;
-        }
-
-        protected void SetRadiate(Radiate radiate) {
-            this.radiate = radiate;
         }
 
 
@@ -124,19 +115,12 @@ namespace Scripts.Movements.AI
             if (followTarget == null)
             {
                 Debug.LogError("FollowTarget component not found on " + gameObject.name);
-                followTarget.SetUnblock(false);
             }
             else 
             {
                 followTarget.SetRigidbody(rb);
-                followTarget.SetUnblock(true);
             }
 
-            this.SetRadiate(GetComponent<Radiate>());
-            if (radiate == null)
-            {
-                Debug.LogError("Radiate component not found on " + gameObject.name);
-            }
         }
 
         protected override void FixedUpdate()
@@ -149,46 +133,36 @@ namespace Scripts.Movements.AI
                 this.SetPlayer(playerCollider.transform);
                 followTarget.SetTarget(player);
                 enemyCombat.SetPlayer(player);
-                radiate.SetTarget(player);
 
                 if(knockback.GetKnockbackActive()) {
                     // Debug.Log("Knockback active.");
-                    followTarget.SetUnblock(false); 
-                    radiate.SetIsUnblocked(false);
+                    
                     return;
                 }
                 else if(unstuck.getIsUnstucking()) {
                     // Debug.Log("Is Unstucking");
-                    followTarget.SetUnblock(false); 
-                    radiate.SetIsUnblocked(false);
-                }
-                else if(followTarget.GetCurrentDistanceToTarget() <= radiate.GetCircleRadius()) {
-                    // Debug.Log("Is Radiating");
-                    followTarget.SetUnblock(false); 
-                    radiate.SetIsUnblocked(true);
-                    radiate.RadiateAroundTarget();
-                    followTarget.SetUnblock(true);
-                }
-                else if (followTarget.GetEnabled() && followTarget.GetUnblocked())
+                    return;
+                }   
+                else if (followTarget.GetEnabled())
                 {
                     // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
                     // Debug.Log("Is Following Target");
-                    followTarget.SetUnblock(true); 
-                    radiate.SetIsUnblocked(false);
+                    
+                    this.Walk();
+                    walkingInput = new Vector2(0, 0);
+                   
+                    
                 }
                 else if(followTarget.GetCurrentDistanceToTarget() > followTarget.GetStartRadius())
                 {
                     // Wenn der Spieler nicht in Reichweite ist, kann der Gegner andere Aktionen ausführen
                     // Debug.Log("Is doing other things");
-                    followTarget.SetUnblock(false); 
-                    radiate.SetIsUnblocked(false);
                 }
                 
             }
             else
             {
                 Debug.Log("Player not found in the area.");
-                followTarget.SetUnblock(false); 
             }
         }
 
@@ -196,6 +170,30 @@ namespace Scripts.Movements.AI
         {   
             base.Update();
 
+        }
+
+        protected void Walk()
+        {
+            if(walkingInput.magnitude > 0.01f) 
+            {
+                rb.MovePosition(walking.getNewPosition(rb.position, walkingInput));
+                SetLastMoveDirection(walkingInput);
+            }
+        }
+
+        protected override void ProcessInputs()
+        {
+            float moveX = walkingInput.x;
+            float moveY = walkingInput.y;
+
+            if (moveX != 0 || moveY != 0)
+            {
+                this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
+                animator.SetBool("IsMoving", true);
+            }
+            else {
+                animator.SetBool("IsMoving", false);
+            }
         }
 
 

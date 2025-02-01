@@ -10,8 +10,8 @@ namespace Scripts.Movements.AI
         [SerializeField] protected Rigidbody2D rb; // Rigidbody2D-Komponente
         [SerializeField] protected Transform GFX;
 
-        protected Walking walking;
-        protected Vector2 walkingInput;
+        [SerializeField] protected Walking walking;
+        [SerializeField] protected Vector2 walkingInput;
 
         protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
         [SerializeField] protected bool isDashing = false; // Ob der Spieler aktuell dashen kann
@@ -66,11 +66,11 @@ namespace Scripts.Movements.AI
             this.walking = walking;
         }
 
-        protected Vector2 GetWalkingInput() {
+        public Vector2 GetWalkingInput() {
             return walkingInput;
         }
 
-        protected void SetWalkingInput(Vector2 walkingInput) {
+        public void SetWalkingInput(Vector2 walkingInput) {
             this.walkingInput = walkingInput;
         }
 
@@ -116,35 +116,14 @@ namespace Scripts.Movements.AI
         
 
         protected virtual void FixedUpdate() {
-
+            this.ProcessInputs();
+            this.AnimateWalking();
         }
         protected virtual void Update() {
-            this.SetWalkingInput(ProccessInputs());
-            this.AnimateWalking();
-
             
-
         }
         
-        protected Vector2 ProccessInputs() {
-            float moveX = Input.GetAxisRaw("Horizontal");
-            float moveY = Input.GetAxisRaw("Vertical");
-
-            // Toleranz für kleine Eingabewerte
-            if (Mathf.Abs(moveX) < 0.1f) moveX = 0;
-            if (Mathf.Abs(moveY) < 0.1f) moveY = 0;
-
-            if (moveX != 0 || moveY != 0)
-            {
-                this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
-                animator.SetBool("IsMoving", true);
-            }
-            else {
-                animator.SetBool("IsMoving", false);
-            }
-
-            return new Vector2(moveX, moveY).normalized;
-        }
+        protected abstract void ProcessInputs();
 
         protected void Flip()
         {

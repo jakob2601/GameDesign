@@ -17,23 +17,22 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] private Path path;
         [SerializeField] private Rigidbody2D rb;
 
-        [SerializeField] private float nextWaypointDistance = 3f;
+        [SerializeField] private float nextWaypointDistance = 0.5f;
         [SerializeField] private float startUpdatePathTime = 0f;
         [SerializeField] private float updatePathRate = 0.5f;
         [SerializeField] private float timeSinceLastUpdate = 0f;
-        private int currentWaypoint = 0;
+        [SerializeField] private int currentWaypoint = 0;
         [SerializeField] private bool reachedEndOfPath = false;
-        [SerializeField] private bool hasLineOfSight = false;
         [SerializeField] private bool targetLost = false;
 
-        [SerializeField] private float startRadius = 10f;
-        [SerializeField] private float endRadius = 3f;
+        [SerializeField] private float startRadius;
+        [SerializeField] private float endRadius;
 
 
         [SerializeField] protected float currentDistanceToTarget;
 
         [SerializeField] private bool isEnabled = true; // Is Enabled by interior
-        [SerializeField] private bool isUnblocked; // Unblocked by outerior
+        
 
         public void SetNextWaypointDistance(float nextWaypointDistance)
         {
@@ -72,7 +71,7 @@ namespace Scripts.Movements.Behaviours
 
         public void SetEnabled()
         {
-            if (this.target != null && !this.reachedEndOfPath && this.hasLineOfSight
+            if (this.target != null && !this.reachedEndOfPath && !this.targetLost
              && this.currentDistanceToTarget > this.endRadius && this.currentDistanceToTarget <= startRadius) 
             {
                 isEnabled = true;
@@ -86,15 +85,6 @@ namespace Scripts.Movements.Behaviours
         public bool GetEnabled()
         {
             return isEnabled;
-        }
-
-        public void SetUnblock(bool isUnblocked)
-        {
-            this.isUnblocked = isUnblocked;
-        }
-        public bool GetUnblocked()
-        {
-            return isUnblocked;
         }
 
 
@@ -129,16 +119,6 @@ namespace Scripts.Movements.Behaviours
         public bool GetReachedEndOfPath()
         {
             return reachedEndOfPath;
-        }
-
-        public void SetHasLineOfSight(bool hasLineOfSight)
-        {
-            this.hasLineOfSight = hasLineOfSight;
-        }
-
-        public bool GetHasLineOfSight()
-        {
-            return hasLineOfSight;
         }
 
         public void SetTargetLost(bool targetLost)
@@ -255,6 +235,10 @@ namespace Scripts.Movements.Behaviours
             {
                 SetReachedEndOfPath();
             }
+            else 
+            {
+                ResetReachedEndOfPath();
+            }
 
             if (path == null)
             {
@@ -278,14 +262,12 @@ namespace Scripts.Movements.Behaviours
             bool targetFound = HasCombinedLOSPoint();
 
             if (targetFound)
-            {
-                SetHasLineOfSight(true);
+            {  
                 SetTargetLost(false);
             }
             else
             {
                 Debug.DrawRay(transform.position, target.position - transform.position, Color.red);
-                SetHasLineOfSight(false);
                 SetTargetLost(true);
             }
 
@@ -293,7 +275,7 @@ namespace Scripts.Movements.Behaviours
 
         protected void MoveTowardsTarget(Rigidbody2D rb, MovementAI movementAI)
         {
-            if (!this.isEnabled || !this.isUnblocked)
+            if (!this.isEnabled)
                 return;
             if (this.path == null)
             {
@@ -327,8 +309,7 @@ namespace Scripts.Movements.Behaviours
 
                 if (direction.magnitude >= 0.1f)
                 {
-                    this.rb.MovePosition(walking.getNewPosition(rb.position, direction));
-                    movementAI.SetLastMoveDirection(direction);
+                    movementAI.SetWalkingInput(direction);
                 }
 
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);

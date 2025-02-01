@@ -50,11 +50,36 @@ namespace Scripts.Movements.AI
         protected override void FixedUpdate()
         {
             base.FixedUpdate();
-            // Normale Bewegung, wenn nicht gedasht wird und Bewegungseingabe vorhanden ist
-            if (!isDashing && walkingInput.magnitude > 0.01f) // Schwellenwert für Bewegung
+            // Normale Bewegung, wenn nicht gedasht wird 
+            if (!isDashing)
+            {
+                this.Walk();
+            }
+        }
+
+        protected override void ProcessInputs()
+        {
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
+
+            if (moveX != 0 || moveY != 0)
+            {
+                this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
+                animator.SetBool("IsMoving", true);
+            }
+            else {
+                animator.SetBool("IsMoving", false);
+            }
+            this.SetWalkingInput(new Vector2(moveX, moveY).normalized);
+        }
+
+        protected void Walk()
+        {
+            if(walkingInput.magnitude > 0.01f) 
             {
                 rb.MovePosition(walking.getNewPosition(rb.position, walkingInput));
             }
+           
         }
 
 
