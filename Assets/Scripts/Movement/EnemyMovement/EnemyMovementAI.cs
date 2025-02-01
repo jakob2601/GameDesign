@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Scripts.Combats.CharacterCombats;
 using UnityEngine;
 using Scripts.Movements.Moves;
-using Scripts.Movements.Behaviours; 
+using Scripts.Movements.Behaviours;
 
 
 namespace Scripts.Movements.AI
 {
-    public class EnemyMovementAI: MovementAI 
+    public class EnemyMovementAI : MovementAI
     {
         [SerializeField] private EnemyCombat enemyCombat;
         [SerializeField] private Unstuck unstuck;
@@ -18,62 +18,99 @@ namespace Scripts.Movements.AI
         [SerializeField] private Transform player;
         [SerializeField] protected LayerMask playerLayer;
         [SerializeField] private Collider2D playerCollider;
-        
-        protected EnemyCombat GetEnemyCombat() {
+
+        [SerializeField] private float randomWalkProbability = 0.3f; // Wahrscheinlichkeit, dass der Input randomisiert wird
+        [SerializeField] private float randomWalkAngle = 30f; // Zufälliger Winkel zwischen -randomWalkAngle und randomWalkAngle Grad
+
+        protected EnemyCombat GetEnemyCombat()
+        {
             return enemyCombat;
         }
 
-        protected void SetEnemyCombat(EnemyCombat enemyCombat) {
+        protected void SetEnemyCombat(EnemyCombat enemyCombat)
+        {
             this.enemyCombat = enemyCombat;
         }
 
-        protected Unstuck GetUnstuck() {
+        protected Unstuck GetUnstuck()
+        {
             return unstuck;
         }
 
-        protected void SetUnstuck(Unstuck unstuck) {
+        protected void SetUnstuck(Unstuck unstuck)
+        {
             this.unstuck = unstuck;
         }
 
-        protected FollowTarget GetFollowTarget() {
+        protected FollowTarget GetFollowTarget()
+        {
             return followTarget;
         }
 
-        protected void SetFollowTarget(FollowTarget followTarget) {
+        protected void SetFollowTarget(FollowTarget followTarget)
+        {
             this.followTarget = followTarget;
         }
 
 
-        protected Knockback GetKnockback() {
+        protected Knockback GetKnockback()
+        {
             return knockback;
         }
 
-        protected void SetKnockback(Knockback knockback) {
+        protected void SetKnockback(Knockback knockback)
+        {
             this.knockback = knockback;
         }
 
-        protected Transform GetPlayer() {
+        protected Transform GetPlayer()
+        {
             return player;
         }
 
-        protected void SetPlayer(Transform player) {
+        protected void SetPlayer(Transform player)
+        {
             this.player = player;
         }
 
-        protected LayerMask GetPlayerLayer() {
+        protected LayerMask GetPlayerLayer()
+        {
             return playerLayer;
         }
 
-        protected void SetPlayerLayer(LayerMask playerLayer) {
+        protected void SetPlayerLayer(LayerMask playerLayer)
+        {
             this.playerLayer = playerLayer;
         }
 
-        protected Collider2D GetPlayerCollider() {
+        protected Collider2D GetPlayerCollider()
+        {
             return playerCollider;
         }
 
-        protected void SetPlayerCollider(Collider2D playerCollider) {
+        protected void SetPlayerCollider(Collider2D playerCollider)
+        {
             this.playerCollider = playerCollider;
+        }
+
+        protected void SetRandomWalkProbability(float randomWalkProbability)
+        {
+            this.randomWalkProbability = randomWalkProbability;
+        }
+
+        protected float GetRandomWalkProbability()
+        {
+            return randomWalkProbability;
+        }
+
+        protected void SetRandomWalkAngle(float randomWalkAngle)
+        {
+            this.randomWalkAngle = randomWalkAngle;
+        }
+
+        protected float GetRandomWalkAngle()
+        {
+            return randomWalkAngle;
         }
 
 
@@ -116,7 +153,7 @@ namespace Scripts.Movements.AI
             {
                 Debug.LogError("FollowTarget component not found on " + gameObject.name);
             }
-            else 
+            else
             {
                 followTarget.SetRigidbody(rb);
             }
@@ -134,31 +171,30 @@ namespace Scripts.Movements.AI
                 followTarget.SetTarget(player);
                 enemyCombat.SetPlayer(player);
 
-                if(knockback.GetKnockbackActive()) {
+                if (knockback.GetKnockbackActive())
+                {
                     // Debug.Log("Knockback active.");
-                    
+
                     return;
                 }
-                else if(unstuck.getIsUnstucking()) {
+                else if (unstuck.getIsUnstucking())
+                {
                     // Debug.Log("Is Unstucking");
                     return;
-                }   
+                }
                 else if (followTarget.GetEnabled())
                 {
                     // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
                     // Debug.Log("Is Following Target");
-                    
-                    this.Walk();
-                    walkingInput = new Vector2(0, 0);
-                   
-                    
+                    RandomizeWalkingInput();
+                    walking.Walk(this.GetWalkingInput());
                 }
-                else if(followTarget.GetCurrentDistanceToTarget() > followTarget.GetStartRadius())
+                else if (followTarget.GetCurrentDistanceToTarget() > followTarget.GetStartRadius())
                 {
                     // Wenn der Spieler nicht in Reichweite ist, kann der Gegner andere Aktionen ausführen
                     // Debug.Log("Is doing other things");
                 }
-                
+
             }
             else
             {
@@ -167,22 +203,14 @@ namespace Scripts.Movements.AI
         }
 
         protected override void Update()
-        {   
+        {
             base.Update();
 
         }
 
-        protected void Walk()
-        {
-            if(walkingInput.magnitude > 0.01f) 
-            {
-                rb.MovePosition(walking.getNewPosition(rb.position, walkingInput));
-                SetLastMoveDirection(walkingInput);
-            }
-        }
-
         protected override void ProcessInputs()
         {
+            this.RandomizeWalkingInput();
             float moveX = walkingInput.x;
             float moveY = walkingInput.y;
 
@@ -191,11 +219,26 @@ namespace Scripts.Movements.AI
                 this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
                 animator.SetBool("IsMoving", true);
             }
-            else {
+            else
+            {
                 animator.SetBool("IsMoving", false);
             }
         }
 
+        protected void RandomizeWalkingInput()
+        {
+            if (Random.value < randomWalkProbability) 
+            {
+                float angle = Random.Range(-randomWalkAngle, randomWalkAngle); // Zufälliger Winkel zwischen -randomWalkAngle und randomWalkAngle Grad
+                Vector2 direction = followTarget.GetWalkingInput();
+                direction = Quaternion.Euler(0, 0, angle) * direction;
+                this.SetWalkingInput(direction);
+            }
+            else
+            {
+                this.SetWalkingInput(followTarget.GetWalkingInput());
+            }
+        }
 
         void OnDrawGizmosSelected()
         {

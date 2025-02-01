@@ -24,6 +24,8 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] private int currentWaypoint = 0;
         [SerializeField] private bool reachedEndOfPath = false;
         [SerializeField] private bool targetLost = false;
+        
+        [SerializeField] private Vector2 walkingInput;
 
         [SerializeField] private float startRadius;
         [SerializeField] private float endRadius;
@@ -129,6 +131,16 @@ namespace Scripts.Movements.Behaviours
         public bool GetTargetLost()
         {
             return targetLost;
+        }
+
+        protected void SetWalkingInput(Vector2 walkingInput)
+        {
+            this.walkingInput = walkingInput;
+        }
+
+        public Vector2 GetWalkingInput()
+        {
+            return walkingInput;
         }
 
         public void SetRigidbody(Rigidbody2D rb)
@@ -307,10 +319,7 @@ namespace Scripts.Movements.Behaviours
             {
                 Vector2 direction = ((Vector2)this.path.vectorPath[currentWaypoint] - this.rb.position).normalized;
 
-                if (direction.magnitude >= 0.1f)
-                {
-                    movementAI.SetWalkingInput(direction);
-                }
+                this.SetWalkingInput(direction);
 
                 float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
 

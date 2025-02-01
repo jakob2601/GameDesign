@@ -385,6 +385,8 @@ MonoBehaviour:
   animator: {fileID: 9014832005840109755}
   rb: {fileID: 7127369674428886474}
   GFX: {fileID: 6377654365571422507}
+  walking: {fileID: 0}
+  walkingInput: {x: 0, y: 0}
   isDashing: 0
   lastMoveDirection: {x: 0, y: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -472,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5.5
+  rb: {fileID: 7127369674428886474}
 --- !u!114 &1526314319241926698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,7 +631,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e8a5bc99c97904cb18233a51e2ac3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstep: {fileID: 0}
+  footstepAudioSource: {fileID: 0}
 --- !u!82 &8308410888951155897
 AudioSource:
   m_ObjectHideFlags: 0
@@ -756,4 +759,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e8a5bc99c97904cb18233a51e2ac3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  footstep: {fileID: 0}
+  footstepAudioSource: {fileID: 0}

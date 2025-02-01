@@ -196,6 +196,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerCollider: {fileID: 0}
+  randomWalkProbability: 0.3
+  randomWalkAngle: 30
 --- !u!114 &3253567361553378283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,8 +293,8 @@ MonoBehaviour:
   timeSinceLastUpdate: 0
   currentWaypoint: 0
   reachedEndOfPath: 0
-  hasLineOfSight: 0
   targetLost: 0
+  walkingInput: {x: 0, y: 0}
   startRadius: 10
   endRadius: 0
   currentDistanceToTarget: 0
@@ -333,6 +335,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  rb: {fileID: 2579191884603178559}
 --- !u!114 &2081608683695642961
 MonoBehaviour:
   m_ObjectHideFlags: 0

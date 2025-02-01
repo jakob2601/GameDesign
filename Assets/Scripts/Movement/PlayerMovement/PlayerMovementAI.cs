@@ -53,7 +53,7 @@ namespace Scripts.Movements.AI
             // Normale Bewegung, wenn nicht gedasht wird 
             if (!isDashing)
             {
-                this.Walk();
+                walking.Walk(this.walkingInput);
             }
         }
 
@@ -69,19 +69,9 @@ namespace Scripts.Movements.AI
             }
             else {
                 animator.SetBool("IsMoving", false);
-            }
+            }   
             this.SetWalkingInput(new Vector2(moveX, moveY).normalized);
         }
-
-        protected void Walk()
-        {
-            if(walkingInput.magnitude > 0.01f) 
-            {
-                rb.MovePosition(walking.getNewPosition(rb.position, walkingInput));
-            }
-           
-        }
-
 
         private IEnumerator PerformPlayerDash()
         {
