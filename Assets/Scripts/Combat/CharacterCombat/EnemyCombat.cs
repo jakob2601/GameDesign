@@ -47,6 +47,11 @@ namespace Scripts.Combats.CharacterCombats
                         nextAttackTime = Time.time + 1f / attackRate;
                     }
                 }
+                else
+                {
+                    contactDamage.SetIsEnabled(false);
+                    sword.GetAnimator().ResetTrigger("Attack"); // Reset attack animation
+                }
             }
         }
 

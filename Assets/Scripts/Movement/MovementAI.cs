@@ -119,7 +119,8 @@ namespace Scripts.Movements.AI
             this.ProcessInputs();
             this.AnimateWalking();
         }
-        protected virtual void Update() {
+        protected virtual void Update()
+        {
             
         }
         

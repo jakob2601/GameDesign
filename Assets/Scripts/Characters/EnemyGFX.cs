@@ -28,6 +28,10 @@ namespace Scripts.Characters
             {
                 transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
             }
+            else 
+            {
+                transform.localScale = originalScale;
+            }
         }
     }
 }
