@@ -29,7 +29,7 @@ namespace Scripts.Combats.CharacterCombats
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
                 if (distanceToPlayer <= startAttackRange)
                 {
-                    contactDamage.PerformAttack();
+                    contactDamage.SetIsEnabled(true);
                 }
             }
         }

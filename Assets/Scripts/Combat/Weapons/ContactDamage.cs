@@ -7,9 +7,36 @@ namespace Scripts.Combats.Weapons
 {
     public class ContactDamage : Weapon
     {
+        [SerializeField]protected bool isEnabled;
+        
+        public bool GetIsEnabled()
+        {
+            return isEnabled;
+        }
+
+        public void SetIsEnabled(bool isEnabled)
+        {
+            this.isEnabled = isEnabled;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            if(isEnabled) 
+            {
+                PerformAttack();
+            }
+        }
+
 
         public override void PerformAttack()
         {
+            base.PerformAttack();
             // Überprüfe, ob attackPoint nicht null ist
             if (attackPoint == null)
             {

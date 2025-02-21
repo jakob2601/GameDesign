@@ -7,22 +7,22 @@ using UnityEngine.SceneManagement;
 
 namespace MyGame
 {
-    public class main_menu : MonoBehaviour
+  public class main_menu : MonoBehaviour
+  {
+    public void PlayGame()
     {
-      public void PlayGame()
-      {
       SceneManager.LoadScene("Arena lvl1"); // startet unsere aktuelle arbeitsfläche
 
-      }
-      public void Settings()
-            {
-            SceneManager.LoadScene("SampleScene"); // aktueller Platzhalter
-            }
-      public void QuitGame()
-            {
-          Application.Quit();
-
-            }
     }
+    public void Settings()
+    {
+      SceneManager.LoadScene("SampleScene"); // aktueller Platzhalter
+    }
+    public void QuitGame()
+    {
+      Application.Quit();
+
+    }
+  }
 
 }

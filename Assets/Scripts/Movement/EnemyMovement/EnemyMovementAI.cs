@@ -172,7 +172,6 @@ namespace Scripts.Movements.AI
                     // Wenn der Spieler nicht in Reichweite ist, kann der Gegner andere Aktionen ausführen
                     // Debug.Log("Is doing other things");
                 }
-
             }
             else
             {
