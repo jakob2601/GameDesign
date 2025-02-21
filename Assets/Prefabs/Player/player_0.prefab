@@ -453,8 +453,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
-  characterMovement: {fileID: 0}
-  attackRange: 1.3
+  characterMovement: {fileID: 3960980809086202236}
+  attackRange: 0.7
   attackDamage: 2
   attackRate: 2
   nextAttackTime: 0

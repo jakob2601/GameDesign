@@ -19,8 +19,6 @@ namespace Scripts.Movements.AI
         [SerializeField] protected LayerMask playerLayer;
         [SerializeField] private Collider2D playerCollider;
 
-        [SerializeField] private float randomWalkProbability = 0.3f; // Wahrscheinlichkeit, dass der Input randomisiert wird
-        [SerializeField] private float randomWalkAngle = 30f; // Zufälliger Winkel zwischen -randomWalkAngle und randomWalkAngle Grad
 
         protected EnemyCombat GetEnemyCombat()
         {
@@ -93,25 +91,6 @@ namespace Scripts.Movements.AI
             this.playerCollider = playerCollider;
         }
 
-        protected void SetRandomWalkProbability(float randomWalkProbability)
-        {
-            this.randomWalkProbability = randomWalkProbability;
-        }
-
-        protected float GetRandomWalkProbability()
-        {
-            return randomWalkProbability;
-        }
-
-        protected void SetRandomWalkAngle(float randomWalkAngle)
-        {
-            this.randomWalkAngle = randomWalkAngle;
-        }
-
-        protected float GetRandomWalkAngle()
-        {
-            return randomWalkAngle;
-        }
 
 
         // Start is called before the first frame update
@@ -186,7 +165,6 @@ namespace Scripts.Movements.AI
                 {
                     // Wenn der Spieler in Reichweite ist, bewegt sich der Gegner auf ihn zu
                     // Debug.Log("Is Following Target");
-                    RandomizeWalkingInput();
                     walking.Walk(this.GetWalkingInput());
                 }
                 else if (followTarget.GetCurrentDistanceToTarget() > followTarget.GetStartRadius())
@@ -210,7 +188,7 @@ namespace Scripts.Movements.AI
 
         protected override void ProcessInputs()
         {
-            this.RandomizeWalkingInput();
+            this.SetWalkingInput(followTarget.GetWalkingInput());
             float moveX = walkingInput.x;
             float moveY = walkingInput.y;
 
@@ -225,20 +203,6 @@ namespace Scripts.Movements.AI
             }
         }
 
-        protected void RandomizeWalkingInput()
-        {
-            if (Random.value < randomWalkProbability) 
-            {
-                float angle = Random.Range(-randomWalkAngle, randomWalkAngle); // Zufälliger Winkel zwischen -randomWalkAngle und randomWalkAngle Grad
-                Vector2 direction = followTarget.GetWalkingInput();
-                direction = Quaternion.Euler(0, 0, angle) * direction;
-                this.SetWalkingInput(direction);
-            }
-            else
-            {
-                this.SetWalkingInput(followTarget.GetWalkingInput());
-            }
-        }
 
         void OnDrawGizmosSelected()
         {
