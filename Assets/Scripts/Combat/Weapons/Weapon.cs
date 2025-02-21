@@ -8,12 +8,14 @@ namespace Scripts.Combats.Weapons
 {
     public abstract class Weapon : MonoBehaviour
     {
+        [Header("Weapon Properties")]
         [SerializeField] public Animator animator;
         [SerializeField] public Transform attackPoint; // Referenzpunkt für den Angriff
         [SerializeField] public Combat combat;
         [SerializeField] public LayerMask enemyLayer;
         [SerializeField] public MovementAI characterMovement;
-
+        
+        [Header("Attack Properties")]
         [SerializeField] public float attackRange = 0.5f; // Radius des Angriffsbereichs
         [SerializeField] public int attackDamage = 40;
         [SerializeField] public float attackRate = 2f;

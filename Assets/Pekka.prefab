@@ -53,6 +53,7 @@ GameObject:
   - component: {fileID: 2081608683695642961}
   - component: {fileID: 8921395383088460950}
   - component: {fileID: -8802627565463330178}
+  - component: {fileID: 1958761454387440546}
   m_Layer: 6
   m_Name: Pekka
   m_TagString: Untagged
@@ -196,8 +197,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerCollider: {fileID: 0}
-  randomWalkProbability: 0.3
-  randomWalkAngle: 30
 --- !u!114 &3253567361553378283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +223,7 @@ MonoBehaviour:
   player: {fileID: 0}
   contactDamage: {fileID: 907683653750093926}
   startAttackRange: 1.5
+  sword: {fileID: 1958761454387440546}
 --- !u!114 &907683653750093926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +249,7 @@ MonoBehaviour:
   nextAttackTime: 0
   knockbackForce: 10
   knockbackDuration: 0.2
+  isEnabled: 0
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +465,32 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 8300000, guid: 571cafd064e3d2a458cb50a11c1fbf7f, type: 3}
+--- !u!114 &1958761454387440546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5413714183383202248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa13da85e05b1943a211a82a4afc5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2309280226520025970}
+  attackPoint: {fileID: 8142096282676538681}
+  combat: {fileID: 3253567361553378283}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  characterMovement: {fileID: 1056930885647471817}
+  attackRange: 0.7
+  attackDamage: 1
+  attackRate: 2
+  nextAttackTime: 0
+  knockbackForce: 1
+  knockbackDuration: 0.2
+  angleThreshold: 0.7
 --- !u!1 &5590381219280098367
 GameObject:
   m_ObjectHideFlags: 0
