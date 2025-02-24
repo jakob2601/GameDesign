@@ -1,4 +1,5 @@
 using UnityEngine;
+using MyGame;
 using System.Collections;
 using Scripts.UI;
 using Scripts.Combats;
@@ -70,12 +71,14 @@ namespace Scripts.Healths {
                 currentHealth -= damage;
                 Debug.Log("Current Health: " + currentHealth + "GameObject: " + gameObject.name + "damaged by " + damage);
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-
+                SoundManager.PlaySound(SoundType.HIT);
+            
                 // Update die Health Bar
                 updateHealthBar(currentHealth, maxHealth);
 
                 // Blutpartikel abspielen
                 SpawnBloodParticles();
+                SoundManager.PlaySound(SoundType.HURT);
 
                 //Rot aufleuchten nach Damage
                 StartCoroutine(FlashRed());

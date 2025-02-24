@@ -4,6 +4,7 @@ using Scripts.Combats.Weapons;
 using Scripts.Movements;
 using Scripts.Movements.AI;
 using UnityEngine;
+using MyGame;
 
 namespace Scripts.Combats.CharacterCombats
 {
@@ -13,19 +14,31 @@ namespace Scripts.Combats.CharacterCombats
         [SerializeField] private ContactDamage contactDamage;
         [SerializeField] public float startAttackRange = 1f; // Reichweite, in der der Gegner den Spieler versucht anzugreifen 
         [SerializeField] protected Sword sword;
+
+
+        public override MovementAI getCharacterMovement()
+        {
+            return GetComponent<EnemyMovementAI>();
+        }
+
+        public void SetPlayer(Transform playerTransform)
+        {
+            player = playerTransform;
+        }
+
         // Start is called before the first frame update
         protected override void Start()
         {
             base.Start();
             contactDamage = GetComponent<ContactDamage>();
-            if(contactDamage == null)
+            if (contactDamage == null)
             {
                 Debug.LogError("ContactDamage component not found on " + gameObject.name);
             }
             contactDamage.SetEnemyLayer(enemyLayer);
 
             sword = GetComponentInChildren<Sword>();
-            if(sword == null)
+            if (sword == null)
             {
                 Debug.LogError("Sword component not found on " + gameObject.name);
             }
@@ -35,24 +48,6 @@ namespace Scripts.Combats.CharacterCombats
         protected override void Update()
         {
             base.Update();
-            if (player != null)
-            {
-                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
-                if (distanceToPlayer <= startAttackRange)
-                {
-                    contactDamage.SetIsEnabled(true);
-                    if (Time.time >= nextAttackTime)
-                    {
-                        sword.PerformAttack();
-                        nextAttackTime = Time.time + 1f / attackRate;
-                    }
-                }
-                else
-                {
-                    contactDamage.SetIsEnabled(false);
-                    sword.GetAnimator().ResetTrigger("Attack"); // Reset attack animation
-                }
-            }
         }
 
         protected override void FixedUpdate()
@@ -60,14 +55,56 @@ namespace Scripts.Combats.CharacterCombats
             base.FixedUpdate();
         }
 
-        public void SetPlayer(Transform playerTransform)
+        protected override void CheckCombatInput()
         {
-            player = playerTransform;
+            if (player != null)
+            {
+                float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+                if (distanceToPlayer <= startAttackRange)
+                {
+                    contactDamage.SetIsEnabled(true);
+                    if (combatEnabled)
+                    {
+                        gotInput = true;
+                        lastInputTime = Time.time;
+                    }
+                }
+                else
+                {
+                    contactDamage.SetIsEnabled(false);
+                }
+            }
         }
 
-        public override MovementAI getCharacterDirection()
+        protected override void CheckAttacks()
         {
-            return GetComponent<EnemyMovementAI>();
+            if (gotInput)
+            {
+                if (!isAttacking)
+                {
+                    gotInput = false;
+                    isAttacking = true;
+                    isFirstAttack = !isFirstAttack;
+                    animator.SetBool("SwordAttack", true);
+                    animator.SetBool("IsFirstAttack", isFirstAttack);
+                    animator.SetBool("IsAttacking", isAttacking);
+                    animator.SetFloat("StayHorizontal", characterMovementAI.lastMoveDirection.x);
+                    animator.SetFloat("StayVertical", characterMovementAI.lastMoveDirection.y);
+                    SoundManager.PlaySound(SoundType.SWING);
+                }
+            }
+
+            if (Time.time >= lastInputTime + inputTimer)
+            {
+                gotInput = false;
+            }
+        }
+
+        protected override void FinishAttack()
+        {
+            isAttacking = false;
+            animator.SetBool("IsAttacking", isAttacking);
+            animator.SetBool("SwordAttack", false);
         }
     }
 

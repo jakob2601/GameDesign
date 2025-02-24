@@ -25,6 +25,47 @@ namespace Scripts.Combats.Weapons
             base.FixedUpdate();
         }
 
+        protected void CheckAttackHitBox() 
+        {
+
+            if (attackPoint == null)
+            {
+                Debug.LogError("Attack point is not assigned.");
+                return;
+            }
+
+            if (characterMovement == null)
+            {
+                Debug.LogError("Animator or player direction is not assigned.");
+                return;
+            }
+
+            Vector2 attackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterMovement.lastMoveDirection.normalized * attackRange;
+
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPosition, attackRange, enemyLayer);
+
+            foreach (Collider2D enemy in hitEnemies)
+            {
+                // NEU: Winkelprüfung mit engerem Schwellenwert (z. B. 45 Grad)
+                //if (Vector2.Dot(characterMovement.lastMoveDirection.normalized, hitDirection.normalized) >= angleThreshold)
+                {
+                    Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
+                    Health enemyHealth = enemy.GetComponent<Health>();
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                    }
+                    else
+                    {
+                        Debug.Log("Enemy Health Component not found");
+                    }
+                    // Instantiate hit particle
+                }
+            }
+        }
+
+        
+        /*
         public override void PerformAttack()
         {
             base.PerformAttack();
@@ -57,7 +98,7 @@ namespace Scripts.Combats.Weapons
 
             if (hitEnemies.Length == 0)
             {
-                Debug.Log("No enemies in range");
+                // Debug.Log("No enemies in range");
                 return;
             }
 
@@ -69,6 +110,7 @@ namespace Scripts.Combats.Weapons
                 // NEU: Winkelprüfung mit engerem Schwellenwert (z. B. 45 Grad)
                 //if (Vector2.Dot(characterMovement.lastMoveDirection.normalized, hitDirection.normalized) >= angleThreshold)
                 {
+                    // Should be in EnemyHealth
                     Health enemyHealth = enemy.GetComponent<Health>();
                     if (enemyHealth != null)
                     {
@@ -85,7 +127,7 @@ namespace Scripts.Combats.Weapons
 
             Debug.Log("Attacking");
         }
-
+        */
 
         private void OnDrawGizmos()
         {

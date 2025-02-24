@@ -185,6 +185,9 @@ MonoBehaviour:
   GFX: {fileID: 7937483012282986140}
   walking: {fileID: 0}
   walkingInput: {x: 0, y: 0}
+  isFacingRight: 0
+  canFlip: 1
+  isWalking: 0
   isDashing: 0
   lastMoveDirection: {x: 0, y: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -214,12 +217,16 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
-  playerDirection: {fileID: 0}
+  characterMovementAI: {fileID: 0}
   attackRate: 2
-  nextAttackTime: 0
+  inputTimer: 1
+  lastInputTime: -Infinity
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
-  inCombat: 0
+  combatEnabled: 0
+  gotInput: 0
+  isAttacking: 0
+  isFirstAttack: 0
   player: {fileID: 0}
   contactDamage: {fileID: 907683653750093926}
   startAttackRange: 1.5
@@ -502,6 +509,7 @@ GameObject:
   - component: {fileID: 7937483012282986140}
   - component: {fileID: 6346507499007160480}
   - component: {fileID: 2309280226520025970}
+  - component: {fileID: 8642524177580602481}
   m_Layer: 6
   m_Name: PekkaGFX
   m_TagString: Untagged
@@ -597,3 +605,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8642524177580602481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590381219280098367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5f37394dde84849994be91ef8e9b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiPath: {fileID: 0}

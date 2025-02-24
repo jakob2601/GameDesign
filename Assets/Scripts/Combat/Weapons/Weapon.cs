@@ -173,6 +173,12 @@ namespace Scripts.Combats.Weapons
                 Debug.LogError("MovementAI component not found on " + gameObject.name);
             }
 
+            animator = GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                Debug.LogError("Animator component not found on " + gameObject.name);
+            }
+
         }
 
         protected virtual void Update()
@@ -182,7 +188,7 @@ namespace Scripts.Combats.Weapons
             {
                 debugAttackRangeVisualizer.transform.position = attackPoint.position;
             }
-            if (!combat.inCombat)
+            if (!combat.GetCombatEnabled()) 
             {
                 debugAttackRangeVisualizer.SetActive(false);
             }
