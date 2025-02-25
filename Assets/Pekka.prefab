@@ -182,15 +182,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
   rb: {fileID: 2579191884603178559}
-  GFX: {fileID: 7937483012282986140}
-  walking: {fileID: 0}
+  walking: {fileID: 9001278909043300127}
   walkingInput: {x: 0, y: 0}
-  isFacingRight: 0
-  canFlip: 1
   isWalking: 0
   isDashing: 0
   lastMoveDirection: {x: 0, y: 0}
-  originalScale: {x: 0, y: 0, z: 0}
   enemyCombat: {fileID: 3253567361553378283}
   unstuck: {fileID: 7569245253550255710}
   followTarget: {fileID: 610034541743464483}
@@ -213,13 +209,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
+  characterAnimation: {fileID: 1315377608127543291}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
-  characterMovementAI: {fileID: 0}
+  characterMovementAI: {fileID: 1056930885647471817}
   attackRate: 2
-  inputTimer: 1
+  inputTimer: 0.4
   lastInputTime: -Infinity
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
@@ -249,7 +246,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
-  characterMovement: {fileID: 0}
+  characterMovement: {fileID: 1056930885647471817}
   attackRange: 0.5
   attackDamage: 1
   attackRate: 2
@@ -510,6 +507,7 @@ GameObject:
   - component: {fileID: 6346507499007160480}
   - component: {fileID: 2309280226520025970}
   - component: {fileID: 8642524177580602481}
+  - component: {fileID: 1315377608127543291}
   m_Layer: 6
   m_Name: PekkaGFX
   m_TagString: Untagged
@@ -617,4 +615,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5f37394dde84849994be91ef8e9b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiPath: {fileID: 0}
+  isFacingRight: 0
+--- !u!114 &1315377608127543291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590381219280098367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 163398d86a81f8c41b964e380dea005a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2309280226520025970}
+  enemyCombat: {fileID: 3253567361553378283}
+  sword: {fileID: 1958761454387440546}
+  movementAI: {fileID: 1056930885647471817}

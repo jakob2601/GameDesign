@@ -8,7 +8,7 @@ namespace Scripts.Characters
     public class CharacterGFX : MonoBehaviour
     {
         [SerializeField] protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
-        private Vector3 originalScale;
+        protected Vector3 originalScale;
         protected bool canFlip = true;
 
         protected Vector3 GetOriginalScale()
@@ -69,6 +69,7 @@ namespace Scripts.Characters
                 transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
             }
         }
+        
     }
 }
 

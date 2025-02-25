@@ -25,7 +25,7 @@ namespace Scripts.Combats.Weapons
             base.FixedUpdate();
         }
 
-        protected void CheckAttackHitBox() 
+        public void CheckAttackHitBox() 
         {
 
             if (attackPoint == null)

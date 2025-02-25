@@ -11,7 +11,7 @@ namespace Scripts.Combats.CharacterCombats
 {
     public class PlayerCombat : Combat
     {
-        private Sword sword;
+        [SerializeField] private Sword sword;
 
         public override MovementAI getCharacterMovement()
         {
@@ -59,11 +59,7 @@ namespace Scripts.Combats.CharacterCombats
                     gotInput = false;
                     isAttacking = true;
                     isFirstAttack = !isFirstAttack;
-                    animator.SetBool("SwordAttack", true);
-                    animator.SetBool("IsFirstAttack", isFirstAttack);
-                    animator.SetBool("IsAttacking", isAttacking);
-                    animator.SetFloat("StayHorizontal", characterMovementAI.lastMoveDirection.x);
-                    animator.SetFloat("StayVertical", characterMovementAI.lastMoveDirection.y);
+                    characterAnimation.SetAttackAnimation();
                     SoundManager.PlaySound(SoundType.SWING);
                 }
             }
@@ -75,11 +71,11 @@ namespace Scripts.Combats.CharacterCombats
             }
         }
 
-        protected override void FinishAttack()
+        public override void FinishAttack()
         {
             isAttacking = false;
-            animator.SetBool("IsAttacking", isAttacking);
-            animator.SetBool("SwordAttack", false);
+            //animator.SetBool("IsAttacking", isAttacking);
+            //animator.SetBool("SwordAttack", false);
         }
 
     }

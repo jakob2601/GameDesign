@@ -3,12 +3,14 @@ using System.Collections;
 using Scripts.Movements;
 using Scripts.Healths;
 using Scripts.Movements.AI;
+using Scripts.Characters.CharactersAnimation;
 
 namespace Scripts.Combats.CharacterCombats
 {
     public abstract class Combat : MonoBehaviour
     {
         [SerializeField] public Animator animator;
+        [SerializeField] public CharacterAnimation characterAnimation;
         [SerializeField] public LayerMask enemyLayer;
 
         [SerializeField] public Rigidbody2D rb;
@@ -38,6 +40,37 @@ namespace Scripts.Combats.CharacterCombats
             this.combatEnabled = combatEnabled;
         }
 
+        protected bool GetGotInput()
+        {
+            return gotInput;
+        }
+
+        protected void SetGotInput(bool gotInput)
+        {
+            this.gotInput = gotInput;
+        }
+
+        public bool GetIsAttacking()
+        {
+            return isAttacking;
+        }
+
+        protected void SetIsAttacking(bool isAttacking)
+        {
+            this.isAttacking = isAttacking;
+        }
+
+        public bool GetIsFirstAttack()
+        {
+            return isFirstAttack;
+        }
+
+        protected void SetIsFirstAttack(bool isFirstAttack)
+        {
+            this.isFirstAttack = isFirstAttack;
+        }
+
+
         protected virtual void Start()
         {
             rb = GetComponent<Rigidbody2D>();
@@ -50,6 +83,12 @@ namespace Scripts.Combats.CharacterCombats
             if (characterMovementAI == null)
             {
                 Debug.LogError("Player direction is not assigned.");
+            }
+
+            characterAnimation = GetComponentInChildren<CharacterAnimation>();
+            if (characterAnimation == null)
+            {
+                Debug.LogError("CharacterAnimation is not assigned.");
             }
 
             animator = GetComponentInChildren<Animator>();
@@ -65,6 +104,7 @@ namespace Scripts.Combats.CharacterCombats
                 isAttacking = false;
                 animator.SetBool("CanAttack", combatEnabled);
             }
+
         }
 
         protected virtual void Update()
@@ -81,7 +121,7 @@ namespace Scripts.Combats.CharacterCombats
 
         protected abstract void CheckAttacks();
 
-        protected abstract void FinishAttack();
+        public abstract void FinishAttack();
 
     }
 }

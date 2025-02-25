@@ -328,13 +328,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
+  characterAnimation: {fileID: 5898724393291171003}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
   rb: {fileID: 7127369674428886474}
   characterMovementAI: {fileID: 3960980809086202236}
   attackRate: 2
-  inputTimer: 1
+  inputTimer: 0.3
   lastInputTime: -Infinity
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
@@ -342,6 +343,7 @@ MonoBehaviour:
   gotInput: 0
   isAttacking: 0
   isFirstAttack: 0
+  sword: {fileID: 0}
 --- !u!114 &7464275693909124074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -701,6 +703,7 @@ GameObject:
   - component: {fileID: 196909761537321690}
   - component: {fileID: 2212682138100176999}
   - component: {fileID: 2103070452516426242}
+  - component: {fileID: 5898724393291171003}
   m_Layer: 3
   m_Name: PlayerGFX
   m_TagString: Untagged
@@ -809,3 +812,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFacingRight: 0
+--- !u!114 &5898724393291171003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267244617820324840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c409f700efbaf064ab397f218e31bad2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2212682138100176999}
+  playerCombat: {fileID: 152323377726260026}
+  sword: {fileID: 2677363681198226136}
+  movementAI: {fileID: 3960980809086202236}
