@@ -63,7 +63,7 @@ namespace Scripts.Characters.CharactersAnimation
             base.FinishAttackAnimation();
             playerCombat.FinishAttack();
             animator.SetBool("IsAttacking", playerCombat.GetIsAttacking());
-            animator.SetBool("SwordAttack", false);
+            animator.SetBool("IsSwordAttack", false);
         }
     }
 }
