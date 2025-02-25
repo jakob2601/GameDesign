@@ -335,7 +335,7 @@ MonoBehaviour:
   rb: {fileID: 7127369674428886474}
   characterMovementAI: {fileID: 3960980809086202236}
   attackRate: 2
-  inputTimer: 0.3
+  inputTimer: 0.2
   lastInputTime: -Infinity
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
