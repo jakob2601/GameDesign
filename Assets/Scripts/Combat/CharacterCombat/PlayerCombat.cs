@@ -59,7 +59,7 @@ namespace Scripts.Combats.CharacterCombats
                     gotInput = false;
                     isAttacking = true;
                     isFirstAttack = !isFirstAttack;
-                    characterAnimation.SetAttackAnimation();
+                    characterAnimation.SetSwordAttackAnimation(true);
                     SoundManager.PlaySound(SoundType.SWING);
                 }
             }
@@ -74,8 +74,6 @@ namespace Scripts.Combats.CharacterCombats
         public override void FinishAttack()
         {
             isAttacking = false;
-            //animator.SetBool("IsAttacking", isAttacking);
-            //animator.SetBool("SwordAttack", false);
         }
 
     }

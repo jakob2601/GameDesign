@@ -16,37 +16,58 @@ namespace Scripts.Characters.CharactersAnimation
             {
                 Debug.LogError("Animator is not assigned.");
             }
-
         }
 
-        public virtual void SetMovementAnimation(Vector2 direction) 
+        public virtual void SetMovementAnimation(Vector2 direction)
         {
-
+            animator.SetFloat("Horizontal", direction.x);
+            animator.SetFloat("Vertical", direction.y);
+            animator.SetFloat("Speed", direction.sqrMagnitude);
         }
 
-        public virtual void SetAttackAnimation(bool isAttacking)
+        public void SetIsMoving(bool isMoving)
         {
-
+            animator.SetBool("IsMoving", isMoving);
         }
 
-        public virtual void SetDeathAnimation()
+        public void SetCanAttack(bool canAttack)
         {
-
+            animator.SetBool("CanAttack", canAttack);
         }
 
-        public virtual void SetHurtAnimation()
+        public void SetIsHurt(bool isHurt)
         {
-
+            if(isHurt) 
+            {
+                animator.SetTrigger("IsHurt");
+            }
+            else 
+            {
+                animator.ResetTrigger("IsHurt");
+            }
         }
 
-        public virtual void SetIdleAnimation()
+        public void SetIsDead(bool isDead)
         {
-
+            if(isDead) 
+            {
+                animator.SetTrigger("IsDead");
+            }
+            else 
+            {
+                animator.ResetTrigger("IsDead");
+            }
         }
 
-        public virtual void SetAttackAnimation()
+        public void SetDirection(Vector2 direction)
         {
-            animator.SetBool("SwordAttack", true);
+            animator.SetFloat("StayHorizontal", direction.x);
+            animator.SetFloat("StayVertictal", direction.y);
+        }
+
+        public virtual void SetSwordAttackAnimation(bool isSwordAttack)
+        {
+            animator.SetBool("IsSwordAttack", isSwordAttack);
         }
 
         public virtual void CheckAttackHitBox()

@@ -102,7 +102,7 @@ namespace Scripts.Combats.CharacterCombats
                 gotInput = false;
                 isFirstAttack = true;
                 isAttacking = false;
-                animator.SetBool("CanAttack", combatEnabled);
+                characterAnimation.SetCanAttack(combatEnabled);
             }
 
         }

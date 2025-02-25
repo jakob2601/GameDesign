@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
+  characterAnimation: {fileID: 1315377608127543291}
   rb: {fileID: 2579191884603178559}
   walking: {fileID: 9001278909043300127}
   walkingInput: {x: 0, y: 0}
@@ -271,6 +272,7 @@ MonoBehaviour:
   isInvincible: 0
   invincibilityTime: 0.1
   animator: {fileID: 2309280226520025970}
+  characterAnimation: {fileID: 1315377608127543291}
   rb: {fileID: 2579191884603178559}
   knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}

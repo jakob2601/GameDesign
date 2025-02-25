@@ -1,14 +1,15 @@
 using UnityEngine;
 using System.Collections;
 using Scripts.Movements.Moves;
+using Scripts.Characters.CharactersAnimation;
 
 namespace Scripts.Movements.AI
 {
     public abstract class MovementAI : MonoBehaviour
     {
-        [SerializeField] protected Animator animator;  // Animation für Character
-        [SerializeField] protected Rigidbody2D rb; // Rigidbody2D-Komponente
-
+        [SerializeField] protected Animator animator;  
+        [SerializeField] protected CharacterAnimation characterAnimation; 
+        [SerializeField] protected Rigidbody2D rb; 
         [SerializeField] protected Walking walking;
         [SerializeField] protected Vector2 walkingInput;
 
@@ -81,11 +82,12 @@ namespace Scripts.Movements.AI
         protected virtual void Start()
         {
             rb = GetComponent<Rigidbody2D>(); // Rigidbody2D zuweisen
-
+    
             Transform animatorTransform = transform.Find("Animator");
             if (animatorTransform != null)
             {
                 this.SetAnimator(animatorTransform.GetComponent<Animator>());
+                characterAnimation = animatorTransform.GetComponent<CharacterAnimation>();
             }
             if (this.GetAnimator() == null)
             {
@@ -120,13 +122,7 @@ namespace Scripts.Movements.AI
         public void AnimateWalking()
         {
             Vector2 moveInput = GetWalkingInput();
-            animator.SetFloat("Horizontal", moveInput.x); // Setzen horizontale Bewegung zur Animation
-            animator.SetFloat("Vertical", moveInput.y); // Setzen verticale Bewegung zur Animation
-            animator.SetFloat("Speed", moveInput.sqrMagnitude); // Bewegungsgeschwindigkeit
-
-            //Blickrichtung für Idle Animation
-            animator.SetFloat("StayHorizontal", lastMoveDirection.x);
-            animator.SetFloat("StayVertical", lastMoveDirection.y);
+            characterAnimation.SetMovementAnimation(moveInput);
         }
 
         

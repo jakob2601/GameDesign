@@ -44,10 +44,15 @@ namespace Scripts.Healths
           
         }
 
+        protected override void Hurt()
+        {
+            // Play Hurt Animation
+            characterAnimation.SetIsHurt(true);
+        }
+
         protected override void Die()
         {
             Debug.Log("Player has died!");
-            // Hier kannst du eine Logik für den Tod des Spielers einfügen
 
             Debug.Log("Spieler ist gestorben. Lade GameOver-Szene...");
             SceneManager.LoadScene("GameOverMenu"); // Lade die GameOver

@@ -194,12 +194,14 @@ namespace Scripts.Movements.AI
             if (moveX != 0 || moveY != 0)
             {
                 this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
-                animator.SetBool("IsMoving", true);
+                isWalking = true;
             }
             else
             {
-                animator.SetBool("IsMoving", false);
+                isWalking = false;
+                
             }
+            characterAnimation.SetIsMoving(isWalking);
         }
 
 

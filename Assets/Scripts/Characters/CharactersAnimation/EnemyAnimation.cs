@@ -36,34 +36,16 @@ namespace Scripts.Characters.CharactersAnimation
             }
         }
 
-        public override void SetMovementAnimation(Vector2 direction) 
+        public override void SetMovementAnimation(Vector2 direction)
         {
             base.SetMovementAnimation(direction);
+            animator.SetFloat("StayHorizontal", movementAI.lastMoveDirection.x);
+            animator.SetFloat("StayVertical", movementAI.lastMoveDirection.y);
         }
 
-        public override void SetAttackAnimation(bool isAttacking)
+        public override void SetSwordAttackAnimation(bool isSwordAttack)
         {
-            base.SetAttackAnimation(isAttacking);
-        }
-
-        public override void SetDeathAnimation()
-        {
-            base.SetDeathAnimation();
-        }
-
-        public override void SetHurtAnimation()
-        {
-            base.SetHurtAnimation();
-        }
-
-        public override void SetIdleAnimation()
-        {
-            base.SetIdleAnimation();
-        }
-
-        public override void SetAttackAnimation()
-        {
-            base.SetAttackAnimation();
+            base.SetSwordAttackAnimation(isSwordAttack);
             animator.SetBool("IsFirstAttack", enemyCombat.GetIsFirstAttack());
             animator.SetBool("IsAttacking", enemyCombat.GetIsAttacking());
             animator.SetFloat("StayHorizontal", movementAI.lastMoveDirection.x);

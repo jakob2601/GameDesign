@@ -4,6 +4,7 @@ using System.Collections;
 using Scripts.UI;
 using Scripts.Combats;
 using Scripts.Movements.Behaviours;
+using Scripts.Characters.CharactersAnimation;
 
 namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
@@ -17,6 +18,7 @@ namespace Scripts.Healths {
 
 
         [SerializeField] public Animator animator; // Referenz auf den Animator
+        [SerializeField] public CharacterAnimation characterAnimation; // Referenz auf die CharacterAnimation
         [SerializeField] protected Rigidbody2D rb; // Referenz auf den Rigidbody2D
         [SerializeField] protected Knockback knockback; // Referenz auf den Knockback
 
@@ -46,6 +48,18 @@ namespace Scripts.Healths {
             if (knockback == null)
             {
                 Debug.LogWarning("Knockback not found on " + gameObject.name);
+            }
+
+            animator = GetComponentInChildren<Animator>();
+            if (animator == null)
+            {
+                Debug.LogWarning("Animator not found on " + gameObject.name);
+            }
+
+            characterAnimation = GetComponentInChildren<CharacterAnimation>();
+            if (characterAnimation == null)
+            {
+                Debug.LogWarning("CharacterAnimation not found on " + gameObject.name);
             }
         }
 
@@ -89,6 +103,10 @@ namespace Scripts.Healths {
                     Die();
                     //return;
                 }
+                else 
+                {
+                    Hurt();
+                }
                 // Rückstoß anwenden
                 StartCoroutine(knockback.KnockbackCharacter(rb, hitDirection, knockbackForce, knockbackDuration));
 
@@ -131,7 +149,12 @@ namespace Scripts.Healths {
 
         protected virtual void Die()
         {
-            // Hier kannst du eine Logik für den Tod des Spielers einfügen
+            
+        }
+
+        protected virtual void Hurt()
+        {
+           
         }
         
     }

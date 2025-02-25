@@ -309,6 +309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
+  characterAnimation: {fileID: 5898724393291171003}
   rb: {fileID: 7127369674428886474}
   walking: {fileID: 140400135506352222}
   walkingInput: {x: 0, y: 0}
@@ -343,7 +344,7 @@ MonoBehaviour:
   gotInput: 0
   isAttacking: 0
   isFirstAttack: 0
-  sword: {fileID: 0}
+  sword: {fileID: 2677363681198226136}
 --- !u!114 &7464275693909124074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,6 +362,7 @@ MonoBehaviour:
   isInvincible: 0
   invincibilityTime: 1
   animator: {fileID: 2212682138100176999}
+  characterAnimation: {fileID: 5898724393291171003}
   rb: {fileID: 7127369674428886474}
   knockback: {fileID: 4691762652494968890}
   spriteRenderer: {fileID: 196909761537321690}

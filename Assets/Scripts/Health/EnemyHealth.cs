@@ -30,13 +30,18 @@ namespace Scripts.Healths {
             Debug.Log("Enemy died.");
 
             // Play Death Animation
-            animator.SetBool("IsDead", true);
-
+            characterAnimation.SetIsDead(true);
             // Disable the enemy
             GetComponent<Collider2D>().enabled = false;
             this.enabled = false;
 
             Destroy(gameObject, 3f);
+        }
+
+        protected override void Hurt()
+        {
+            // Play Hurt Animation
+            characterAnimation.SetIsHurt(true);
         }
 
         public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)

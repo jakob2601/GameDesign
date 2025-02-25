@@ -60,14 +60,13 @@ namespace Scripts.Movements.AI
             if (Mathf.Abs(moveX) > 0 || Mathf.Abs(moveY) > 0)
             {
                 this.SetLastMoveDirection(new Vector2(moveX, moveY).normalized);
-                animator.SetBool("IsMoving", true);
                 isWalking = true;
             }
             else 
             {
-                animator.SetBool("IsMoving", false);
                 isWalking = false;
             }   
+            characterAnimation.SetIsMoving(isWalking);
             this.SetWalkingInput(new Vector2(moveX, moveY).normalized);
         }
 
