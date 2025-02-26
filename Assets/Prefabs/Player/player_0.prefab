@@ -360,7 +360,9 @@ MonoBehaviour:
   maxHealth: 5
   currentHealth: 0
   isInvincible: 0
-  invincibilityTime: 1
+  invincibilityTime: 0.6
+  combatDisabledTime: 0.3
+  combat: {fileID: 152323377726260026}
   animator: {fileID: 2212682138100176999}
   characterAnimation: {fileID: 5898724393291171003}
   rb: {fileID: 7127369674428886474}

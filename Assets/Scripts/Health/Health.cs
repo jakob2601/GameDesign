@@ -5,6 +5,7 @@ using Scripts.UI;
 using Scripts.Combats;
 using Scripts.Movements.Behaviours;
 using Scripts.Characters.CharactersAnimation;
+using Scripts.Combats.CharacterCombats;
 
 namespace Scripts.Healths {
     public abstract class Health : MonoBehaviour {
@@ -13,16 +14,18 @@ namespace Scripts.Healths {
 
         [SerializeField] protected bool isInvincible = false; // Ist der Charakter unverwundbar?
 
-        [SerializeField] public float invincibilityTime = 1f; // Zeit, in der der Charakter unverwundbar ist
+        [SerializeField] public float invincibilityTime = 0.3f; // Zeit, in der der Charakter unverwundbar ist
+        [SerializeField] public float combatDisabledTime = 0.5f; // Stärke des Rückstoßes
         //[SerializeField] public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
 
-
-        [SerializeField] public Animator animator; // Referenz auf den Animator
-        [SerializeField] public CharacterAnimation characterAnimation; // Referenz auf die CharacterAnimation
+        
+        [SerializeField] protected Combat combat;
+        [SerializeField] protected Animator animator; // Referenz auf den Animator
+        [SerializeField] protected CharacterAnimation characterAnimation; // Referenz auf die CharacterAnimation
         [SerializeField] protected Rigidbody2D rb; // Referenz auf den Rigidbody2D
         [SerializeField] protected Knockback knockback; // Referenz auf den Knockback
 
-        [SerializeField] public SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
+        [SerializeField] protected SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
         [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
 
         protected virtual void Start() {
@@ -42,6 +45,12 @@ namespace Scripts.Healths {
             if (rb == null)
             {
                 Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
+            }
+
+            combat = GetComponentInChildren<Combat>();
+            if (combat == null)
+            {
+                Debug.LogWarning("Combat not found on " + gameObject.name);
             }
 
             knockback = GetComponent<Knockback>();
@@ -82,6 +91,7 @@ namespace Scripts.Healths {
             // Reduziere die Gesundheit
             if(!isInvincible)
             {
+                StartCoroutine(CombatCooldown());
                 currentHealth -= damage;
                 Debug.Log("Current Health: " + currentHealth + "GameObject: " + gameObject.name + "damaged by " + damage);
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -123,6 +133,13 @@ namespace Scripts.Healths {
             isInvincible = true;
             yield return new WaitForSeconds(invincibilityTime);
             isInvincible = false;
+        }
+
+        protected IEnumerator CombatCooldown() 
+        {
+            combat.SetCombatEnabled(false);
+            yield return new WaitForSeconds(combatDisabledTime);
+            combat.SetCombatEnabled(true);
         }
 
         void SpawnBloodParticles()

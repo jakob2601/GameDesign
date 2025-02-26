@@ -271,6 +271,7 @@ MonoBehaviour:
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
+  combat: {fileID: 3253567361553378283}
   animator: {fileID: 2309280226520025970}
   characterAnimation: {fileID: 1315377608127543291}
   rb: {fileID: 2579191884603178559}
