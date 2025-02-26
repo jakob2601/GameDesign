@@ -45,6 +45,16 @@ namespace Scripts.Combats.CharacterCombats
                 if (combatEnabled)
                 {
                     gotInput = true;
+                    isSwordAttack = true;
+                    lastInputTime = Time.time;
+                }
+            }
+            else if (Input.GetMouseButtonDown(1))
+            {
+                if (combatEnabled)
+                {
+                    gotInput = true;
+                    isBowAttack = true;
                     lastInputTime = Time.time;
                 }
             }
@@ -59,8 +69,15 @@ namespace Scripts.Combats.CharacterCombats
                     gotInput = false;
                     isAttacking = true;
                     isFirstAttack = !isFirstAttack;
-                    characterAnimation.SetSwordAttackAnimation(true);
-                    SoundManager.PlaySound(SoundType.SWING);
+                    if(isSwordAttack) {
+                        characterAnimation.SetSwordAttackAnimation(isSwordAttack);
+                        SoundManager.PlaySound(SoundType.SWING);
+                    }
+                    else if(isBowAttack) {
+                        characterAnimation.SetBowAttackAnimation(isBowAttack);
+                        //SoundManager.PlaySound(SoundType.BOW);
+                    }
+                   
                 }
             }
 
@@ -71,9 +88,16 @@ namespace Scripts.Combats.CharacterCombats
             }
         }
 
-        public override void FinishAttack()
+        public override void FinishSwordAttack()
         {
             isAttacking = false;
+            isSwordAttack = false;
+        }
+
+        public override void FinishBowAttack()
+        {
+            isAttacking = false;
+            isBowAttack = false;
         }
 
     }

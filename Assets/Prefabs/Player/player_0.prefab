@@ -58,6 +58,7 @@ MonoBehaviour:
   nextAttackTime: 0
   knockbackForce: 1
   knockbackDuration: 0.2
+  arrowPrefab: {fileID: 2960165790278124058, guid: 93a191be15fc1b84b8ec553092c0c87d, type: 3}
 --- !u!1 &1690062973053119914
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
-  attackPoint: {fileID: 0}
+  attackPoint: {fileID: 8082467551108586449}
   combat: {fileID: 3426090498644071800}
   enemyLayer:
     serializedVersion: 2
@@ -209,6 +210,8 @@ MonoBehaviour:
   gotInput: 0
   isAttacking: 0
   isFirstAttack: 0
+  isSwordAttack: 0
+  isBowAttack: 0
   sword: {fileID: 0}
 --- !u!1 &4684821728387608108
 GameObject:
@@ -1017,4 +1020,5 @@ MonoBehaviour:
   animator: {fileID: 2212682138100176999}
   playerCombat: {fileID: 3426090498644071800}
   sword: {fileID: 7858024481496127674}
+  bow: {fileID: 0}
   movementAI: {fileID: 3960980809086202236}

@@ -25,9 +25,8 @@ namespace Scripts.Combats.Weapons
             base.FixedUpdate();
         }
 
-        public void CheckAttackHitBox() 
+        public void CheckSwordAttackHitBox() 
         {
-
             if (attackPoint == null)
             {
                 Debug.LogError("Attack point is not assigned.");

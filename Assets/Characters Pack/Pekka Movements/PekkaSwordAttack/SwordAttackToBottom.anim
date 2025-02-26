@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackTop
+  m_Name: SwordAttackToBottom
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1732882254, guid: 16ae734b1662be74e852c351890b7961, type: 3}
-    - time: 0.083333336
-      value: {fileID: 14473851, guid: 16ae734b1662be74e852c351890b7961, type: 3}
-    - time: 0.25
-      value: {fileID: -1471029834, guid: 16ae734b1662be74e852c351890b7961, type: 3}
+      value: {fileID: 59691901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
     - time: 0.33333334
-      value: {fileID: 1923974866, guid: 16ae734b1662be74e852c351890b7961, type: 3}
+      value: {fileID: 1110821901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - time: 0.5833333
+      value: {fileID: 1127022677, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - time: 0.6666667
+      value: {fileID: -1941352432, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,16 +50,16 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 1732882254, guid: 16ae734b1662be74e852c351890b7961, type: 3}
-    - {fileID: 14473851, guid: 16ae734b1662be74e852c351890b7961, type: 3}
-    - {fileID: -1471029834, guid: 16ae734b1662be74e852c351890b7961, type: 3}
-    - {fileID: 1923974866, guid: 16ae734b1662be74e852c351890b7961, type: 3}
+    - {fileID: 59691901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: 1110821901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: 1127022677, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: -1941352432, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.35000002
+    m_StopTime: 0.68333334
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -86,21 +86,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.083333336
+  - time: 0.33333334
     functionName: CheckAttackHitBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.25
+  - time: 0.5833333
     functionName: EnableFlip
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.33333334
+  - time: 0.6666667
     functionName: FinishAttackAnimation
     data: 
     objectReferenceParameter: {fileID: 0}

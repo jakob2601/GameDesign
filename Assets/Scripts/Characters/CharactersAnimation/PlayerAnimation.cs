@@ -12,6 +12,7 @@ namespace Scripts.Characters.CharactersAnimation
     {
         [SerializeField] protected PlayerCombat playerCombat;
         [SerializeField] protected Sword sword;
+        [SerializeField] protected Bow bow;
         [SerializeField] protected PlayerMovementAI movementAI;
         protected override void Start()
         {
@@ -27,6 +28,12 @@ namespace Scripts.Characters.CharactersAnimation
             if (sword == null)
             {
                 Debug.LogError("Sword is not assigned.");
+            }
+
+            bow = transform.root.GetComponentInChildren<Bow>();
+            if (bow == null)
+            {
+                Debug.LogError("Bow is not assigned.");
             }
 
             movementAI = transform.root.GetComponentInChildren<PlayerMovementAI>();
@@ -52,18 +59,41 @@ namespace Scripts.Characters.CharactersAnimation
             animator.SetFloat("StayVertical", movementAI.lastMoveDirection.y);
         }
 
-        public override void CheckAttackHitBox()
+        public override void SetBowAttackAnimation(bool isBowAttack)
         {
-            base.CheckAttackHitBox();
-            sword.CheckAttackHitBox();
+            base.SetBowAttackAnimation(isBowAttack);
+            animator.SetBool("IsFirstAttack", playerCombat.GetIsFirstAttack());
+            animator.SetBool("IsAttacking", playerCombat.GetIsAttacking());
+            animator.SetFloat("StayHorizontal", movementAI.lastMoveDirection.x);
+            animator.SetFloat("StayVertical", movementAI.lastMoveDirection.y);
         }
 
-        public override void FinishAttackAnimation()
+        public override void CheckSwordAttackHitBox()
+        {
+            base.CheckSwordAttackHitBox();
+            sword.CheckSwordAttackHitBox();
+        }
+
+        public override void CheckBowAttackHitBox()
+        {
+            base.CheckBowAttackHitBox();
+            bow.CheckBowAttackHitBox();
+        }
+
+        public override void FinishSwordAttackAnimation()
         {  
-            base.FinishAttackAnimation();
-            playerCombat.FinishAttack();
+            base.FinishSwordAttackAnimation();
+            playerCombat.FinishSwordAttack();
             animator.SetBool("IsAttacking", playerCombat.GetIsAttacking());
             animator.SetBool("IsSwordAttack", false);
+        }
+
+        public override void FinishBowAttackAnimation()
+        {
+            base.FinishBowAttackAnimation();
+            playerCombat.FinishBowAttack();
+            animator.SetBool("IsAttacking", playerCombat.GetIsAttacking());
+            animator.SetBool("IsBowAttack", false);
         }
     }
 }

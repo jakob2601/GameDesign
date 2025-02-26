@@ -96,9 +96,16 @@ namespace Scripts.Combats.CharacterCombats
             }
         }
 
-        public override void FinishAttack()
+        public override void FinishSwordAttack()
         {
             isAttacking = false;
+            isSwordAttack = false;
+        }
+
+        public override void FinishBowAttack()
+        {
+            isAttacking = false;
+            isBowAttack = false;
         }
     }
 

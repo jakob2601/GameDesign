@@ -52,16 +52,30 @@ namespace Scripts.Characters.CharactersAnimation
             animator.SetFloat("StayVertical", movementAI.lastMoveDirection.y);
         }
 
-        public override void CheckAttackHitBox()
+        public override void SetBowAttackAnimation(bool isBowAttack)
         {
-            base.CheckAttackHitBox();
-            sword.CheckAttackHitBox();
+            base.SetBowAttackAnimation(isBowAttack);
+            animator.SetBool("IsFirstAttack", enemyCombat.GetIsFirstAttack());
+            animator.SetBool("IsAttacking", enemyCombat.GetIsAttacking());
+            animator.SetFloat("StayHorizontal", movementAI.lastMoveDirection.x);
+            animator.SetFloat("StayVertical", movementAI.lastMoveDirection.y);
         }
 
-        public override void FinishAttackAnimation()
+        public override void CheckSwordAttackHitBox()
         {
-            base.FinishAttackAnimation();
-            enemyCombat.FinishAttack();
+            base.CheckSwordAttackHitBox();
+            sword.CheckSwordAttackHitBox();
+        }
+
+        public override void CheckBowAttackHitBox()
+        {
+            base.CheckBowAttackHitBox();
+        }
+
+        public override void FinishSwordAttackAnimation()
+        {
+            base.FinishSwordAttackAnimation();
+            enemyCombat.FinishSwordAttack();
             animator.SetBool("IsAttacking", enemyCombat.GetIsAttacking());
             animator.SetBool("IsSwordAttack", false);
         }
