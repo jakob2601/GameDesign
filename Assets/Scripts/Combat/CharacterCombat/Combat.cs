@@ -37,6 +37,7 @@ namespace Scripts.Combats.CharacterCombats
 
         public void SetCombatEnabled(bool combatEnabled)
         {
+            characterAnimation.SetCanAttack(combatEnabled);
             this.combatEnabled = combatEnabled;
         }
 
