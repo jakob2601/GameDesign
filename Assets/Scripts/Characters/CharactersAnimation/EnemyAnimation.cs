@@ -17,19 +17,19 @@ namespace Scripts.Characters.CharactersAnimation
         protected override void Start()
         {
             base.Start();
-            enemyCombat = transform.root.GetComponent<EnemyCombat>();
+            enemyCombat = transform.root.GetComponentInChildren<EnemyCombat>();
             if (enemyCombat == null)
             {
                 Debug.LogError("EnemyCombat is not assigned.");
             }
 
-            sword = transform.root.GetComponent<Sword>();
+            sword = transform.root.GetComponentInChildren<Sword>();
             if (sword == null)
             {
                 Debug.LogError("Sword is not assigned.");
             }
 
-            movementAI = transform.root.GetComponent<EnemyMovementAI>();
+            movementAI = transform.root.GetComponentInChildren<EnemyMovementAI>();
             if (movementAI == null)
             {
                 Debug.LogError("EnemyMovementAI is not assigned.");

@@ -18,7 +18,7 @@ namespace Scripts.Combats.CharacterCombats
 
         public override MovementAI getCharacterMovement()
         {
-            return GetComponent<EnemyMovementAI>();
+            return transform.root.GetComponentInChildren<EnemyMovementAI>();
         }
 
         public void SetPlayer(Transform playerTransform)
@@ -30,7 +30,7 @@ namespace Scripts.Combats.CharacterCombats
         protected override void Start()
         {
             base.Start();
-            contactDamage = GetComponent<ContactDamage>();
+            contactDamage = GetComponentInChildren<ContactDamage>();
             if (contactDamage == null)
             {
                 Debug.LogError("ContactDamage component not found on " + gameObject.name);

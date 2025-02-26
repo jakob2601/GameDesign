@@ -74,7 +74,7 @@ namespace Scripts.Combats.CharacterCombats
 
         protected virtual void Start()
         {
-            rb = GetComponent<Rigidbody2D>();
+            rb = transform.root.GetComponentInChildren<Rigidbody2D>();
             if (rb == null)
             {
                 Debug.LogError("Rigidbody2D component not found on " + gameObject.name);
@@ -86,13 +86,13 @@ namespace Scripts.Combats.CharacterCombats
                 Debug.LogError("Player direction is not assigned.");
             }
 
-            characterAnimation = GetComponentInChildren<CharacterAnimation>();
+            characterAnimation = transform.root.GetComponentInChildren<CharacterAnimation>();
             if (characterAnimation == null)
             {
                 Debug.LogError("CharacterAnimation is not assigned.");
             }
 
-            animator = GetComponentInChildren<Animator>();
+            animator = transform.root.GetComponentInChildren<Animator>();
             if (animator == null)
             {
                 Debug.LogError("Animator component not found on " + gameObject.name);

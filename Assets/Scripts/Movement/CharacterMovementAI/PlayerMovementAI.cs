@@ -24,7 +24,7 @@ namespace Scripts.Movements.AI
         {
             base.Start();
 
-            this.SetDash(GetComponent<Dash>());
+            this.SetDash(transform.root.GetComponentInChildren<Dash>());
             if (dash == null)
             {
                 Debug.LogError("Dash component not found on " + gameObject.name);

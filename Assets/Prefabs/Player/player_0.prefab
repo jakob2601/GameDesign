@@ -1,5 +1,248 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1652898905173432906
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6894772220956195218}
+  - component: {fileID: 1516143577340770840}
+  m_Layer: 3
+  m_Name: Bow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6894772220956195218
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652898905173432906}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4068629469178437241}
+  m_Father: {fileID: 1094850952566096657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1516143577340770840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1652898905173432906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae9812d0725835045ae0c584e7d12e46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2212682138100176999}
+  attackPoint: {fileID: 4068629469178437241}
+  combat: {fileID: 3426090498644071800}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  characterMovement: {fileID: 3960980809086202236}
+  attackRange: 0.5
+  attackDamage: 40
+  attackRate: 2
+  nextAttackTime: 0
+  knockbackForce: 1
+  knockbackDuration: 0.2
+--- !u!1 &1690062973053119914
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4119612935581156347}
+  - component: {fileID: 7858024481496127674}
+  m_Layer: 3
+  m_Name: Sword
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4119612935581156347
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690062973053119914}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8082467551108586449}
+  m_Father: {fileID: 1094850952566096657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7858024481496127674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690062973053119914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa13da85e05b1943a211a82a4afc5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2212682138100176999}
+  attackPoint: {fileID: 0}
+  combat: {fileID: 3426090498644071800}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  characterMovement: {fileID: 3960980809086202236}
+  attackRange: 0.7
+  attackDamage: 2
+  attackRate: 2
+  nextAttackTime: 0
+  knockbackForce: 10
+  knockbackDuration: 0.2
+  angleThreshold: 0.7
+--- !u!1 &4011137935335838165
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8082467551108586449}
+  m_Layer: 3
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8082467551108586449
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4011137935335838165}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.30000007, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4119612935581156347}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4607242965835617393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 23781685161431148}
+  - component: {fileID: 3426090498644071800}
+  m_Layer: 3
+  m_Name: Combat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &23781685161431148
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607242965835617393}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1094850952566096657}
+  m_Father: {fileID: 6377654365571422507}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3426090498644071800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607242965835617393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d1c965bb6026044f8e53c7d27b2051f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2212682138100176999}
+  characterAnimation: {fileID: 5898724393291171003}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  rb: {fileID: 7127369674428886474}
+  characterMovementAI: {fileID: 3960980809086202236}
+  attackRate: 2
+  inputTimer: 0.2
+  lastInputTime: -Infinity
+  ifDebug: 0
+  debugAttackRangeVisualizer: {fileID: 0}
+  combatEnabled: 0
+  gotInput: 0
+  isAttacking: 0
+  isFirstAttack: 0
+  sword: {fileID: 0}
+--- !u!1 &4684821728387608108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1094850952566096657}
+  m_Layer: 3
+  m_Name: Weapons
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1094850952566096657
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684821728387608108}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4119612935581156347}
+  - {fileID: 6894772220956195218}
+  m_Father: {fileID: 23781685161431148}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5052029328397013899
 GameObject:
   m_ObjectHideFlags: 0
@@ -154,7 +397,7 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
---- !u!1 &5640509549963748142
+--- !u!1 &7342937406978347928
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +405,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7382996830281311783}
+  - component: {fileID: 4068629469178437241}
   m_Layer: 3
   m_Name: AttackPoint
   m_TagString: Untagged
@@ -170,20 +413,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7382996830281311783
+--- !u!4 &4068629469178437241
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5640509549963748142}
+  m_GameObject: {fileID: 7342937406978347928}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.30000007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6377654365571422507}
+  m_Father: {fileID: 6894772220956195218}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7834915610557380560
 GameObject:
@@ -197,9 +440,7 @@ GameObject:
   - component: {fileID: 7127369674428886474}
   - component: {fileID: 3237760347362161169}
   - component: {fileID: 3960980809086202236}
-  - component: {fileID: 152323377726260026}
   - component: {fileID: 7464275693909124074}
-  - component: {fileID: 2677363681198226136}
   - component: {fileID: 140400135506352222}
   - component: {fileID: 1526314319241926698}
   - component: {fileID: 4691762652494968890}
@@ -229,9 +470,9 @@ Transform:
   m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 7382996830281311783}
   - {fileID: 3224158449335273939}
   - {fileID: 3808795176879464948}
+  - {fileID: 23781685161431148}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7127369674428886474
@@ -316,35 +557,6 @@ MonoBehaviour:
   isWalking: 0
   isDashing: 0
   lastMoveDirection: {x: 0, y: 0}
---- !u!114 &152323377726260026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834915610557380560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d1c965bb6026044f8e53c7d27b2051f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2212682138100176999}
-  characterAnimation: {fileID: 5898724393291171003}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  rb: {fileID: 7127369674428886474}
-  characterMovementAI: {fileID: 3960980809086202236}
-  attackRate: 2
-  inputTimer: 0.2
-  lastInputTime: -Infinity
-  ifDebug: 0
-  debugAttackRangeVisualizer: {fileID: 0}
-  combatEnabled: 0
-  gotInput: 0
-  isAttacking: 0
-  isFirstAttack: 0
-  sword: {fileID: 2677363681198226136}
 --- !u!114 &7464275693909124074
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -362,7 +574,7 @@ MonoBehaviour:
   isInvincible: 0
   invincibilityTime: 0.6
   combatDisabledTime: 0.3
-  combat: {fileID: 152323377726260026}
+  combat: {fileID: 3426090498644071800}
   animator: {fileID: 2212682138100176999}
   characterAnimation: {fileID: 5898724393291171003}
   rb: {fileID: 7127369674428886474}
@@ -370,32 +582,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 196909761537321690}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
   healthBarController: {fileID: 0}
---- !u!114 &2677363681198226136
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834915610557380560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fa13da85e05b1943a211a82a4afc5d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2212682138100176999}
-  attackPoint: {fileID: 7382996830281311783}
-  combat: {fileID: 152323377726260026}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  characterMovement: {fileID: 3960980809086202236}
-  attackRange: 0.7
-  attackDamage: 2
-  attackRate: 2
-  nextAttackTime: 0
-  knockbackForce: 10
-  knockbackDuration: 0.2
-  angleThreshold: 0.7
 --- !u!114 &140400135506352222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -829,6 +1015,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
-  playerCombat: {fileID: 152323377726260026}
-  sword: {fileID: 2677363681198226136}
+  playerCombat: {fileID: 3426090498644071800}
+  sword: {fileID: 7858024481496127674}
   movementAI: {fileID: 3960980809086202236}

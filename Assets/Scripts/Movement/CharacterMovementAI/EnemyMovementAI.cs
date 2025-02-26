@@ -103,31 +103,31 @@ namespace Scripts.Movements.AI
                 Debug.LogError("Animator component not found on " + gameObject.name);
             }
 
-            this.SetEnemyCombat(GetComponent<EnemyCombat>());
+            this.SetEnemyCombat(transform.root.GetComponentInChildren<EnemyCombat>());
             if (enemyCombat == null)
             {
                 Debug.LogError("EnemyCombat component not found on " + gameObject.name);
             }
 
-            this.SetWalking(GetComponent<Walking>());
+            this.SetWalking(transform.root.GetComponentInChildren<Walking>());
             if (walking == null)
             {
                 Debug.LogError("Walking component not found on " + gameObject.name);
             }
 
-            this.SetUnstuck(GetComponent<Unstuck>());
+            this.SetUnstuck(transform.root.GetComponentInChildren<Unstuck>());
             if (unstuck == null)
             {
                 Debug.LogError("Unstuck component not found on " + gameObject.name);
             }
 
-            this.SetKnockback(GetComponent<Knockback>());
+            this.SetKnockback(transform.root.GetComponentInChildren<Knockback>());
             if (knockback == null)
             {
                 Debug.LogError("Knockback component not found on " + gameObject.name);
             }
 
-            this.SetFollowTarget(GetComponent<FollowTarget>());
+            this.SetFollowTarget(transform.root.GetComponentInChildren<FollowTarget>());
             if (followTarget == null)
             {
                 Debug.LogError("FollowTarget component not found on " + gameObject.name);

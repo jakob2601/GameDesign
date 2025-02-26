@@ -15,14 +15,14 @@ namespace Scripts.Combats.CharacterCombats
 
         public override MovementAI getCharacterMovement()
         {
-            return GetComponent<PlayerMovementAI>();
+            return transform.root.GetComponentInChildren<PlayerMovementAI>();
         }
 
 
         protected override void Start()
         {
             base.Start();
-            sword = GetComponent<Sword>();
+            sword = GetComponentInChildren<Sword>();
             sword.SetEnemyLayer(enemyLayer);
         }
 

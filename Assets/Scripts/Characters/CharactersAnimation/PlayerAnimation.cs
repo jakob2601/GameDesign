@@ -17,19 +17,19 @@ namespace Scripts.Characters.CharactersAnimation
         {
             base.Start();
 
-            playerCombat = transform.root.GetComponent<PlayerCombat>();
+            playerCombat = transform.root.GetComponentInChildren<PlayerCombat>();
             if (playerCombat == null)
             {
                 Debug.LogError("PlayerCombat is not assigned.");
             }
 
-            sword = transform.root.GetComponent<Sword>();
+            sword = transform.root.GetComponentInChildren<Sword>();
             if (sword == null)
             {
                 Debug.LogError("Sword is not assigned.");
             }
 
-            movementAI = transform.root.GetComponent<PlayerMovementAI>();
+            movementAI = transform.root.GetComponentInChildren<PlayerMovementAI>();
             if (movementAI == null)
             {
                 Debug.LogError("PlayerMovementAI is not assigned.");

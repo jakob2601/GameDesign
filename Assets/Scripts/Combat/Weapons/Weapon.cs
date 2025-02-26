@@ -167,13 +167,13 @@ namespace Scripts.Combats.Weapons
                 Debug.LogWarning("Attack Range Visualizer not found on " + gameObject.name);
             }
 
-            characterMovement = GetComponent<MovementAI>();
+            characterMovement = transform.root.GetComponentInChildren<MovementAI>();
             if (characterMovement == null)
             {
                 Debug.LogError("MovementAI component not found on " + gameObject.name);
             }
 
-            animator = GetComponentInChildren<Animator>();
+            animator = transform.root.GetComponentInChildren<Animator>();
             if (animator == null)
             {
                 Debug.LogError("Animator component not found on " + gameObject.name);
