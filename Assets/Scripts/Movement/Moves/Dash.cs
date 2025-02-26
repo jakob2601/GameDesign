@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using MyGame;
+using Scripts.Healths;
 
 namespace Scripts.Movements.Moves
 {
@@ -14,8 +15,11 @@ namespace Scripts.Movements.Moves
         [SerializeField] private GameObject dashParticles; // Referenz auf das GameObject mit dem TrailRenderer
         private TrailRenderer trailRenderer; // Referenz auf den TrailRenderer
 
+        private Health playerHealth;
+
         public void Start()
         {
+
             // Sicherstellen, dass das GameObject mit TrailRenderer zugewiesen ist
             if (dashParticles == null)
             {
@@ -32,6 +36,9 @@ namespace Scripts.Movements.Moves
             {
                 Debug.LogError("TrailRenderer im DashPartikel GameObject nicht gefunden!");
             }
+            trailRenderer.emitting = false;
+
+            playerHealth = GetComponent<PlayerHealth>();
         }
 
         public void Update()
@@ -100,6 +107,7 @@ namespace Scripts.Movements.Moves
 
         public IEnumerator PerformDash(Rigidbody2D rb, Vector2 walkingInput)
         {
+            playerHealth.setInvincibility(true);
             Vector2 dashDirection = walkingInput.normalized; // Richtung des Dashes basierend auf der Eingabe
             SoundManager.PlaySound(SoundType.DASH); // Spiele den Dash-Sound ab
             if (trailRenderer != null)
@@ -114,7 +122,7 @@ namespace Scripts.Movements.Moves
                 dashTime += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate(); // Warte auf das nächste Physik-Update
             }
-
+            playerHealth.setInvincibility(false);
             // Starte den Dash-Cooldown
             dashCooldownTimer = dashCooldown;
             if (trailRenderer != null)

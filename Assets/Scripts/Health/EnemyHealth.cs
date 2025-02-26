@@ -14,7 +14,6 @@ namespace Scripts.Healths {
             // Rufe die gemeinsame Initialisierung der Basisklasse auf
             base.Start();
 
-
         }
 
         protected override void initializeHealthBar(int maxHealth)
@@ -42,7 +41,7 @@ namespace Scripts.Healths {
             // Versuche ein Herz zu droppen
             DropHeart();
 
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 0.5f);
         }
 
         protected override void Hurt()
