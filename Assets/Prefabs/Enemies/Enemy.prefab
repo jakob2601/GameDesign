@@ -181,16 +181,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
+  characterAnimation: {fileID: 0}
   rb: {fileID: 2579191884603178559}
-  GFX: {fileID: 7937483012282986140}
+  walking: {fileID: 9001278909043300127}
+  walkingInput: {x: 0, y: 0}
+  isWalking: 0
   isDashing: 0
   lastMoveDirection: {x: 0, y: 0}
-  originalScale: {x: 0, y: 0, z: 0}
   enemyCombat: {fileID: 3253567361553378283}
   unstuck: {fileID: 7569245253550255710}
   followTarget: {fileID: 610034541743464483}
-  radiate: {fileID: 2657349145213879096}
-  walking: {fileID: 9001278909043300127}
   knockback: {fileID: 0}
   player: {fileID: 0}
   playerLayer:
@@ -210,19 +210,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
+  characterAnimation: {fileID: 0}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
   rb: {fileID: 2579191884603178559}
-  playerDirection: {fileID: 0}
+  characterMovementAI: {fileID: 0}
   attackRate: 2
-  nextAttackTime: 0
+  inputTimer: 0
+  lastInputTime: -Infinity
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
-  inCombat: 0
+  combatEnabled: 0
+  gotInput: 0
+  isAttacking: 0
+  isFirstAttack: 0
   player: {fileID: 0}
   contactDamage: {fileID: 907683653750093926}
   startAttackRange: 1.5
+  sword: {fileID: 0}
 --- !u!114 &907683653750093926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,12 +247,14 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  characterMovement: {fileID: 0}
   attackRange: 0.5
   attackDamage: 1
   attackRate: 2
   nextAttackTime: 0
   knockbackForce: 10
   knockbackDuration: 0.2
+  isEnabled: 0
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,11 +271,16 @@ MonoBehaviour:
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
+  combatDisabledTime: 0.5
+  combat: {fileID: 0}
   animator: {fileID: 2309280226520025970}
+  characterAnimation: {fileID: 0}
   rb: {fileID: 2579191884603178559}
   knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  HeartPickup: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
+  dropChance: 1
 --- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,12 +302,14 @@ MonoBehaviour:
   startUpdatePathTime: 0
   updatePathRate: 0.5
   timeSinceLastUpdate: 0
+  currentWaypoint: 0
   reachedEndOfPath: 0
+  targetLost: 0
+  walkingInput: {x: 0, y: 0}
   startRadius: 10
   endRadius: 3
   currentDistanceToTarget: 0
   isEnabled: 1
-  isUnblocked: 0
 --- !u!114 &2657349145213879096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,6 +329,9 @@ MonoBehaviour:
   isUnblocked: 1
   walking: {fileID: 9001278909043300127}
   rb: {fileID: 2579191884603178559}
+  target: {fileID: 0}
+  currentDistanceToTarget: 0
+  radiateSpeed: 0
 --- !u!114 &7569245253550255710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,6 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 2
+  rb: {fileID: 0}
 --- !u!114 &2081608683695642961
 MonoBehaviour:
   m_ObjectHideFlags: 0

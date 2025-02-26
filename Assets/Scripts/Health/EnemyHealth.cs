@@ -5,12 +5,16 @@ using UnityEngine.UIElements;
 
 namespace Scripts.Healths {
     public class EnemyHealth : Health {
-        
+
+        [SerializeField] private GameObject HeartPickup; // Referenz zum Herz-Prefab
+        [SerializeField] private float dropChance = 1f; // 30% Chance, ein Herz zu droppen
+
         protected override void Start()
         {
             // Rufe die gemeinsame Initialisierung der Basisklasse auf
             base.Start();
-        
+
+
         }
 
         protected override void initializeHealthBar(int maxHealth)
@@ -35,6 +39,9 @@ namespace Scripts.Healths {
             GetComponent<Collider2D>().enabled = false;
             this.enabled = false;
 
+            // Versuche ein Herz zu droppen
+            DropHeart();
+
             Destroy(gameObject, 3f);
         }
 
@@ -42,6 +49,7 @@ namespace Scripts.Healths {
         {
             // Play Hurt Animation
             characterAnimation.SetIsHurt(true);
+            
         }
 
         public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
@@ -50,6 +58,24 @@ namespace Scripts.Healths {
             // Update die Health Bar
             // Hier kannst du die Health Bar des Gegners aktualisieren
             base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
+        }
+
+        private void DropHeart()
+        {
+            if (HeartPickup == null)
+            {
+                Debug.LogError("HeartPickup ist nicht zugewiesen!");
+                return;
+            }
+
+            float randomValue = Random.value;
+            Debug.Log("Drop Chance: " + randomValue + " (Muss kleiner als " + dropChance + " sein)");
+
+            if (randomValue <= dropChance)
+            {
+                Instantiate(HeartPickup, transform.position, Quaternion.identity);
+                Debug.Log("Heart dropped!");
+            }
         }
     } 
 
