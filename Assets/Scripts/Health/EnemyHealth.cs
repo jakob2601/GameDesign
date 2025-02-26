@@ -1,3 +1,4 @@
+// Assets/Scripts/Health/EnemyHealth.cs
 using UnityEngine;
 using System.Collections;
 using Scripts.Movements.Behaviours;
@@ -6,56 +7,65 @@ using UnityEngine.UIElements;
 namespace Scripts.Healths {
     public class EnemyHealth : Health {
 
-        [SerializeField] private GameObject HeartPickup; // Referenz zum Herz-Prefab
-        [SerializeField] private float dropChance = 1f; // 30% Chance, ein Herz zu droppen
+        [SerializeField] private GameObject HeartPickup; // Reference to the heart prefab
+        [SerializeField] private float dropChance = 1f; // 30% chance to drop a heart
 
         protected override void Start()
         {
-            // Rufe die gemeinsame Initialisierung der Basisklasse auf
+            // Call the base class initialization
             base.Start();
+            Debug.Log("Enemy " + gameObject.name + " initialized with health: " + currentHealth);
+        }
 
+        public bool IsAlive()
+        {
+            Debug.Log("Checking if enemy " + gameObject.name + " is alive with health: " + currentHealth);
+            return currentHealth > 0;
         }
 
         protected override void initializeHealthBar(int maxHealth)
         {
-            // Initialisiere die Health Bar
-            // Hier kannst du die Health Bar des Gegners initialisieren
+            // Initialize the health bar
         }
 
         protected override void updateHealthBar(int currentHealth, int maxHealth)
         {
-            // Update die Health Bar
-            // Hier kannst du die Health Bar des Gegners aktualisieren
+            // Update the health bar
         }
+        public System.Action<string> OnThisEnemyDied;
+        private bool isDying = false;
 
         protected override void Die()
         {
-            Debug.Log("Enemy died.");
+        if (isDying) return;
+        isDying = true;
 
-            // Play Death Animation
-            characterAnimation.SetIsDead(true);
-            // Disable the enemy
-            GetComponent<Collider2D>().enabled = false;
-            this.enabled = false;
+        Debug.Log($"Enemy {gameObject.name} died.");
 
-            // Versuche ein Herz zu droppen
-            DropHeart();
+        // Trigger individual enemy death event
+        OnThisEnemyDied?.Invoke(gameObject.name);
 
-            Destroy(gameObject, 0.5f);
+        // Call base Die() for general death event
+        base.Die();
+
+        characterAnimation.SetIsDead(true);
+        GetComponent<Collider2D>().enabled = false;
+        this.enabled = false;
+        DropHeart();
+
+        Destroy(gameObject, 0.5f);
         }
 
         protected override void Hurt()
         {
-            // Play Hurt Animation
+            // Play hurt animation
             characterAnimation.SetIsHurt(true);
-            
         }
 
         public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
-            // Reduziere die Gesundheit
-            // Update die Health Bar
-            // Hier kannst du die Health Bar des Gegners aktualisieren
+            Debug.Log("Enemy " + gameObject.name + " took damage: " + damage);
+            // Reduce health
             base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
         }
 
@@ -69,7 +79,7 @@ namespace Scripts.Healths {
             }
 
             float randomValue = Random.value;
-            Debug.Log("Drop Chance: " + randomValue + " (Muss kleiner als " + dropChance + " sein)");
+            Debug.Log("Drop Chance: " + randomValue + " (Must be less than " + dropChance + ")");
 
             if (randomValue <= dropChance)
             {
@@ -82,6 +92,5 @@ namespace Scripts.Healths {
                 }
             }
         }
-    } 
-
+    }
 }

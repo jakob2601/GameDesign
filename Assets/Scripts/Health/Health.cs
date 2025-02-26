@@ -1,3 +1,4 @@
+// Assets/Scripts/Health/Health.cs
 using UnityEngine;
 using MyGame;
 using System.Collections;
@@ -6,11 +7,14 @@ using Scripts.Combats;
 using Scripts.Movements.Behaviours;
 using Scripts.Characters.CharactersAnimation;
 using Scripts.Combats.CharacterCombats;
+using System;
 
 namespace Scripts.Healths
 {
     public abstract class Health : MonoBehaviour
     {
+        public static event Action OnEnemyDied;
+
         [SerializeField] public int maxHealth = 10; // Maximale Gesundheit
         [SerializeField] public int currentHealth; // Aktuelle Gesundheit
 
@@ -18,9 +22,6 @@ namespace Scripts.Healths
 
         [SerializeField] public float invincibilityTime = 0.3f; // Zeit, in der der Charakter unverwundbar ist
         [SerializeField] public float combatDisabledTime = 0.5f; // Stärke des Rückstoßes
-        //[SerializeField] public float knockbackDuration = 0.2f; // Dauer des Rückstoßes
-
-        
         [SerializeField] protected Combat combat;
         [SerializeField] protected Animator animator; // Referenz auf den Animator
         [SerializeField] protected CharacterAnimation characterAnimation; // Referenz auf die CharacterAnimation
@@ -87,7 +88,6 @@ namespace Scripts.Healths
             updateHealthBar(currentHealth, maxHealth);
         }
 
-
         public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
             Debug.Log(gameObject.name + " took damage: " + damage);
@@ -116,7 +116,7 @@ namespace Scripts.Healths
                     Die();
                     //return;
                 }
-                else 
+                else
                 {
                     Hurt();
                 }
@@ -138,13 +138,13 @@ namespace Scripts.Healths
             isInvincible = false;
         }
 
-        protected IEnumerator CombatCooldown() 
+        protected IEnumerator CombatCooldown()
         {
             combat.SetCombatEnabled(false);
             yield return new WaitForSeconds(combatDisabledTime);
             combat.SetCombatEnabled(true);
         }
-        
+
         public void setInvincibility(bool state)
         {
             isInvincible = state;
@@ -166,7 +166,7 @@ namespace Scripts.Healths
 
         protected IEnumerator FlashRed()
         {
-            // Farbänderung nach Damage 
+            // Farbänderung nach Damage
             spriteRenderer.color = Color.red;
             yield return new WaitForSeconds(0.1f);
             spriteRenderer.color = Color.white;
@@ -174,13 +174,12 @@ namespace Scripts.Healths
 
         protected virtual void Die()
         {
-            
+            OnEnemyDied?.Invoke();
         }
 
         protected virtual void Hurt()
         {
-           
-        }
 
+        }
     }
 }
