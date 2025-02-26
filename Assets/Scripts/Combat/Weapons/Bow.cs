@@ -1,6 +1,7 @@
 using UnityEngine;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Movements.AI;
+using MyGame; // Add this to access Arrow class
 
 namespace Scripts.Combats.Weapons
 {
@@ -9,30 +10,50 @@ namespace Scripts.Combats.Weapons
         [Header("Bow Properties")]
         [SerializeField] protected GameObject arrowPrefab;
         [SerializeField] protected float bulletForce = 20f;
-
+        [SerializeField] protected int arrowDamage = 10;
+        [SerializeField] protected float arrowLifetime = 5f;
+        
         public override void PerformAttack()
         {
             base.Start();
-            // Füge hier die Logik für den Pfeil hinzu
+            CheckBowAttackHitBox();
         }
 
         public void CheckBowAttackHitBox()
         {
             // Get the last move direction from the character movement AI
             Vector2 shootDirection = characterMovement.GetLastMoveDirection();
-            
+
             // Calculate rotation angle to point the arrow in the movement direction
-            // The -90 degrees offset is because Unity's default "up" is facing up,
-            // so we rotate to match the shoot direction
-            float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg - 90f;
+            float angle = Mathf.Atan2(shootDirection.y, shootDirection.x) * Mathf.Rad2Deg;
             Quaternion arrowRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            
+
             // Instantiate the arrow at attackPoint with the calculated rotation
             GameObject bullet = Instantiate(arrowPrefab, attackPoint.position, arrowRotation);
-            Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
             
-            // Apply force in the shoot direction
+            // Set arrow properties
+            Arrow arrowScript = bullet.GetComponent<Arrow>();
+            if (arrowScript != null)
+            {
+                arrowScript.SetEnemyLayer(enemyLayer);
+                arrowScript.SetAttackDamage(arrowDamage);
+                arrowScript.SetLifetime(arrowLifetime);
+                arrowScript.SetKnockbackForce(knockbackForce);
+                arrowScript.SetKnockbackDuration(knockbackDuration);
+            }
+            
+            // Setup rigidbody and physics
+            Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
             rbBullet.AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
+            rbBullet.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+            // Ignore collision between the arrow and the player who shot it
+            Collider2D arrowCollider = bullet.GetComponent<Collider2D>();
+            Collider2D characterCollider = transform.root.GetComponent<Collider2D>();
+            if (arrowCollider != null && characterCollider != null)
+            {
+                Physics2D.IgnoreCollision(arrowCollider, characterCollider);
+            }
         }
     }
 }

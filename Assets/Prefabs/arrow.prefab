@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1487916350817490201}
   - component: {fileID: 1503414479297290012}
   - component: {fileID: 4222145058950589771}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,3 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322eb74d2479c9a46a586de084ce4a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffect: {fileID: 0}
+  effectTime: 0.8
