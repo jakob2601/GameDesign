@@ -15,7 +15,7 @@ namespace Scripts.Combats.CharacterCombats
 
         [SerializeField] public Rigidbody2D rb;
 
-        [SerializeField] protected MovementAI characterMovementAI; 
+        [SerializeField] protected MovementAI characterMovementAI;
 
         [SerializeField] public float attackRate = 2f;
         [SerializeField] protected float inputTimer;
@@ -92,19 +92,19 @@ namespace Scripts.Combats.CharacterCombats
                 Debug.LogError("CharacterAnimation is not assigned.");
             }
 
+            combatEnabled = true;
+            gotInput = false;
+            isFirstAttack = true;
+            isAttacking = false;
+            isSwordAttack = false;
+            isBowAttack = false;
             animator = transform.root.GetComponentInChildren<Animator>();
             if (animator == null)
             {
                 Debug.LogError("Animator component not found on " + gameObject.name);
             }
-            else 
-            {   
-                combatEnabled = true;
-                gotInput = false;
-                isFirstAttack = true;
-                isAttacking = false;
-                isSwordAttack = false;
-                isBowAttack = false;
+            else
+            {
                 characterAnimation.SetCanAttack(combatEnabled);
             }
 

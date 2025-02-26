@@ -60,6 +60,8 @@ MonoBehaviour:
   knockbackDuration: 0.2
   arrowPrefab: {fileID: 2960165790278124058, guid: 93a191be15fc1b84b8ec553092c0c87d, type: 3}
   bulletForce: 20
+  arrowDamage: 10
+  arrowLifetime: 5
 --- !u!1 &1690062973053119914
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,7 +215,12 @@ MonoBehaviour:
   isFirstAttack: 0
   isSwordAttack: 0
   isBowAttack: 0
-  sword: {fileID: 0}
+  sword: {fileID: 7858024481496127674}
+  bow: {fileID: 1516143577340770840}
+  queuedSwordAttack: 0
+  queuedBowAttack: 0
+  queuedAttackWindow: 0.5
+  queuedAttackTime: 0
 --- !u!1 &4684821728387608108
 GameObject:
   m_ObjectHideFlags: 0
