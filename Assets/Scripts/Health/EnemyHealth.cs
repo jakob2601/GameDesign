@@ -3,14 +3,16 @@ using System.Collections;
 using Scripts.Movements.Behaviours;
 using UnityEngine.UIElements;
 
-namespace Scripts.Healths {
-    public class EnemyHealth : Health {
-        
+namespace Scripts.Healths
+{
+    public class EnemyHealth : Health
+    {
+
         protected override void Start()
         {
             // Rufe die gemeinsame Initialisierung der Basisklasse auf
             base.Start();
-        
+
         }
 
         protected override void initializeHealthBar(int maxHealth)
@@ -36,7 +38,7 @@ namespace Scripts.Healths {
             GetComponent<Collider2D>().enabled = false;
             this.enabled = false;
 
-            Destroy(gameObject, 3f);
+            Destroy(gameObject, 0.5f);
         }
 
         public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
@@ -46,6 +48,6 @@ namespace Scripts.Healths {
             // Hier kannst du die Health Bar des Gegners aktualisieren
             base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
         }
-    } 
+    }
 
 }

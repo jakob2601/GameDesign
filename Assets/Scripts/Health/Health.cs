@@ -5,8 +5,10 @@ using Scripts.UI;
 using Scripts.Combats;
 using Scripts.Movements.Behaviours;
 
-namespace Scripts.Healths {
-    public abstract class Health : MonoBehaviour {
+namespace Scripts.Healths
+{
+    public abstract class Health : MonoBehaviour
+    {
         [SerializeField] public int maxHealth = 10; // Maximale Gesundheit
         [SerializeField] public int currentHealth; // Aktuelle Gesundheit
 
@@ -23,7 +25,8 @@ namespace Scripts.Healths {
         [SerializeField] public SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
         [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
 
-        protected virtual void Start() {
+        protected virtual void Start()
+        {
             // Setze die Gesundheit auf das Maximum
             currentHealth = maxHealth;
 
@@ -35,7 +38,7 @@ namespace Scripts.Healths {
             {
                 Debug.LogWarning("SpriteRenderer not found on " + gameObject.name);
             }
-            
+
             rb = GetComponent<Rigidbody2D>();
             if (rb == null)
             {
@@ -61,18 +64,18 @@ namespace Scripts.Healths {
             updateHealthBar(currentHealth, maxHealth);
         }
 
-        
+
         public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
             Debug.Log(gameObject.name + " took damage: " + damage);
             // Reduziere die Gesundheit
-            if(!isInvincible)
+            if (!isInvincible)
             {
                 currentHealth -= damage;
                 Debug.Log("Current Health: " + currentHealth + "GameObject: " + gameObject.name + "damaged by " + damage);
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
                 SoundManager.PlaySound(SoundType.HIT);
-            
+
                 // Update die Health Bar
                 updateHealthBar(currentHealth, maxHealth);
 
@@ -94,17 +97,22 @@ namespace Scripts.Healths {
 
                 StartCoroutine(InvincibiltyTimer());
             }
-            else 
+            else
             {
                 Debug.Log("Player is invincible");
             }
         }
 
-        protected IEnumerator InvincibiltyTimer() 
+        protected IEnumerator InvincibiltyTimer()
         {
             isInvincible = true;
             yield return new WaitForSeconds(invincibilityTime);
             isInvincible = false;
+        }
+
+        public void setInvincibility(bool state)
+        {
+            isInvincible = state;
         }
 
         void SpawnBloodParticles()
@@ -133,6 +141,6 @@ namespace Scripts.Healths {
         {
             // Hier kannst du eine Logik für den Tod des Spielers einfügen
         }
-        
+
     }
 }

@@ -7,7 +7,7 @@ using Scripts.Movements.AI;
 
 namespace Scripts.Movements.Behaviours
 {
-    public class Knockback: MonoBehaviour
+    public class Knockback : MonoBehaviour
     {
         [SerializeField] private bool isKnockbackActive = false;
 
@@ -23,7 +23,7 @@ namespace Scripts.Movements.Behaviours
 
         public IEnumerator KnockbackCharacter(Rigidbody2D rb, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
-            if(rb == null)
+            if (rb == null)
             {
                 Debug.LogWarning("Rigidbody is null");
                 yield break;
@@ -35,9 +35,9 @@ namespace Scripts.Movements.Behaviours
                 Debug.Log("Applying Knockback");
                 Vector2 knockback = hitDirection.normalized * knockbackForce;
                 rb.AddForce(knockback, ForceMode2D.Impulse);
-    	        
+
                 yield return new WaitForSeconds(knockbackDuration);
-                 
+
                 Debug.Log("Go to Normal State");
                 rb.velocity = Vector2.zero;
                 isKnockbackActive = false;
