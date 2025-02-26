@@ -70,12 +70,27 @@ namespace Scripts.Characters.CharactersAnimation
             animator.SetBool("IsSwordAttack", isSwordAttack);
         }
 
-        public virtual void CheckAttackHitBox()
+        public virtual void SetBowAttackAnimation(bool isBowAttack)
+        {
+            animator.SetBool("IsBowAttack", isBowAttack);
+        }
+
+        public virtual void CheckSwordAttackHitBox()
         {
 
         }
 
-        public virtual void FinishAttackAnimation()
+        public virtual void CheckBowAttackHitBox()
+        {
+
+        }
+
+        public virtual void FinishSwordAttackAnimation()
+        {
+    
+        }
+
+        public virtual void FinishBowAttackAnimation()
         {
     
         }

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AttackToLeft
+  m_Name: SwordAttackToBottom
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,13 +21,13 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: -454679377, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+      value: {fileID: 59691901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
     - time: 0.33333334
-      value: {fileID: 383602060, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+      value: {fileID: 1110821901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
     - time: 0.5833333
-      value: {fileID: 1832452816, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+      value: {fileID: 1127022677, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
     - time: 0.6666667
-      value: {fileID: -1518929478, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+      value: {fileID: -1941352432, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -50,10 +50,10 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: -454679377, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
-    - {fileID: 383602060, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
-    - {fileID: 1832452816, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
-    - {fileID: -1518929478, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: 59691901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: 1110821901, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: 1127022677, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
+    - {fileID: -1941352432, guid: cfaba0d6cd14f8147bdb667876298c93, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -87,7 +87,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.33333334
-    functionName: CheckAttackHitBox
+    functionName: CheckSwordAttackHitBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -101,7 +101,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.6666667
-    functionName: FinishAttackAnimation
+    functionName: CheckSwordAttackHitBox
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

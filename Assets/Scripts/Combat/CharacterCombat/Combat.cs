@@ -26,7 +26,7 @@ namespace Scripts.Combats.CharacterCombats
 
         [Header("Combat States")]
         [SerializeField] protected bool combatEnabled;
-        [SerializeField] protected bool gotInput, isAttacking, isFirstAttack;
+        [SerializeField] protected bool gotInput, isAttacking, isFirstAttack, isSwordAttack, isBowAttack;
 
         abstract public MovementAI getCharacterMovement();
 
@@ -103,6 +103,8 @@ namespace Scripts.Combats.CharacterCombats
                 gotInput = false;
                 isFirstAttack = true;
                 isAttacking = false;
+                isSwordAttack = false;
+                isBowAttack = false;
                 characterAnimation.SetCanAttack(combatEnabled);
             }
 
@@ -122,7 +124,9 @@ namespace Scripts.Combats.CharacterCombats
 
         protected abstract void CheckAttacks();
 
-        public abstract void FinishAttack();
+        public abstract void FinishSwordAttack();
+
+        public abstract void FinishBowAttack();
 
     }
 }
