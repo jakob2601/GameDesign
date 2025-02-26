@@ -61,10 +61,11 @@ namespace Scripts.Healths {
 
         private void DropHeart()
         {
+            // Improved null check
             if (HeartPickup == null)
             {
-                Debug.LogError("HeartPickup ist nicht zugewiesen!");
-                return;
+                Debug.LogError("HeartPickup ist nicht zugewiesen für Enemy: " + gameObject.name);
+                return; // This should prevent the error
             }
 
             float randomValue = Random.value;
@@ -72,8 +73,13 @@ namespace Scripts.Healths {
 
             if (randomValue <= dropChance)
             {
-                Instantiate(HeartPickup, transform.position, Quaternion.identity);
-                Debug.Log("Heart dropped!");
+                try {
+                    Instantiate(HeartPickup, transform.position, Quaternion.identity);
+                    Debug.Log("Heart dropped!");
+                }
+                catch (System.Exception e) {
+                    Debug.LogError("Error dropping heart: " + e.Message);
+                }
             }
         }
     } 

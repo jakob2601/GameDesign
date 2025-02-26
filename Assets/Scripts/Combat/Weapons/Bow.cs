@@ -40,6 +40,9 @@ namespace Scripts.Combats.Weapons
                 arrowScript.SetLifetime(arrowLifetime);
                 arrowScript.SetKnockbackForce(knockbackForce);
                 arrowScript.SetKnockbackDuration(knockbackDuration);
+                
+                // Important: Set the player GameObject so arrow can ignore ALL its colliders
+                arrowScript.SetCharacterObject(transform.root.gameObject);
             }
             
             // Setup rigidbody and physics

@@ -22,6 +22,7 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected float knockbackDuration = 0.2f;
         
         private Rigidbody2D rb;
+        private GameObject playerObject;
         
         void Start()
         {
@@ -64,6 +65,20 @@ namespace Scripts.Combats.Weapons
                 Invoke("DestroyArrow", timeToLive);
             }
         }
+
+        public void SetCharacterObject(GameObject player)
+        {
+            playerObject = player;
+            
+            // Ignore ALL colliders on the player and its children
+            Collider2D arrowCollider = GetComponent<Collider2D>();
+            Collider2D[] playerColliders = player.GetComponentsInChildren<Collider2D>(true); // true = include inactive components
+            
+            foreach (Collider2D playerCollider in playerColliders)
+            {
+                Physics2D.IgnoreCollision(arrowCollider, playerCollider);
+            }
+        }
         
         void OnCollisionEnter2D(Collision2D collision)
         {
@@ -78,6 +93,13 @@ namespace Scripts.Combats.Weapons
         // For collisions
         void HitObject(Collision2D collision)
         {
+            // Check if it's the player or child of player (failsafe)
+            if (playerObject != null && 
+                (collision.gameObject == playerObject || collision.transform.IsChildOf(playerObject.transform)))
+            {
+                return; // Skip collision with player
+            }
+
             Debug.Log("Arrow collided with: " + collision.gameObject.name);
             
             // Check if we hit something in the enemy layer
