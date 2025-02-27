@@ -84,6 +84,7 @@ namespace Scripts.Combats.Weapons
         public void SetAttackDamage(int attackDamage)
         {
             this.attackDamage = attackDamage;
+            Debug.Log("Neuer Angriffsschaden: " + attackDamage);
         }
 
         public float GetAttackRate()
