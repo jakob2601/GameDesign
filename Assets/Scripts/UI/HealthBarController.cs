@@ -5,60 +5,57 @@ namespace Scripts.UI
 {
     public class HealthBarController : MonoBehaviour
     {
-        public GameObject heartContainer; // Das Parent-GameObject, das die Herzen enthält
-        public Sprite fullHeart; // Sprite für volles Herz (Heart_0)
-        public Sprite emptyHeart; // Sprite für leeres Herz (Heart_4)
+        public GameObject heartContainer; // The parent GameObject that contains the hearts
+        public Sprite fullHeart; // Sprite for full heart
+        public Sprite emptyHeart; // Sprite for empty heart
 
-        private Image[] heartImages; // Array für die UI-Images der Herzen
+        private Image[] heartImages; // Array for the UI images of the hearts
 
         public void InitializeHearts(int maxHealth)
         {
-            // Lösche alte Herzen
+            // Delete old hearts
             foreach (Transform child in heartContainer.transform)
             {
                 Destroy(child.gameObject);
             }
 
-            // Erstelle neue Herzen basierend auf maxHealth
+            // Create new hearts based on maxHealth
             heartImages = new Image[maxHealth];
             for (int i = 0; i < maxHealth; i++)
             {
-                // Neues Herz erstellen
+                // Create a new heart
                 GameObject newHeart = new GameObject("Heart_" + i, typeof(Image));
                 newHeart.transform.SetParent(heartContainer.transform);
 
-                // Füge ein Image hinzu
+                // Add an Image component
                 Image heartImage = newHeart.GetComponent<Image>();
-                heartImage.sprite = emptyHeart; // Standard: leeres Herz
+                heartImage.sprite = emptyHeart; // Default: empty heart
                 heartImages[i] = heartImage;
 
-                // RectTransform-Einstellungen
+                // RectTransform settings
                 RectTransform rectTransform = newHeart.GetComponent<RectTransform>();
-                rectTransform.anchorMin = new Vector2(0, 1); // Oben links
-                rectTransform.anchorMax = new Vector2(0, 1); // Oben links
-                rectTransform.pivot = new Vector2(0, 1);     // Oben links als Drehpunkt
+                rectTransform.anchorMin = new Vector2(0, 1); // Top left
+                rectTransform.anchorMax = new Vector2(0, 1); // Top left
+                rectTransform.pivot = new Vector2(0, 1);     // Top left as pivot
 
-                rectTransform.sizeDelta = new Vector2(100, 100); // Größe des Herz-Icons
-                rectTransform.anchoredPosition = new Vector2(i * 110 + 10, 0); // Abstand der Herzen (horizontal)
+                rectTransform.sizeDelta = new Vector2(100, 100); // Size of the heart icon
+                rectTransform.anchoredPosition = new Vector2(i * 110 + 10, 0); // Horizontal spacing of hearts
             }
-
         }
 
         public void UpdateHearts(int currentHealth, int maxHealth)
         {
-            for (int i = 0; i < maxHealth; i++)
+            for (int i = 0; i < heartImages.Length; i++)
             {
                 if (i < currentHealth)
                 {
-                    heartImages[i].sprite = fullHeart; // Volles Herz
+                    heartImages[i].sprite = fullHeart; // Full heart
                 }
                 else
                 {
-                    heartImages[i].sprite = emptyHeart; // Leeres Herz
-                    
+                    heartImages[i].sprite = emptyHeart; // Empty heart
                 }
             }
         }
     }
-
 }

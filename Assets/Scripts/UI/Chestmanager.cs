@@ -5,9 +5,11 @@ using Scripts.Combats.CharacterCombats;
 public class ChestManager : MonoBehaviour
 {
     public GameObject heartPrefab;
+    public GameObject bowPrefab;
     public Transform spawnPoint;
     private int enemyCount;
     private bool isTriggered;
+    private bool arrowSpawned;
 
     void Start()
     {
@@ -33,19 +35,34 @@ public class ChestManager : MonoBehaviour
 
         if (enemyCount <= 0)
         {
-            SpawnHeart();
+            SpawnReward();
         }
     }
 
-    private void SpawnHeart()
+    private void SpawnReward()
     {
         if (isTriggered) return;
         isTriggered = true;
 
-        Debug.Log("All enemies dead - spawning heart");
-        if (heartPrefab != null && spawnPoint != null)
+        Debug.Log("All enemies dead - spawning reward");
+
+        if (spawnPoint != null)
         {
-            Instantiate(heartPrefab, spawnPoint.position, spawnPoint.rotation);
+            if (!arrowSpawned)
+            {
+                if (bowPrefab != null)
+                {
+                    Instantiate(bowPrefab, spawnPoint.position, spawnPoint.rotation);
+                    arrowSpawned = true;
+                }
+            }
+            else
+            {
+                if (heartPrefab != null)
+                {
+                    Instantiate(heartPrefab, spawnPoint.position, spawnPoint.rotation);
+                }
+            }
         }
 
         Destroy(gameObject);

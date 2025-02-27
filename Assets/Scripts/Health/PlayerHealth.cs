@@ -9,13 +9,12 @@ using UnityEngine.SceneManagement;
 namespace Scripts.Healths
 {
     public class PlayerHealth : Health
-    {   
+    {
         [SerializeField] public HealthBarController healthBarController;
-
 
         protected override void Start()
         {
-            // Rufe die gemeinsame Initialisierung der Basisklasse auf
+            // Call the base class initialization
             base.Start();
         }
 
@@ -23,25 +22,34 @@ namespace Scripts.Healths
         {
             base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
         }
-    
+
         protected override void initializeHealthBar(int maxHealth)
         {
-            // Initialisiere die Health Bar
+            // Initialize the health bar
             healthBarController.InitializeHearts(maxHealth);
         }
 
         protected override void updateHealthBar(int currentHealth, int maxHealth)
         {
-            // Update die Health Bar
+            // Update the health bar
             healthBarController.UpdateHearts(currentHealth, maxHealth);
         }
 
         public override void Heal(int amount)
         {
             base.Heal(amount);
-            // Update die Health Bar
+            // Update the health bar
             healthBarController.UpdateHearts(currentHealth, maxHealth);
-          
+        }
+
+        public void IncreaseMaxHealth(int amount)
+        {
+            maxHealth += amount;
+            currentHealth += amount; // Optionally heal the player by the same amount
+            // Re-initialize the health bar to accommodate the new max health
+            healthBarController.InitializeHearts(maxHealth);
+            healthBarController.UpdateHearts(currentHealth, maxHealth);
+            Debug.Log("Max health increased by " + amount + ". New max health: " + maxHealth);
         }
 
         protected override void Hurt()
@@ -55,8 +63,7 @@ namespace Scripts.Healths
             Debug.Log("Player has died!");
 
             Debug.Log("Spieler ist gestorben. Lade GameOver-Szene...");
-            SceneManager.LoadScene("GameOverMenu"); // Lade die GameOver
+            SceneManager.LoadScene("GameOverMenu"); // Load the GameOver scene
         }
     }
-
 }
