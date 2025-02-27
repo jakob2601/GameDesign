@@ -1,27 +1,39 @@
 using UnityEngine;
-using Scripts.Healths; // Stelle sicher, dass das korrekte Namespace importiert ist
+using Scripts.Healths;
+using Scripts.Combats.CharacterCombats;
 
 public class HeartPickup : MonoBehaviour
 {
-    [SerializeField] private int healAmount = 1; // Wie viel das Herz heilt
+    [SerializeField] private int healAmount = 1; // Amount the heart heals
+    [SerializeField] private int extraHeartAmount = 1; // Amount to increase max health
+    [SerializeField] private bool isExtraHealthHeart = false; // Flag to indicate if this is an extra health heart
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Prüfe, ob der Spieler das Herz berührt hat
+        // Check if the player touched the heart
         PlayerHealth playerHealth = collision.GetComponent<PlayerHealth>();
 
-        if (playerHealth != null) // Falls es ein Spieler ist
+        if (playerHealth != null) // If it's a player
         {
-            if (playerHealth.currentHealth < playerHealth.maxHealth) // Spieler ist nicht voll geheilt
+            if (isExtraHealthHeart)
             {
-                playerHealth.Heal(healAmount); // Heile den Spieler um 1 HP
-                Destroy(gameObject); // Entferne das Herz nach dem Aufsammeln
-                Debug.Log("Spieler wurde geheilt um " + healAmount + " HP.");
+                playerHealth.IncreaseMaxHealth(extraHeartAmount); // Increase max health
+                Debug.Log("Player's max health increased by " + extraHeartAmount + ".");
             }
             else
             {
-                Debug.Log("Spieler hat bereits volles Leben, Herz bleibt.");
+                if (playerHealth.currentHealth < playerHealth.maxHealth) // Player is not fully healed
+                {
+                    playerHealth.Heal(healAmount); // Heal the player by healAmount
+                    Debug.Log("Player healed by " + healAmount + " HP.");
+                }
+                else
+                {
+                    Debug.Log("Player already has full health, heart remains.");
+                    return; // Do not destroy the heart if the player is already fully healed
+                }
             }
+            Destroy(gameObject); // Remove the heart after pickup
         }
     }
 }
