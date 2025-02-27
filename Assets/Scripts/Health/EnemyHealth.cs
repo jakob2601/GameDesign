@@ -4,8 +4,10 @@ using System.Collections;
 using Scripts.Movements.Behaviours;
 using UnityEngine.UIElements;
 
-namespace Scripts.Healths {
-    public class EnemyHealth : Health {
+namespace Scripts.Healths
+{
+    public class EnemyHealth : Health
+    {
 
         [SerializeField] private GameObject HeartPickup; // Reference to the heart prefab
         [SerializeField] private float dropChance = 1f; // 30% chance to drop a heart
@@ -37,23 +39,23 @@ namespace Scripts.Healths {
 
         protected override void Die()
         {
-        if (isDying) return;
-        isDying = true;
+            if (isDying) return;
+            isDying = true;
 
-        Debug.Log($"Enemy {gameObject.name} died.");
+            Debug.Log($"Enemy {gameObject.name} died.");
 
-        // Trigger individual enemy death event
-        OnThisEnemyDied?.Invoke(gameObject.name);
+            // Trigger individual enemy death event
+            OnThisEnemyDied?.Invoke(gameObject.name);
 
-        // Call base Die() for general death event
-        base.Die();
+            // Call base Die() for general death event
+            base.Die();
 
-        characterAnimation.SetIsDead(true);
-        GetComponent<Collider2D>().enabled = false;
-        this.enabled = false;
-        DropHeart();
+            characterAnimation.SetIsDead(true);
+            GetComponent<Collider2D>().enabled = false;
+            this.enabled = false;
+            DropHeart();
 
-        Destroy(gameObject, 0.5f);
+            Destroy(gameObject, 0.5f);
         }
 
         protected override void Hurt()
@@ -83,11 +85,13 @@ namespace Scripts.Healths {
 
             if (randomValue <= dropChance)
             {
-                try {
+                try
+                {
                     Instantiate(HeartPickup, transform.position, Quaternion.identity);
                     Debug.Log("Heart dropped!");
                 }
-                catch (System.Exception e) {
+                catch (System.Exception e)
+                {
                     Debug.LogError("Error dropping heart: " + e.Message);
                 }
             }

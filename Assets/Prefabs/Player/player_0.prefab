@@ -197,11 +197,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d1c965bb6026044f8e53c7d27b2051f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 2212682138100176999}
-  characterAnimation: {fileID: 5898724393291171003}
+  combatEnabled: 0
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  availableWeapons: 3
+  animator: {fileID: 2212682138100176999}
+  characterAnimation: {fileID: 5898724393291171003}
   rb: {fileID: 7127369674428886474}
   characterMovementAI: {fileID: 3960980809086202236}
   attackRate: 2
@@ -209,7 +211,6 @@ MonoBehaviour:
   lastInputTime: -Infinity
   ifDebug: 0
   debugAttackRangeVisualizer: {fileID: 0}
-  combatEnabled: 0
   gotInput: 0
   isAttacking: 0
   isFirstAttack: 0
@@ -221,6 +222,7 @@ MonoBehaviour:
   queuedBowAttack: 0
   queuedAttackWindow: 0.5
   queuedAttackTime: 0
+  debugAttackState: 0
 --- !u!1 &4684821728387608108
 GameObject:
   m_ObjectHideFlags: 0

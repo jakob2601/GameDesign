@@ -23,10 +23,11 @@ namespace Scripts.Characters.CharactersAnimation
                 Debug.LogError("EnemyCombat is not assigned.");
             }
 
+            // Make sword optional
             sword = transform.root.GetComponentInChildren<Sword>();
             if (sword == null)
             {
-                Debug.LogError("Sword is not assigned.");
+                Debug.LogWarning("Sword is not assigned. This enemy won't perform sword attacks.");
             }
 
             movementAI = transform.root.GetComponentInChildren<EnemyMovementAI>();
@@ -64,7 +65,11 @@ namespace Scripts.Characters.CharactersAnimation
         public override void CheckSwordAttackHitBox()
         {
             base.CheckSwordAttackHitBox();
-            sword.CheckSwordAttackHitBox();
+            // Only call if sword exists
+            if (sword != null)
+            {
+                sword.CheckSwordAttackHitBox();
+            }
         }
 
         public override void CheckBowAttackHitBox()

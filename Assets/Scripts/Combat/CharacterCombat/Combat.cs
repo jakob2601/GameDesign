@@ -4,15 +4,31 @@ using Scripts.Movements;
 using Scripts.Healths;
 using Scripts.Movements.AI;
 using Scripts.Characters.CharactersAnimation;
+using Scripts.Combats.Weapons;
 
 namespace Scripts.Combats.CharacterCombats
 {
     public abstract class Combat : MonoBehaviour
     {
+        // Create a flags enum for weapon types
+        [System.Flags]
+        public enum WeaponTypes
+        {
+            None = 0,
+            Sword = 1,
+            Bow = 2,
+            ContactDamage = 4
+        }
+
+        [Header("Combat Properties")]
+        [SerializeField] protected bool combatEnabled;
+        [SerializeField] protected LayerMask enemyLayer;
+        
+        // Track available weapons
+        [SerializeField] protected WeaponTypes availableWeapons = WeaponTypes.None;
+
         [SerializeField] public Animator animator;
         [SerializeField] public CharacterAnimation characterAnimation;
-        [SerializeField] public LayerMask enemyLayer;
-
         [SerializeField] public Rigidbody2D rb;
 
         [SerializeField] protected MovementAI characterMovementAI;
@@ -25,7 +41,6 @@ namespace Scripts.Combats.CharacterCombats
         public GameObject debugAttackRangeVisualizer; // Referenz für das Visualisierungssprite
 
         [Header("Combat States")]
-        [SerializeField] protected bool combatEnabled;
         [SerializeField] protected bool gotInput, isAttacking, isFirstAttack, isSwordAttack, isBowAttack;
 
         abstract public MovementAI getCharacterMovement();
@@ -71,6 +86,19 @@ namespace Scripts.Combats.CharacterCombats
             this.isFirstAttack = isFirstAttack;
         }
 
+        // Methods to check weapon availability
+        public bool HasWeapon(WeaponTypes weaponType)
+        {
+            return (availableWeapons & weaponType) == weaponType;
+        }
+        
+        public void SetWeaponAvailable(WeaponTypes weaponType, bool available)
+        {
+            if (available)
+                availableWeapons |= weaponType;
+            else
+                availableWeapons &= ~weaponType;
+        }
 
         protected virtual void Start()
         {
@@ -108,6 +136,26 @@ namespace Scripts.Combats.CharacterCombats
                 characterAnimation.SetCanAttack(combatEnabled);
             }
 
+            // Auto-detect available weapons
+            DetectAvailableWeapons();
+        }
+
+        protected virtual void DetectAvailableWeapons()
+        {
+            // Reset weapon flags
+            availableWeapons = WeaponTypes.None;
+            
+            // Check for sword
+            if (GetComponentInChildren<Sword>() != null)
+                SetWeaponAvailable(WeaponTypes.Sword, true);
+                
+            // Check for bow
+            if (GetComponentInChildren<Bow>() != null)
+                SetWeaponAvailable(WeaponTypes.Bow, true);
+                
+            // Check for contact damage
+            if (GetComponentInChildren<ContactDamage>() != null)
+                SetWeaponAvailable(WeaponTypes.ContactDamage, true);
         }
 
         protected virtual void Update()
