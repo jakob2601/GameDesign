@@ -123,6 +123,8 @@ MonoBehaviour:
   gotInput: 0
   isAttacking: 0
   isFirstAttack: 0
+  isSwordAttack: 0
+  isBowAttack: 0
   player: {fileID: 0}
   contactDamage: {fileID: 7052181738753943573}
   startAttackRange: 1.5
@@ -348,6 +350,8 @@ MonoBehaviour:
   knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  HeartPickup: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
+  dropChance: 1
 --- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0
