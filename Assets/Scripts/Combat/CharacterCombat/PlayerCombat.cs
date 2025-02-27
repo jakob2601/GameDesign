@@ -18,6 +18,7 @@ namespace Scripts.Combats.CharacterCombats
         [SerializeField] protected bool queuedSwordAttack = false;
         [SerializeField] protected bool queuedBowAttack = false;
         [SerializeField] protected float queuedAttackWindow = 0.5f; // Time window to queue attacks
+        [SerializeField] protected float minQueueTime = 0.25f; // Minimum time before next attack can be queued
         [SerializeField] protected float queuedAttackTime;
         
         // Debug variables
@@ -77,7 +78,7 @@ namespace Scripts.Combats.CharacterCombats
                         lastInputTime = Time.time;
                         if (debugAttackState) Debug.Log("Direct sword attack");
                     }
-                    else if (!queuedSwordAttack)
+                    else if (!queuedSwordAttack && Time.time >= lastInputTime + minQueueTime)
                     {
                         // If already attacking, queue this attack
                         queuedSwordAttack = true;
@@ -100,7 +101,7 @@ namespace Scripts.Combats.CharacterCombats
                         lastInputTime = Time.time;
                         if (debugAttackState) Debug.Log("Direct bow attack");
                     }
-                    else if(!queuedBowAttack)
+                    else if(!queuedBowAttack && Time.time >= lastInputTime + minQueueTime)
                     {
                         // If already attacking, queue this attack
                         queuedBowAttack = true;
