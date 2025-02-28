@@ -123,14 +123,14 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Bow-Icon
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.50793654, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
+      width: 63
       height: 15
     spriteID: 40749a84052ad33458a042c1e44fd205
     spriteBone: []
@@ -156,7 +156,7 @@ ScriptedImporter:
       cellRect:
         x: 0
         y: 0
-        width: 16
+        width: 63
         height: 15
       spriteId: 40749a84052ad33458a042c1e44fd205
     linkedCells: []
@@ -177,4 +177,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 16, y: 16}
+  canvasSize: {x: 64, y: 16}

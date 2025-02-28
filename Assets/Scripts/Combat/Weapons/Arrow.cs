@@ -13,6 +13,7 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected GameObject hitEffect;
         [SerializeField] protected float effectTime = 0.8f;
         [SerializeField] protected float timeToLive = 5f;
+        [SerializeField] protected float arrowHitTime = 0.2f;
         
         // Properties that were previously inherited from Weapon
         [Header("Attack Properties")]
@@ -153,12 +154,12 @@ namespace Scripts.Combats.Weapons
                 GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Destroy(effect, effectTime);
             }
-            Destroy(gameObject);
+            Destroy(gameObject, arrowHitTime);
         }
         
         void DestroyArrow()
         {
-            Destroy(gameObject);
+            Destroy(gameObject, arrowHitTime);
         }
     }
 }
