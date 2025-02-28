@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6182728776743994395}
   - component: {fileID: 3910839270873236031}
-  - component: {fileID: 3008335378699502523}
+  - component: {fileID: 8456385121417426478}
   - component: {fileID: 292221791789015109}
   m_Layer: 0
   m_Name: Weapon_Sprite
@@ -86,8 +86,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &3008335378699502523
-CapsuleCollider2D:
+--- !u!61 &8456385121417426478
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -119,8 +119,18 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.16, y: 0.16}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
-  m_Direction: 0
+  m_EdgeRadius: 0
 --- !u!114 &292221791789015109
 MonoBehaviour:
   m_ObjectHideFlags: 0
