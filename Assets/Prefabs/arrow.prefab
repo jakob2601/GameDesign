@@ -173,3 +173,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 0}
   effectTime: 0.8
+  timeToLive: 5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  attackDamage: 10
+  knockbackForce: 1
+  knockbackDuration: 0.2

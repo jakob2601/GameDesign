@@ -221,8 +221,10 @@ MonoBehaviour:
   queuedSwordAttack: 0
   queuedBowAttack: 0
   queuedAttackWindow: 0.5
+  minQueueTime: 0.25
   queuedAttackTime: 0
   debugAttackState: 0
+  canShootArrow: 0
 --- !u!1 &4684821728387608108
 GameObject:
   m_ObjectHideFlags: 0
