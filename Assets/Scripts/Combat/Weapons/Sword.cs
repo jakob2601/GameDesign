@@ -9,10 +9,15 @@ namespace Scripts.Combats.Weapons
     public class Sword : Weapon
     {
         [SerializeField] float angleThreshold = 0.7f; // Entspricht ca. 45 Grad
+        [SerializeField] private Hitstop hitstop; // Reference to the Hitstop component
+        [SerializeField] private float hitstopDuration = 0.1f; // Default hitstop duration
+        [SerializeField] private ScreenShake screenShake; // Reference to the ScreenShake component
 
         protected override void Start()
         {
             base.Start();
+            hitstop = FindObjectOfType<Hitstop>(); // Find the Hitstop component in the scene
+            screenShake = FindObjectOfType<ScreenShake>(); // Find the ScreenShake component in the scene
         }
 
         protected override void Update()
@@ -25,7 +30,7 @@ namespace Scripts.Combats.Weapons
             base.FixedUpdate();
         }
 
-        public void CheckSwordAttackHitBox() 
+        public void CheckSwordAttackHitBox()
         {
             if (attackPoint == null)
             {
@@ -45,33 +50,37 @@ namespace Scripts.Combats.Weapons
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                // NEU: Winkelprüfung mit engerem Schwellenwert (z. B. 45 Grad)
-                //if (Vector2.Dot(characterMovement.lastMoveDirection.normalized, hitDirection.normalized) >= angleThreshold)
+                Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
+                Health enemyHealth = enemy.GetComponent<Health>();
+                if (enemyHealth != null)
                 {
-                    Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
-                    Health enemyHealth = enemy.GetComponent<Health>();
-                    if (enemyHealth != null)
+                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+
+                    // Apply hitstop when an attack hits
+                    if (hitstop != null)
                     {
-                        enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                        hitstop.SetHitstopDuration(hitstopDuration); // Set the hitstop duration
+                        StartCoroutine(hitstop.ApplyHitstop()); // Apply hitstop
                     }
-                    else
+
+                    // Apply screen shake when an attack hits
+                    if (screenShake != null)
                     {
-                        Debug.Log("Enemy Health Component not found");
+                        StartCoroutine(screenShake.Shake()); // Apply screen shake
                     }
-                    // Instantiate hit particle
                 }
+                else
+                {
+                    Debug.Log("Enemy Health Component not found");
+                }
+                // Instantiate hit particle
             }
         }
-
 
         private void OnDrawGizmos()
         {
             if (attackPoint == null)
                 return;
-
-            // Zeigt den aktuellen Angriffspunkt
-            //Gizmos.color = Color.red;
-            //Gizmos.DrawWireSphere(attackPoint.position, attackRange);
 
             // Optional: Weltkoordinaten basierter Angriffspunkt
             if (Application.isPlaying) // Nur zur Laufzeit anzeigen
@@ -79,8 +88,6 @@ namespace Scripts.Combats.Weapons
                 Vector2 attackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterMovement.lastMoveDirection.normalized * attackRange;
                 Gizmos.color = Color.blue;
                 Gizmos.DrawWireSphere(attackPosition, attackRange);
-
-
             }
         }
     }
