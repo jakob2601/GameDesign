@@ -15,6 +15,7 @@ namespace Scripts.Movements.Moves
         [SerializeField] private GameObject dashParticles; // Referenz auf das GameObject mit dem TrailRenderer
         private TrailRenderer trailRenderer; // Referenz auf den TrailRenderer
 
+        [SerializeField] private LayerMask wallLayer; // Layer für Wände
         private Health playerHealth;
 
         public void Start()
@@ -109,6 +110,11 @@ namespace Scripts.Movements.Moves
         {
             playerHealth.setInvincibility(true);
             Vector2 dashDirection = walkingInput.normalized; // Richtung des Dashes basierend auf der Eingabe
+
+            // Raycast prüft Kollisionen vor dem Dash
+            RaycastHit2D hit = Physics2D.Raycast(rb.position, dashDirection, dashSpeed * dashDuration, wallLayer);
+            float finalDashDistance = (hit.collider != null) ? hit.distance : dashSpeed * dashDuration;
+
             SoundManager.PlaySound(SoundType.DASH); // Spiele den Dash-Sound ab
             if (trailRenderer != null)
             {
@@ -116,9 +122,12 @@ namespace Scripts.Movements.Moves
             }
 
             float dashTime = 0f;
+            Vector2 startPosition = rb.position;
             while (dashTime < dashDuration)
             {
-                rb.MovePosition(rb.position + dashDirection * dashSpeed * Time.fixedDeltaTime);
+                Vector2 targetPosition = startPosition + dashDirection * finalDashDistance;
+                rb.MovePosition(Vector2.Lerp(startPosition, targetPosition, dashTime / dashDuration));
+
                 dashTime += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate(); // Warte auf das nächste Physik-Update
             }
