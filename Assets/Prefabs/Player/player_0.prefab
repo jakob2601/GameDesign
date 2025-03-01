@@ -122,6 +122,9 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   angleThreshold: 0.7
+  hitstop: {fileID: 0}
+  hitstopDuration: 0.1
+  screenShake: {fileID: 0}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageFlashDuration: 0.1
   hitstop: {fileID: 8858938691465969451}
@@ -571,8 +574,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01241303, y: -0.1810493}
-  m_Size: {x: 0.4, y: 0.49046922}
+  m_Offset: {x: -0.0019653356, y: -0.1810493}
+  m_Size: {x: 0.37124327, y: 0.49046922}
   m_Direction: 0
 --- !u!114 &3960980809086202236
 MonoBehaviour:

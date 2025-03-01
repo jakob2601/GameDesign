@@ -30,19 +30,22 @@ namespace Scripts.Combats.CharacterCombats
         protected override void Start()
         {
             base.Start();
-            
+
             // Get contact damage component
             contactDamage = GetComponentInChildren<ContactDamage>();
-            if (contactDamage != null) {
+            if (contactDamage != null)
+            {
                 contactDamage.SetEnemyLayer(enemyLayer);
             }
-            else {
+            else
+            {
                 Debug.LogWarning("ContactDamage component not found on " + gameObject.name);
             }
 
             // Get sword component - now optional
             sword = GetComponentInChildren<Sword>();
-            if (sword != null) {
+            if (sword != null)
+            {
                 sword.SetEnemyLayer(enemyLayer);
             }
         }
@@ -63,29 +66,35 @@ namespace Scripts.Combats.CharacterCombats
             if (player != null)
             {
                 float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
                 if (distanceToPlayer <= startAttackRange)
                 {
                     // Enable contact damage if available
-                    if (HasWeapon(WeaponTypes.ContactDamage) && contactDamage != null) {
+                    if (HasWeapon(WeaponTypes.ContactDamage) && contactDamage != null)
+                    {
                         contactDamage.SetIsEnabled(true);
                     }
-                    
-                    if (combatEnabled)
+
+                    // Stelle sicher, dass der Gegner nur dann angreift, wenn er nicht bereits im Angriff ist
+                    if (combatEnabled && !isAttacking)
                     {
                         gotInput = true;
-                        // Only set sword attack if sword is available
                         isSwordAttack = HasWeapon(WeaponTypes.Sword);
                         lastInputTime = Time.time;
                     }
                 }
                 else
                 {
-                    if (HasWeapon(WeaponTypes.ContactDamage) && contactDamage != null) {
+                    if (HasWeapon(WeaponTypes.ContactDamage) && contactDamage != null)
+                    {
                         contactDamage.SetIsEnabled(false);
                     }
                 }
             }
         }
+
+
+
 
         protected override void CheckAttacks()
         {
@@ -116,13 +125,35 @@ namespace Scripts.Combats.CharacterCombats
         {
             isAttacking = false;
             isSwordAttack = false;
+            StartCoroutine(AttackCooldown(1.0f)); // 1 Sekunde Wartezeit zwischen Angriffen
         }
+
+        private IEnumerator AttackCooldown(float cooldown)
+        {
+            combatEnabled = false; // Angriff vorübergehend deaktivieren
+            yield return new WaitForSeconds(cooldown);
+            combatEnabled = true;  // Nach Ablauf der Zeit wieder aktivieren
+        }
+
 
         public override void FinishBowAttack()
         {
             isAttacking = false;
             isBowAttack = false;
         }
+
+        public void CancelAttack()
+        {
+            isAttacking = false;
+            gotInput = false;
+            isSwordAttack = false;
+            isBowAttack = false;
+
+            // Animation zurücksetzen
+            characterAnimation.SetSwordAttackAnimation(false);
+            characterAnimation.SetBowAttackAnimation(false);
+        }
+
     }
 
 }
