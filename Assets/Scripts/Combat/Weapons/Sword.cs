@@ -6,20 +6,25 @@ using Scripts.Combats.CharacterCombats;
 using MyGame;
 using Scripts.Characters;
 
+
 namespace Scripts.Combats.Weapons
 {
     public class Sword : Weapon
     {
         [SerializeField] float angleThreshold = 0.7f; // Entspricht ca. 45 Grad
-        [SerializeField] private Hitstop hitstop; // Reference to the Hitstop component
-        [SerializeField] private float hitstopDuration = 0.1f; // Default hitstop duration
-        [SerializeField] private ScreenShake screenShake; // Reference to the ScreenShake component
         [SerializeField] protected Color damageColor = Color.red; // Farbe, die der Charakter annimmt, wenn er Schaden verteilt
         [SerializeField] protected float damageFlashDuration = 0.1f; // Dauer der Farbänderung
+
 
         // Hitbox-Fixierung
         private Vector2 fixedAttackPosition;
         private bool isAttackActive = false; // Überprüft, ob der Angriff gerade läuft
+
+        [Header("Hitstop & Screen Shake")]
+        [SerializeField] protected Hitstop hitstop; // Reference to the Hitstop component
+        [SerializeField] protected float hitstopDuration = 0.1f; // Default hitstop duration
+        [SerializeField] protected ScreenShake screenShake; // Reference to the ScreenShake component
+
 
         // Add clash-specific properties
         [Header("Sword Clash")]
@@ -83,23 +88,88 @@ namespace Scripts.Combats.Weapons
 
             foreach (Collider2D enemy in hitEnemies)
             {
+                // Falls der Treffer das eigene GameObject ist, überspringen (z. B. Kind-Objekte)
+                if (enemy.transform.root == transform.root)
+                    continue;
+
                 Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
                 Health enemyHealth = enemy.GetComponent<Health>();
-                if (enemyHealth != null)
+
+                // **Prüfe Schwert-Clash**
+                Combat targetCombat = enemy.transform.root.GetComponentInChildren<Combat>();
+                Combat attackerCombat = transform.root.GetComponentInChildren<Combat>();
+
+                bool isClash = false;
+
+                if (targetCombat != null && attackerCombat != null)
                 {
-                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                    bool bothAttackingWithSwords = targetCombat.GetIsAttacking() && attackerCombat.GetIsAttacking() &&
+                                                   targetCombat.isSwordAttack && attackerCombat.isSwordAttack;
+
+                    if (bothAttackingWithSwords)
+                    {
+                        float targetAttackTime = targetCombat.GetLastInputTime();
+                        float attackerAttackTime = attackerCombat.GetLastInputTime();
+
+                        bool attacksAreSimultaneous = Mathf.Abs(targetAttackTime - attackerAttackTime) <= clashTimeWindow;
+                        isClash = attacksAreSimultaneous && (Time.time > lastClashTime + clashCooldown);
+                    }
+                }
+
+                // **Falls es ein Clash ist, beide zurückstoßen**
+                if (isClash)
+                {
+                    lastClashTime = Time.time;
+
+                    Health targetHealth = enemy.transform.root.GetComponentInChildren<Health>();
+                    Health attackerHealth = transform.root.GetComponentInChildren<Health>();
+
+                    if (targetHealth != null)
+                        targetHealth.HandleSwordClash(hitDirection.normalized, clashKnockbackForce, clashKnockbackDuration);
+
+                    if (attackerHealth != null)
+                        attackerHealth.HandleSwordClash(-hitDirection.normalized, clashKnockbackForce, clashKnockbackDuration);
+
+                    Debug.Log($" Sword Clash zwischen {transform.root.name} und {enemy.transform.root.name}!");
                 }
                 else
                 {
-                    Debug.Log("Enemy Health Component not found");
+                    // **Falls normaler Treffer, Schaden anwenden**
+                    if (enemyHealth != null)
+                    {
+                        enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+
+                        // Angreifer blinkt rot, um Treffer zu visualisieren
+                        CharacterGFX attackerGFX = transform.root.GetComponentInChildren<CharacterGFX>();
+                        if (attackerGFX != null)
+                        {
+                            attackerGFX.FlashColor(damageColor, damageFlashDuration);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning($" EnemyHealth nicht gefunden für {enemy.name}!");
+                    }
+                }
+
+                // **Hitstop & Screen Shake anwenden**
+                if (hitstop != null)
+                {
+                    hitstop.SetHitstopDuration(hitstopDuration);
+                    StartCoroutine(hitstop.ApplyHitstop());
+                }
+
+                if (screenShake != null)
+                {
+                    StartCoroutine(screenShake.Shake());
                 }
             }
         }
 
-
         private void OnDrawGizmos()
         {
             if (attackPoint == null) return;
+
 
             // Zeigt die **fixierte** Angriffshitze an, falls der Angriff läuft
             if (Application.isPlaying && isAttackActive)
@@ -108,6 +178,7 @@ namespace Scripts.Combats.Weapons
                 Gizmos.DrawWireSphere(fixedAttackPosition, attackRange);
             }
             else if (Application.isPlaying)
+
             {
                 Vector2 attackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterMovement.lastMoveDirection.normalized * attackRange;
                 Gizmos.color = Color.green;

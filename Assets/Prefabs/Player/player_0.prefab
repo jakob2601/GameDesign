@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4119612935581156347}
   - component: {fileID: 7858024481496127674}
+  - component: {fileID: 8858938691465969451}
   m_Layer: 3
   m_Name: Sword
   m_TagString: Untagged
@@ -126,10 +127,25 @@ MonoBehaviour:
   screenShake: {fileID: 0}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageFlashDuration: 0.1
+  hitstop: {fileID: 8858938691465969451}
+  hitstopDuration: 0.1
+  screenShake: {fileID: 0}
   clashKnockbackForce: 3
   clashKnockbackDuration: 0.3
   clashCooldown: 0.5
   clashTimeWindow: 0.1
+--- !u!114 &8858938691465969451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1690062973053119914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35471e4014970744d8940739fe9084dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4011137935335838165
 GameObject:
   m_ObjectHideFlags: 0

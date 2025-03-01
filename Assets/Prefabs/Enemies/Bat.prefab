@@ -461,7 +461,7 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0038434367}
+  m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.16, y: 0.19382213}
   m_Direction: 0
 --- !u!114 &1407999269920633892
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 1
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
