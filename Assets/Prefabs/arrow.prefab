@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 322eb74d2479c9a46a586de084ce4a11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 0}
+  hitEffect: {fileID: -2253911629886400664, guid: c64a5aa9c4136654ba42ca9f9f918f8c, type: 3}
   effectTime: 0.8
   timeToLive: 5
   arrowHitTime: 0.2
