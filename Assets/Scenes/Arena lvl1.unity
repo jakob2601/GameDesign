@@ -435,6 +435,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: maxHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: dropChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: HeartPickup
+      value: 
+      objectReference: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
     - target: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
       propertyPath: m_Name
       value: Pekka (2)
@@ -17146,6 +17158,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: maxHealth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
       propertyPath: m_Name
       value: Pekka
@@ -18157,6 +18173,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: maxHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: dropChance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4194403028306377578, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      propertyPath: HeartPickup
+      value: 
+      objectReference: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
     - target: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
       propertyPath: m_Name
       value: Pekka (1)
