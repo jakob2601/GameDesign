@@ -2,13 +2,26 @@ using UnityEngine;
 using System.Collections;
 using Scripts.Movements.AI;
 using Scripts.Healths;
+using Scripts.Combats.CharacterCombats;
 using MyGame;
+using Scripts.Characters;
 
 namespace Scripts.Combats.Weapons
 {
     public class Sword : Weapon
     {
         [SerializeField] float angleThreshold = 0.7f; // Entspricht ca. 45 Grad
+        [SerializeField] protected Color damageColor = Color.red; // Farbe, die der Charakter annimmt, wenn er Schaden verteilt
+        [SerializeField] protected float damageFlashDuration = 0.1f; // Dauer der Farbänderung
+        
+        // Add clash-specific properties
+        [Header("Sword Clash")]
+        [SerializeField] protected float clashKnockbackForce = 3f; // Stronger than normal knockback
+        [SerializeField] protected float clashKnockbackDuration = 0.3f; // Clash knockback duration
+        [SerializeField] protected float clashCooldown = 0.5f; // Prevent spam clashes
+        [SerializeField] protected float clashTimeWindow = 0.1f;
+        
+        protected float lastClashTime = -1f;
 
         protected override void Start()
         {
@@ -29,7 +42,7 @@ namespace Scripts.Combats.Weapons
         {
             if (attackPoint == null)
             {
-                Debug.LogError("Attack point is not assigned.");
+                Debug.LogError("Attack point or character movement is not assigned.");
                 return;
             }
 
@@ -45,24 +58,85 @@ namespace Scripts.Combats.Weapons
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                // NEU: Winkelprüfung mit engerem Schwellenwert (z. B. 45 Grad)
-                //if (Vector2.Dot(characterMovement.lastMoveDirection.normalized, hitDirection.normalized) >= angleThreshold)
+                // Skip if this is ourselves (happens sometimes with child colliders)
+                if (enemy.transform.root == transform.root)
+                    continue;
+                
+                Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
+                
+                // Check if the target has a Combat component and is actively attacking with a sword
+                Combat targetCombat = enemy.transform.root.GetComponentInChildren<Combat>();
+                Combat attackerCombat = transform.root.GetComponentInChildren<Combat>();
+                
+                // Check for clash conditions
+                bool isClash = false;
+                if (targetCombat != null && attackerCombat != null)
                 {
-                    Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
+                    // Both must be attacking with swords
+                    bool bothAttackingWithSwords = targetCombat.GetIsAttacking() && attackerCombat.GetIsAttacking() &&
+                                                targetCombat.isSwordAttack && attackerCombat.isSwordAttack;
+                    
+                    // Attacks must be within the time window to be considered simultaneous
+                    bool attacksAreSimultaneous = false;
+                    if (bothAttackingWithSwords)
+                    {
+                        float targetAttackTime = targetCombat.GetLastInputTime();
+                        float attackerAttackTime = attackerCombat.GetLastInputTime();
+                        
+                        // Only clash if attacks started within 0.2 seconds of each other
+                        attacksAreSimultaneous = Mathf.Abs(targetAttackTime - attackerAttackTime) <= clashTimeWindow;
+                        Debug.Log($"Attack times: Target={targetAttackTime}, Attacker={attackerAttackTime}, Diff={Mathf.Abs(targetAttackTime - attackerAttackTime)}");
+                    }
+                    
+                    isClash = bothAttackingWithSwords && attacksAreSimultaneous && 
+                            Time.time > lastClashTime + clashCooldown;
+                }
+                
+                // Handle based on whether it's a clash or normal attack
+                if (isClash)
+                {
+                    // It's a clash! Handle clash effect
+                    lastClashTime = Time.time;
+                    
+                    // Get health components for both entities
+                    Health targetHealth = enemy.transform.root.GetComponentInChildren<Health>();
+                    Health attackerHealth = transform.root.GetComponentInChildren<Health>();
+                    
+                    // Apply clash effect to both entities
+                    if (targetHealth != null)
+                    {
+                        targetHealth.HandleSwordClash(hitDirection.normalized, clashKnockbackForce, clashKnockbackDuration);
+                    }
+                    
+                    if (attackerHealth != null)
+                    {
+                        attackerHealth.HandleSwordClash(-hitDirection.normalized, clashKnockbackForce, clashKnockbackDuration);
+                    }
+                    
+                    Debug.Log("Sword clash between " + transform.root.name + " and " + enemy.transform.root.name);
+                }
+                else
+                {
+                    // Normal attack - apply damage
                     Health enemyHealth = enemy.GetComponent<Health>();
                     if (enemyHealth != null)
                     {
                         enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+
+                        // Make attacker flash red on successful hit
+                        CharacterGFX attackerGFX = transform.root.GetComponentInChildren<CharacterGFX>();
+                        if (attackerGFX != null)
+                        {
+                            attackerGFX.FlashColor(damageColor, damageFlashDuration);
+                        }
                     }
                     else
                     {
                         Debug.Log("Enemy Health Component not found");
                     }
-                    // Instantiate hit particle
                 }
             }
         }
-
 
         private void OnDrawGizmos()
         {
@@ -79,8 +153,6 @@ namespace Scripts.Combats.Weapons
                 Vector2 attackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterMovement.lastMoveDirection.normalized * attackRange;
                 Gizmos.color = Color.blue;
                 Gizmos.DrawWireSphere(attackPosition, attackRange);
-
-
             }
         }
     }

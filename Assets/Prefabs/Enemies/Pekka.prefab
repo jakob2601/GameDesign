@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 1
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
@@ -319,6 +319,9 @@ MonoBehaviour:
   knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  clashSoundDuration: 0.7
+  clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
+  clashColorDuration: 0.1
   HeartPickup: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
   dropChance: 1
 --- !u!114 &610034541743464483
@@ -635,6 +638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb5f37394dde84849994be91ef8e9b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 6346507499007160480}
   isFacingRight: 0
 --- !u!114 &1315377608127543291
 MonoBehaviour:
@@ -698,6 +702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
+  spriteRenderer: {fileID: 6346507499007160480}
   attackPoint: {fileID: 8816732801227117633}
   combat: {fileID: 1033671911682065929}
   enemyLayer:
@@ -711,6 +716,12 @@ MonoBehaviour:
   knockbackForce: 1
   knockbackDuration: 0.2
   angleThreshold: 0.7
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageFlashDuration: 0.1
+  clashKnockbackForce: 3
+  clashKnockbackDuration: 0.3
+  clashCooldown: 0.5
+  clashTimeWindow: 0.1
 --- !u!1 &6580151123885791987
 GameObject:
   m_ObjectHideFlags: 0
@@ -757,6 +768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
+  spriteRenderer: {fileID: 6346507499007160480}
   attackPoint: {fileID: 45563545787634050}
   combat: {fileID: 1033671911682065929}
   enemyLayer:
