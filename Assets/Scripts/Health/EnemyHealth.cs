@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using Scripts.Movements.Behaviours;
 using UnityEngine.UIElements;
+using Scripts.Combats.CharacterCombats;
 
 namespace Scripts.Healths
 {
@@ -12,11 +13,17 @@ namespace Scripts.Healths
         [SerializeField] private GameObject HeartPickup; // Reference to the heart prefab
         [SerializeField] private float dropChance = 1f; // 30% chance to drop a heart
 
+        private EnemyCombat enemyCombat;
         protected override void Start()
         {
             // Call the base class initialization
             base.Start();
             Debug.Log("Enemy " + gameObject.name + " initialized with health: " + currentHealth);
+            enemyCombat = GetComponentInChildren<EnemyCombat>();
+            if (enemyCombat == null)
+            {
+                Debug.LogError("EnemyCombat-Komponente nicht gefunden auf " + gameObject.name);
+            }
         }
 
         public bool IsAlive()
@@ -61,6 +68,10 @@ namespace Scripts.Healths
         protected override void Hurt()
         {
             // Play hurt animation
+            if (enemyCombat != null)
+            {
+                enemyCombat.CancelAttack(); // Greift auf die Methode zu
+            }
             characterAnimation.SetIsHurt(true);
         }
 

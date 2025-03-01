@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
-  spriteRenderer: {fileID: 0}
   attackPoint: {fileID: 4068629469178437241}
   combat: {fileID: 3426090498644071800}
   enemyLayer:
@@ -109,7 +108,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
-  spriteRenderer: {fileID: 196909761537321690}
   attackPoint: {fileID: 8082467551108586449}
   combat: {fileID: 3426090498644071800}
   enemyLayer:
@@ -123,6 +121,9 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   angleThreshold: 0.7
+  hitstop: {fileID: 0}
+  hitstopDuration: 0.1
+  screenShake: {fileID: 0}
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageFlashDuration: 0.1
   clashKnockbackForce: 3
@@ -557,8 +558,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.01241303, y: -0.1810493}
-  m_Size: {x: 0.4, y: 0.49046922}
+  m_Offset: {x: -0.0019653356, y: -0.1810493}
+  m_Size: {x: 0.37124327, y: 0.49046922}
   m_Direction: 0
 --- !u!114 &3960980809086202236
 MonoBehaviour:
@@ -638,6 +639,9 @@ MonoBehaviour:
   dashDuration: 0.15
   dashCooldown: 1
   dashParticles: {fileID: 5052029328397013899}
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &4691762652494968890
 MonoBehaviour:
   m_ObjectHideFlags: 0
