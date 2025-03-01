@@ -10,7 +10,7 @@ namespace Scripts.Combats.Weapons
     {
         [Header("Weapon Properties")]
         [SerializeField] public Animator animator;
-        [SerializeField] public Transform attackPoint; // Referenzpunkt für den Angriff
+        [SerializeField] public Transform attackPoint; 
         [SerializeField] public Combat combat;
         [SerializeField] public LayerMask enemyLayer;
         [SerializeField] public MovementAI characterMovement;

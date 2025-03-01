@@ -41,7 +41,8 @@ namespace Scripts.Combats.CharacterCombats
         public GameObject debugAttackRangeVisualizer; // Referenz für das Visualisierungssprite
 
         [Header("Combat States")]
-        [SerializeField] protected bool gotInput, isAttacking, isFirstAttack, isSwordAttack, isBowAttack;
+        [SerializeField] protected bool gotInput, isAttacking, isFirstAttack;
+        [SerializeField] public bool isSwordAttack, isBowAttack; 
 
         abstract public MovementAI getCharacterMovement();
 
@@ -98,6 +99,16 @@ namespace Scripts.Combats.CharacterCombats
                 availableWeapons |= weaponType;
             else
                 availableWeapons &= ~weaponType;
+        }
+
+        public float GetLastInputTime()
+        {
+            return lastInputTime;
+        }
+
+        protected void SetLastInputTime(float lastInputTime)
+        {
+            this.lastInputTime = lastInputTime;
         }
 
         protected virtual void Start()

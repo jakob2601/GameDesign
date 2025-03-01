@@ -6,6 +6,7 @@ using Scripts.UI;
 using Scripts.Combats;
 using Scripts.Movements.Behaviours;
 using Scripts.Characters.CharactersAnimation;
+using Scripts.Characters;
 using Scripts.Combats.CharacterCombats;
 using System;
 
@@ -29,7 +30,12 @@ namespace Scripts.Healths
         [SerializeField] protected Knockback knockback; // Referenz auf den Knockback
 
         [SerializeField] protected SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
-        [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
+        [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab        
+
+        [Header("Clash Properties")]
+        [SerializeField] protected float clashSoundDuration = 0.7f;
+        [SerializeField] protected Color clashColor = new Color(1f, 0.9f, 0.2f); // Golden yellow
+        [SerializeField] protected float clashColorDuration = 0.1f;
 
         protected virtual void Start()
         {
@@ -107,9 +113,6 @@ namespace Scripts.Healths
                 SpawnBloodParticles();
                 SoundManager.PlaySound(SoundType.HURT);
 
-                //Rot aufleuchten nach Damage
-                StartCoroutine(FlashRed());
-
                 // Überprüfe, ob der Spieler tot ist
                 if (currentHealth <= 0)
                 {
@@ -131,6 +134,29 @@ namespace Scripts.Healths
             }
         }
 
+        public virtual void HandleSwordClash(Vector2 clashDirection, float clashForce, float clashDuration)
+        {
+            if (knockback == null)
+            {
+                Debug.LogWarning("Knockback component not found, can't apply clash effect");
+                return;
+            }
+
+            // Play clash effect sound
+            SoundManager.PlaySound(SoundType.SWING, clashSoundDuration); 
+            
+            // Apply stronger knockback for the clash
+            StartCoroutine(knockback.KnockbackCharacter(rb, clashDirection, clashForce, clashDuration));
+            
+            // Optionally flash the sprite a different color for clash
+            // Flash gold color for clash
+            CharacterGFX characterGFX = GetComponentInChildren<CharacterGFX>();
+            if (characterGFX != null)
+            {
+                characterGFX.FlashColor(clashColor, clashColorDuration);
+            }
+        }
+        
         protected IEnumerator InvincibiltyTimer()
         {
             isInvincible = true;
@@ -164,13 +190,7 @@ namespace Scripts.Healths
             }
         }
 
-        protected IEnumerator FlashRed()
-        {
-            // Farbänderung nach Damage
-            spriteRenderer.color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            spriteRenderer.color = Color.white;
-        }
+       
 
         protected virtual void Die()
         {

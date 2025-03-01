@@ -7,9 +7,12 @@ namespace Scripts.Characters
 {
     public class CharacterGFX : MonoBehaviour
     {
+        [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] protected bool isFacingRight = false; // der Charakter wendet sich rechte Seite zu
         protected Vector3 originalScale;
         protected bool canFlip = true;
+        protected Color originalColor;
+         
 
         protected Vector3 GetOriginalScale()
         {
@@ -27,6 +30,16 @@ namespace Scripts.Characters
         protected virtual void Start()
         {
             // Speichere die ursprüngliche Skalierung
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                Debug.LogWarning("SpriteRenderer not found on " + gameObject.name);
+            }
+            else
+            {
+                originalColor = spriteRenderer.color;
+            }
+
             originalScale = transform.localScale;
         }
 
@@ -55,6 +68,21 @@ namespace Scripts.Characters
                 scale.x *= -1;
                 transform.localScale = scale;
                 isFacingRight = !isFacingRight;
+            }
+        }
+
+        public void FlashColor(Color color, float duration)
+        {
+            StartCoroutine(FlashColorCoroutine(color, duration));
+        }
+
+        protected IEnumerator FlashColorCoroutine(Color color, float duration)
+        {
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.color = color;
+                yield return new WaitForSeconds(duration);
+                spriteRenderer.color = originalColor;
             }
         }
 
