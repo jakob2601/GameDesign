@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
+  spriteRenderer: {fileID: 0}
   attackPoint: {fileID: 4068629469178437241}
   combat: {fileID: 3426090498644071800}
   enemyLayer:
@@ -55,7 +56,7 @@ MonoBehaviour:
   attackRange: 0.5
   attackDamage: 40
   attackRate: 2
-  nextAttackTime: 0
+  nextAttackTime: 0.4
   knockbackForce: 1
   knockbackDuration: 0.2
   arrowPrefab: {fileID: 2960165790278124058, guid: 93a191be15fc1b84b8ec553092c0c87d, type: 3}
@@ -108,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2212682138100176999}
+  spriteRenderer: {fileID: 196909761537321690}
   attackPoint: {fileID: 8082467551108586449}
   combat: {fileID: 3426090498644071800}
   enemyLayer:
@@ -117,10 +119,16 @@ MonoBehaviour:
   attackRange: 0.7
   attackDamage: 2
   attackRate: 2
-  nextAttackTime: 0
+  nextAttackTime: 0.3
   knockbackForce: 10
   knockbackDuration: 0.2
   angleThreshold: 0.7
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageFlashDuration: 0.1
+  clashKnockbackForce: 3
+  clashKnockbackDuration: 0.3
+  clashCooldown: 0.5
+  clashTimeWindow: 0.1
 --- !u!1 &4011137935335838165
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,8 +228,8 @@ MonoBehaviour:
   bow: {fileID: 1516143577340770840}
   queuedSwordAttack: 0
   queuedBowAttack: 0
-  queuedAttackWindow: 0.5
-  minQueueTime: 0.25
+  queuedAttackWindow: 0.6
+  minQueueTime: 0.3
   queuedAttackTime: 0
   debugAttackState: 0
   canShootArrow: 0
@@ -550,7 +558,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.01241303, y: -0.1810493}
-  m_Size: {x: 0.40563777, y: 0.49046922}
+  m_Size: {x: 0.4, y: 0.49046922}
   m_Direction: 0
 --- !u!114 &3960980809086202236
 MonoBehaviour:
@@ -596,6 +604,9 @@ MonoBehaviour:
   knockback: {fileID: 4691762652494968890}
   spriteRenderer: {fileID: 196909761537321690}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
+  clashSoundDuration: 0.7
+  clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
+  clashColorDuration: 0.1
   healthBarController: {fileID: 0}
 --- !u!114 &140400135506352222
 MonoBehaviour:
@@ -1016,6 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a544b2d0d136ff44483b5592891ddadc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 196909761537321690}
   isFacingRight: 0
 --- !u!114 &5898724393291171003
 MonoBehaviour:

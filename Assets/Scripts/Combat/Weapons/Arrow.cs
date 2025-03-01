@@ -18,7 +18,7 @@ namespace Scripts.Combats.Weapons
         // Properties that were previously inherited from Weapon
         [Header("Attack Properties")]
         [SerializeField] protected LayerMask enemyLayer;
-        [SerializeField] protected int attackDamage = 10;
+        [SerializeField] protected int attackDamage = 1;
         [SerializeField] protected float knockbackForce = 1f;
         [SerializeField] protected float knockbackDuration = 0.2f;
         

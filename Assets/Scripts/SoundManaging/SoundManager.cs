@@ -11,7 +11,8 @@ namespace MyGame
         DASH,
         HURT,
         FOOTSTEPS_GRASS,
-        BATTLEMUSIC
+        BATTLEMUSIC,
+        SWORD_CLASH  
     }
 
     [RequireComponent(typeof(AudioSource))]
