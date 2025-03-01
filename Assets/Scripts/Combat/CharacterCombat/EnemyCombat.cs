@@ -1,7 +1,9 @@
+// Assets/Scripts/Combats/CharacterCombats/EnemyCombat.cs
 using System.Collections;
 using System.Collections.Generic;
 using Scripts.Combats.Weapons;
 using Scripts.Movements;
+using Scripts.Healths;
 using Scripts.Movements.AI;
 using UnityEngine;
 using MyGame;
@@ -12,9 +14,8 @@ namespace Scripts.Combats.CharacterCombats
     {
         [SerializeField] private Transform player;
         [SerializeField] private ContactDamage contactDamage;
-        [SerializeField] public float startAttackRange = 1f; // Reichweite, in der der Gegner den Spieler versucht anzugreifen 
+        [SerializeField] public float startAttackRange = 1f; // Range at which the enemy tries to attack the player
         [SerializeField] protected Sword sword;
-
 
         public override MovementAI getCharacterMovement()
         {
@@ -30,7 +31,7 @@ namespace Scripts.Combats.CharacterCombats
         protected override void Start()
         {
             base.Start();
-            
+
             // Get contact damage component
             contactDamage = GetComponentInChildren<ContactDamage>();
             if (contactDamage != null) {
@@ -69,7 +70,7 @@ namespace Scripts.Combats.CharacterCombats
                     if (HasWeapon(WeaponTypes.ContactDamage) && contactDamage != null) {
                         contactDamage.SetIsEnabled(true);
                     }
-                    
+
                     if (combatEnabled)
                     {
                         gotInput = true;
@@ -124,5 +125,4 @@ namespace Scripts.Combats.CharacterCombats
             isBowAttack = false;
         }
     }
-
 }

@@ -16,32 +16,21 @@ namespace Scripts.Combats.Weapons
         [SerializeField] private ScreenShake screenShake; // Reference to the ScreenShake component
         [SerializeField] protected Color damageColor = Color.red; // Farbe, die der Charakter annimmt, wenn er Schaden verteilt
         [SerializeField] protected float damageFlashDuration = 0.1f; // Dauer der Farbänderung
-        
+
         // Add clash-specific properties
         [Header("Sword Clash")]
         [SerializeField] protected float clashKnockbackForce = 3f; // Stronger than normal knockback
         [SerializeField] protected float clashKnockbackDuration = 0.3f; // Clash knockback duration
         [SerializeField] protected float clashCooldown = 0.5f; // Prevent spam clashes
         [SerializeField] protected float clashTimeWindow = 0.1f;
-        
+
         protected float lastClashTime = -1f;
-        
 
         protected override void Start()
         {
             base.Start();
             hitstop = FindObjectOfType<Hitstop>(); // Find the Hitstop component in the scene
             screenShake = FindObjectOfType<ScreenShake>(); // Find the ScreenShake component in the scene
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-        }
-
-        protected override void FixedUpdate()
-        {
-            base.FixedUpdate();
         }
 
         public void CheckSwordAttackHitBox()
@@ -64,24 +53,34 @@ namespace Scripts.Combats.Weapons
 
             foreach (Collider2D enemy in hitEnemies)
             {
-                // NEU: Winkelprüfung mit engerem Schwellenwert (z. B. 45 Grad)
-                //if (Vector2.Dot(characterMovement.lastMoveDirection.normalized, hitDirection.normalized) >= angleThreshold)
+                Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
+                Health enemyHealth = enemy.GetComponent<Health>();
+                if (enemyHealth != null)
                 {
-                    Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
-                    Health enemyHealth = enemy.GetComponent<Health>();
-                    if (enemyHealth != null)
+                    int initialHealth = enemyHealth.GetCurrentHealth();
+                    enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+
+                    // Apply hitstop and screen shake only if health is reduced
+                    if (enemyHealth.GetCurrentHealth() < initialHealth)
                     {
-                        enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                        if (hitstop != null)
+                        {
+                            hitstop.SetHitstopDuration(hitstopDuration);
+                            StartCoroutine(hitstop.ApplyHitstop());
+                        }
+
+                        if (screenShake != null)
+                        {
+                            StartCoroutine(screenShake.Shake());
+                        }
                     }
-                    else
-                    {
-                        Debug.Log("Enemy Health Component not found");
-                    }
-                    // Instantiate hit particle
+                }
+                else
+                {
+                    Debug.Log("Enemy Health Component not found");
                 }
             }
         }
-
 
         private void OnDrawGizmos()
         {

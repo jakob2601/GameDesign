@@ -5,6 +5,7 @@ using UnityEngine;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Combats.Weapons;
 using Scripts.Movements.AI;
+using Scripts.Healths;
 
 namespace Scripts.Characters.CharactersAnimation
 {
@@ -13,6 +14,9 @@ namespace Scripts.Characters.CharactersAnimation
         [SerializeField] protected EnemyCombat enemyCombat;
         [SerializeField] protected Sword sword;
         [SerializeField] protected EnemyMovementAI movementAI;
+        [SerializeField] private Hitstop hitstop; // Reference to the Hitstop component
+        [SerializeField] private ScreenShake screenShake; // Reference to the ScreenShake component
+        [SerializeField] private float hitstopDuration = 0.1f; // Default hitstop duration
 
         protected override void Start()
         {
@@ -35,6 +39,9 @@ namespace Scripts.Characters.CharactersAnimation
             {
                 Debug.LogError("EnemyMovementAI is not assigned.");
             }
+
+            hitstop = FindObjectOfType<Hitstop>(); // Find the Hitstop component in the scene
+            screenShake = FindObjectOfType<ScreenShake>(); // Find the ScreenShake component in the scene
         }
 
         public override void SetMovementAnimation(Vector2 direction)
