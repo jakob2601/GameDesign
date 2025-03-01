@@ -73,7 +73,7 @@ namespace Scripts.Combats.CharacterCombats
             {
                 if (combatEnabled)
                 {
-                    if (!isAttacking)
+                    if (!isAttacking && !gotInput && Time.time >= lastInputTime + sword.GetNextAttackTime())
                     {
                         // If not attacking, start attack immediately
                         gotInput = true;
@@ -81,7 +81,7 @@ namespace Scripts.Combats.CharacterCombats
                         lastInputTime = Time.time;
                         if (debugAttackState) Debug.Log("Direct sword attack");
                     }
-                    else if (!queuedSwordAttack && Time.time >= lastInputTime + minQueueTime)
+                    else if (!queuedSwordAttack && gotInput && Time.time >= lastInputTime + minQueueTime)
                     {
                         // If already attacking, queue this attack
                         queuedSwordAttack = true;
@@ -96,7 +96,7 @@ namespace Scripts.Combats.CharacterCombats
             {
                 if (combatEnabled)
                 {
-                    if (!isAttacking)
+                    if (!isAttacking && !gotInput && Time.time >= lastInputTime + bow.GetNextAttackTime())
                     {
                         // If not attacking, start attack immediately
                         gotInput = true;
@@ -104,7 +104,7 @@ namespace Scripts.Combats.CharacterCombats
                         lastInputTime = Time.time;
                         if (debugAttackState) Debug.Log("Direct bow attack");
                     }
-                    else if(!queuedBowAttack && Time.time >= lastInputTime + minQueueTime)
+                    else if(!queuedBowAttack && gotInput && Time.time >= lastInputTime + minQueueTime)
                     {
                         // If already attacking, queue this attack
                         queuedBowAttack = true;

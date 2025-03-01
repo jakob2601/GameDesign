@@ -55,7 +55,7 @@ MonoBehaviour:
   attackRange: 0.5
   attackDamage: 40
   attackRate: 2
-  nextAttackTime: 0
+  nextAttackTime: 0.4
   knockbackForce: 1
   knockbackDuration: 0.2
   arrowPrefab: {fileID: 2960165790278124058, guid: 93a191be15fc1b84b8ec553092c0c87d, type: 3}
@@ -117,7 +117,7 @@ MonoBehaviour:
   attackRange: 0.7
   attackDamage: 2
   attackRate: 2
-  nextAttackTime: 0
+  nextAttackTime: 0.3
   knockbackForce: 10
   knockbackDuration: 0.2
   angleThreshold: 0.7
@@ -220,8 +220,8 @@ MonoBehaviour:
   bow: {fileID: 1516143577340770840}
   queuedSwordAttack: 0
   queuedBowAttack: 0
-  queuedAttackWindow: 0.5
-  minQueueTime: 0.25
+  queuedAttackWindow: 0.6
+  minQueueTime: 0.3
   queuedAttackTime: 0
   debugAttackState: 0
   canShootArrow: 0
