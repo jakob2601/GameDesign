@@ -34,7 +34,7 @@ namespace Scripts.Characters.CharactersAnimation
             bow = transform.root.GetComponentInChildren<Bow>();
             if (bow == null)
             {
-                Debug.LogError("Bow is not assigned.");
+                Debug.LogWarning("Bow is not assigned.");
             }
 
             movementAI = transform.root.GetComponentInChildren<EnemyMovementAI>();
