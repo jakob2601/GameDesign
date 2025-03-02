@@ -77,11 +77,12 @@ namespace Scripts.Characters.CharactersAnimation
         public override void CheckBowAttackHitBox()
         {
             base.CheckBowAttackHitBox();
-            bow.CheckBowAttackHitBox();
+            bow.PerformAttack(); // Dann den Angriff ausführen
         }
 
+
         public override void FinishSwordAttackAnimation()
-        {  
+        {
             base.FinishSwordAttackAnimation();
             playerCombat.FinishSwordAttack();
             animator.SetBool("IsAttacking", playerCombat.GetIsAttacking());
