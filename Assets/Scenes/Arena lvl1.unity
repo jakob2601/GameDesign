@@ -16295,10 +16295,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1516143577340770840, guid: 28c806822a898514eabd46a838920fff, type: 3}
-      propertyPath: currentSpecialArrowType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1526314319241926698, guid: 28c806822a898514eabd46a838920fff, type: 3}
       propertyPath: wallLayer.m_Bits
       value: 128
