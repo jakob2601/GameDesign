@@ -1,45 +1,49 @@
 using UnityEngine;
 using System.Collections;
 
-public class ScreenShake : MonoBehaviour
+namespace Scripts.Combats.Features
 {
-    [SerializeField] private float shakeDuration = 0.1f; // Default shake duration
-    [SerializeField] private float shakeIntensity = 1.0f; // Default shake intensity
-    [SerializeField] private bool isShakeActive = true; // Default to active
-
-    private Transform playerTransform;
-
-    private void Start()
+    public class ScreenShake : MonoBehaviour
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-    }
+        [SerializeField] private float shakeDuration = 0.1f; // Default shake duration
+        [SerializeField] private float shakeIntensity = 1.0f; // Default shake intensity
+        [SerializeField] private bool isShakeActive = true; // Default to active
 
-    public void SetShakeActive(bool isActive)
-    {
-        isShakeActive = isActive;
-    }
+        private Transform playerTransform;
 
-    public IEnumerator Shake()
-    {
-        if (!isShakeActive)
-            yield break;
-            
-        Vector3 originalPosition = playerTransform.position;
-
-        float elapsed = 0.0f;
-
-        while (elapsed < shakeDuration)
+        private void Start()
         {
-            float x = Random.Range(-1f, 1f) * shakeIntensity;
-            float y = Random.Range(-1f, 1f) * shakeIntensity;
-
-            transform.position = originalPosition + new Vector3(x, y, 0);
-
-            elapsed += Time.deltaTime;
-
-            yield return null;
+            playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        transform.position = originalPosition;
+        public void SetShakeActive(bool isActive)
+        {
+            isShakeActive = isActive;
+        }
+
+        public IEnumerator Shake()
+        {
+            if (!isShakeActive)
+                yield break;
+
+            Vector3 originalPosition = playerTransform.position;
+
+            float elapsed = 0.0f;
+
+            while (elapsed < shakeDuration)
+            {
+                float x = Random.Range(-1f, 1f) * shakeIntensity;
+                float y = Random.Range(-1f, 1f) * shakeIntensity;
+
+                transform.position = originalPosition + new Vector3(x, y, 0);
+
+                elapsed += Time.deltaTime;
+
+                yield return null;
+            }
+
+            transform.position = originalPosition;
+        }
     }
+
 }

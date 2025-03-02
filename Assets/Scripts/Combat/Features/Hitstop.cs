@@ -1,27 +1,30 @@
 using UnityEngine;
 using System.Collections;
 
-public class Hitstop : MonoBehaviour
+namespace Scripts.Combats.Features
 {
-    private bool isHitstopActive = false;
-    private float hitstopDuration = 0.1f; // Default duration
-
-    public void SetHitstopDuration(float duration)
+    public class Hitstop : MonoBehaviour
     {
-        hitstopDuration = duration;
-    }
+        private bool isHitstopActive = false;
+        private float hitstopDuration = 0.1f; // Default duration
 
-    public IEnumerator ApplyHitstop()
-    {
-        if (isHitstopActive)
-            yield break;
+        public void SetHitstopDuration(float duration)
+        {
+            hitstopDuration = duration;
+        }
 
-        isHitstopActive = true;
-        Time.timeScale = 0f; // Pause the game
+        public IEnumerator ApplyHitstop()
+        {
+            if (isHitstopActive)
+                yield break;
 
-        yield return new WaitForSecondsRealtime(hitstopDuration); // Wait for the duration in real time
+            isHitstopActive = true;
+            Time.timeScale = 0f; // Pause the game
 
-        Time.timeScale = 1f; // Resume the game
-        isHitstopActive = false;
+            yield return new WaitForSecondsRealtime(hitstopDuration); // Wait for the duration in real time
+
+            Time.timeScale = 1f; // Resume the game
+            isHitstopActive = false;
+        }
     }
 }

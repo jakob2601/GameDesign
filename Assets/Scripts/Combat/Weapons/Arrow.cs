@@ -4,6 +4,7 @@ using UnityEngine;
 using MyGame;
 using Scripts.Healths;
 using Scripts.Combats.CharacterCombats;
+using Scripts.Combats.Features;
 
 namespace Scripts.Combats.Weapons
 {
@@ -14,51 +15,61 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected float effectTime = 0.8f;
         [SerializeField] protected float timeToLive = 5f;
         [SerializeField] protected float arrowHitTime = 0.2f;
-        
+        [SerializeField] protected bool ricochet = false;
+
         // Properties that were previously inherited from Weapon
         [Header("Attack Properties")]
         [SerializeField] protected LayerMask enemyLayer;
         [SerializeField] protected int attackDamage = 1;
         [SerializeField] protected float knockbackForce = 1f;
         [SerializeField] protected float knockbackDuration = 0.2f;
-        
+
         private Rigidbody2D rb;
         private GameObject playerObject;
-        
+
+        [Header("Hitstop & Screen Shake")]
+        [SerializeField] protected Hitstop hitstop; // Reference to the Hitstop component
+        [SerializeField] protected float hitstopDuration = 0.1f; // Default hitstop duration
+        [SerializeField] protected ScreenShake screenShake; // Reference to the ScreenShake component
+
         void Start()
         {
             // Start the self-destruct timer
             Destroy(gameObject, timeToLive);
-            
+
             // Get the rigidbody for direction information
             rb = GetComponent<Rigidbody2D>();
+
+            hitstop = GetComponent<Hitstop>(); // Find the Hitstop component in the scene
+
+            screenShake = FindObjectOfType<ScreenShake>(); // Find the ScreenShake component in the scene
         }
-        
+
         // Setter methods
         public void SetEnemyLayer(LayerMask layer)
         {
             enemyLayer = layer;
         }
-        
+
         public void SetAttackDamage(int damage)
         {
             attackDamage = damage;
         }
-        
+
         public void SetKnockbackForce(float force)
         {
             knockbackForce = force;
         }
-        
+
         public void SetKnockbackDuration(float duration)
         {
             knockbackDuration = duration;
         }
-        
+
         public void SetLifetime(float lifetime)
         {
             timeToLive = lifetime;
-            
+
             // If Start has already run, update the destroy timer
             if (gameObject.activeInHierarchy)
             {
@@ -70,93 +81,87 @@ namespace Scripts.Combats.Weapons
         public void SetCharacterObject(GameObject player)
         {
             playerObject = player;
-            
+
             // Ignore ALL colliders on the player and its children
             Collider2D arrowCollider = GetComponent<Collider2D>();
             Collider2D[] playerColliders = player.GetComponentsInChildren<Collider2D>(true); // true = include inactive components
-            
+
             foreach (Collider2D playerCollider in playerColliders)
             {
                 Physics2D.IgnoreCollision(arrowCollider, playerCollider);
             }
         }
-        
+
         void OnCollisionEnter2D(Collision2D collision)
         {
-            HitObject(collision);
-        }
-        
-        void OnTriggerEnter2D(Collider2D collider)
-        {
-            HitObject(collider);
+            HitObject(collision.gameObject, collision.contacts[0].point);
         }
 
-        // For collisions
-        void HitObject(Collision2D collision)
+        void OnTriggerEnter2D(Collider2D collider)
+        {
+            HitObject(collider.gameObject, collider.ClosestPoint(transform.position));
+        }
+
+        void HitObject(GameObject target, Vector2 hitPoint)
         {
             // Check if it's the player or child of player (failsafe)
-            if (playerObject != null && 
-                (collision.gameObject == playerObject || collision.transform.IsChildOf(playerObject.transform)))
+            if (playerObject != null &&
+                (target == playerObject || target.transform.IsChildOf(playerObject.transform)))
             {
                 return; // Skip collision with player
             }
 
-            Debug.Log("Arrow collided with: " + collision.gameObject.name);
-            
+            Debug.Log("Arrow hit: " + target.name);
+
+            // Stop the arrow from moving
+            if (rb != null && !ricochet)
+            {
+                rb.velocity = Vector2.zero;
+                rb.isKinematic = true;
+            }
+
             // Check if we hit something in the enemy layer
-            if (((1 << collision.gameObject.layer) & enemyLayer) != 0)
+            if (((1 << target.layer) & enemyLayer) != 0)
             {
                 // Apply damage to enemy if it has a health component
-                Health health = collision.gameObject.GetComponent<Health>();
+                Health health = target.GetComponent<Health>();
                 if (health != null)
                 {
                     // Calculate hit direction from the arrow's velocity
-                    Vector2 hitDirection = rb != null && rb.velocity.magnitude > 0.1f ? 
-                        rb.velocity.normalized : 
-                        (collision.transform.position - transform.position).normalized;
-                    
+                    Vector2 hitDirection = rb != null && rb.velocity.magnitude > 0.1f ?
+                        rb.velocity.normalized :
+                        (hitPoint - (Vector2)transform.position).normalized;
+
                     health.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
                 }
-            }
-            
-            CreateEffectAndDestroy();
-        }
-        
-        // For triggers
-        void HitObject(Collider2D collider)
-        {
-            Debug.Log("Arrow triggered with: " + collider.gameObject.name);
-            
-            // Check if we hit something in the enemy layer
-            if (((1 << collider.gameObject.layer) & enemyLayer) != 0)
-            {
-                // Apply damage to enemy if it has a health component
-                Health health = collider.gameObject.GetComponent<Health>();
-                if (health != null)
+
+                // Apply Hitstop & Screen Shake
+                if (hitstop != null)
                 {
-                    // Calculate hit direction from the arrow's velocity
-                    Vector2 hitDirection = rb != null && rb.velocity.magnitude > 0.1f ? 
-                        rb.velocity.normalized : 
-                        (collider.transform.position - transform.position).normalized;
-                    
-                    health.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
+                    hitstop.SetHitstopDuration(hitstopDuration);
+                    StartCoroutine(hitstop.ApplyHitstop());
+                }
+
+                if (screenShake != null)
+                {
+                    StartCoroutine(screenShake.Shake());
                 }
             }
-            
+
             CreateEffectAndDestroy();
         }
-        
+
         // Common code for both collision types
         void CreateEffectAndDestroy()
         {
-            if(hitEffect != null)
+            if (hitEffect != null)
             {
                 GameObject effect = Instantiate(hitEffect, transform.position, Quaternion.identity);
                 Destroy(effect, effectTime);
             }
             Destroy(gameObject, arrowHitTime);
         }
-        
+
         void DestroyArrow()
         {
             Destroy(gameObject, arrowHitTime);

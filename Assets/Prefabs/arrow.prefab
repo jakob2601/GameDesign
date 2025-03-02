@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1503414479297290012}
   - component: {fileID: 4222145058950589771}
   - component: {fileID: -6048504163328885003}
+  - component: {fileID: 2035642773292739531}
   m_Layer: 0
   m_Name: arrow
   m_TagString: Untagged
@@ -182,6 +183,9 @@ MonoBehaviour:
   attackDamage: 10
   knockbackForce: 1
   knockbackDuration: 0.2
+  hitstop: {fileID: 2035642773292739531}
+  hitstopDuration: 0.1
+  screenShake: {fileID: 0}
 --- !u!96 &-6048504163328885003
 TrailRenderer:
   serializedVersion: 3
@@ -304,3 +308,15 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &2035642773292739531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2960165790278124058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35471e4014970744d8940739fe9084dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
