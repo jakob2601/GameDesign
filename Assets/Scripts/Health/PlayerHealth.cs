@@ -3,6 +3,7 @@ using Scripts.UI;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Combats.Weapons;
+using Scripts.Characters;
 using System.Threading;
 using UnityEngine.SceneManagement;
 
@@ -11,32 +12,37 @@ namespace Scripts.Healths
     public class PlayerHealth : Health
     {
         [SerializeField] public HealthBarController healthBarController;
-        private IFrameHandler iframeHandler; // Add this line
+        [SerializeField] protected IFrameHandler iframeHandler;
 
         protected override void Start()
         {
             // Call the base class initialization
-            iframeHandler = GetComponent<IFrameHandler>(); // Add this line
+            iframeHandler = transform.root.GetComponentInChildren<IFrameHandler>();
+            if(iframeHandler == null)
+            {
+                Debug.LogWarning("IFrameHandler not found on " + gameObject.name);
+            }
 
             base.Start();
         }
-public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
-{
-    // Only apply damage and trigger invincibility if we're not already invincible
-    if (iframeHandler == null || !iframeHandler.IsInvincible())
-    {
-        base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
-        if (iframeHandler != null)
+        public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
-            iframeHandler.TriggerInvincibility();
-            Debug.Log("Triggering invincibility frames from PlayerHealth"); // Debug log
+            // Only apply damage and trigger invincibility if we're not already invincible
+            if(iframeHandler == null || (iframeHandler != null && !iframeHandler.GetIsInvincible()))
+            {
+                base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
+            }
+            
+            if (iframeHandler != null)
+            {
+                iframeHandler.TriggerInvincibility();
+                Debug.Log("Triggering invincibility frames from PlayerHealth"); // Debug log
+            }
+            else 
+            {
+                Debug.LogWarning("IFrameHandler not found on " + gameObject.name);
+            }
         }
-    }
-    else
-    {
-        Debug.Log("Damage prevented by invincibility frames"); // Debug log
-    }
-}
 
         protected override void initializeHealthBar(int maxHealth)
         {

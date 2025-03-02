@@ -127,7 +127,7 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageFlashDuration: 0.1
   hitstop: {fileID: 8858938691465969451}
-  hitstopDuration: 0.1
+  hitstopDuration: 0.05
   screenShake: {fileID: 0}
   clashKnockbackForce: 3
   clashKnockbackDuration: 0.3
@@ -623,6 +623,7 @@ MonoBehaviour:
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
   healthBarController: {fileID: 0}
+  iframeHandler: {fileID: 4146362072482242537}
 --- !u!114 &140400135506352222
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -938,6 +939,7 @@ GameObject:
   - component: {fileID: 2212682138100176999}
   - component: {fileID: 2103070452516426242}
   - component: {fileID: 5898724393291171003}
+  - component: {fileID: 4146362072482242537}
   m_Layer: 3
   m_Name: PlayerGFX
   m_TagString: Untagged
@@ -1062,5 +1064,20 @@ MonoBehaviour:
   animator: {fileID: 2212682138100176999}
   playerCombat: {fileID: 3426090498644071800}
   sword: {fileID: 7858024481496127674}
-  bow: {fileID: 0}
+  bow: {fileID: 1516143577340770840}
   movementAI: {fileID: 3960980809086202236}
+--- !u!114 &4146362072482242537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267244617820324840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12376f5386e14304a9e77282b87f3008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibilityDuration: 1
+  flashInterval: 0.1
+  flashDuringInvincibility: 1

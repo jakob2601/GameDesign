@@ -719,7 +719,7 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   damageFlashDuration: 0.1
   hitstop: {fileID: 8508756755579297667}
-  hitstopDuration: 0.1
+  hitstopDuration: 0.05
   screenShake: {fileID: 3173260978490684285, guid: 9762ca696e266be438ae77e22d126f07, type: 3}
   clashKnockbackForce: 3
   clashKnockbackDuration: 0.3
