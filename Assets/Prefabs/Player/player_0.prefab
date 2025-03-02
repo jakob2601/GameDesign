@@ -53,14 +53,13 @@ MonoBehaviour:
     m_Bits: 64
   characterMovement: {fileID: 3960980809086202236}
   attackRange: 0.5
-  attackDamage: 40
+  attackDamage: 1
   attackRate: 2
   nextAttackTime: 0.4
   knockbackForce: 1
   knockbackDuration: 0.2
   arrowPrefab: {fileID: 2960165790278124058, guid: 93a191be15fc1b84b8ec553092c0c87d, type: 3}
   bulletForce: 20
-  arrowDamage: 10
   arrowLifetime: 5
   currentSpecialArrowType: 0
   specialArrowChance: 1

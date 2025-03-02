@@ -18,7 +18,6 @@ namespace Scripts.Combats.Weapons
         [Header("Bow Properties")]
         [SerializeField] protected GameObject arrowPrefab;
         [SerializeField] protected float bulletForce = 20f;
-        [SerializeField] protected int arrowDamage = 10;
         [SerializeField] protected float arrowLifetime = 5f;
         
         [Header("Special Arrow Properties")]
@@ -91,7 +90,7 @@ namespace Scripts.Combats.Weapons
             if (arrowScript != null)
             {
                 arrowScript.SetEnemyLayer(enemyLayer);
-                arrowScript.SetAttackDamage(arrowDamage);
+                arrowScript.SetAttackDamage(attackDamage);
                 arrowScript.SetLifetime(arrowLifetime);
                 arrowScript.SetKnockbackForce(knockbackForce);
                 arrowScript.SetKnockbackDuration(knockbackDuration);

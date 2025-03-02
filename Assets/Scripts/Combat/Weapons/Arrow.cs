@@ -56,6 +56,9 @@ namespace Scripts.Combats.Weapons
             // Get the rigidbody for direction information
             rb = GetComponent<Rigidbody2D>();
 
+            // Ignore collisions with other arrows
+            IgnoreOtherArrows();
+
             hitstop = GetComponent<Hitstop>(); // Find the Hitstop component in the scene
             if (hitstop == null)
             {
@@ -66,6 +69,25 @@ namespace Scripts.Combats.Weapons
             if (screenShake == null)
             {
                 Debug.LogError("ScreenShake not found for arrow");
+            }
+        }
+
+        private void IgnoreOtherArrows()
+        {
+            // Find all existing arrows and ignore collisions with them
+            Arrow[] allArrows = FindObjectsOfType<Arrow>();
+            Collider2D thisCollider = GetComponent<Collider2D>();
+            
+            foreach (Arrow otherArrow in allArrows)
+            {
+                if (otherArrow != this && otherArrow.gameObject != this.gameObject)
+                {
+                    Collider2D otherCollider = otherArrow.GetComponent<Collider2D>();
+                    if (otherCollider != null && thisCollider != null)
+                    {
+                        Physics2D.IgnoreCollision(thisCollider, otherCollider, true);
+                    }
+                }
             }
         }
 
@@ -134,6 +156,12 @@ namespace Scripts.Combats.Weapons
 
         void HitObject(GameObject target, Vector2 hitPoint)
         {
+            // Skip collision with other arrows
+            if (target.GetComponent<Arrow>() != null)
+            {
+                return;
+            }
+            
             // Check if it's the player or child of player (failsafe)
             if (playerObject != null &&
                 (target == playerObject || target.transform.IsChildOf(playerObject.transform)))
