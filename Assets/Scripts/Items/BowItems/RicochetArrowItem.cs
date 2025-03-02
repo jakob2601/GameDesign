@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
 using Scripts.Combats.Weapons; // Importiere das Waffen-System
@@ -36,6 +37,13 @@ namespace Scripts.Items
                         
                         bow.SetRicochet(true);
                         Debug.Log("Pfeile prallen jetzt ab!");
+
+                        if (isTemporary)
+                        {
+                            Debug.Log("Ricochet Buff expires after " + buffDuration + " seconds.");
+                            StartCoroutine(RemoveBuffAfterDuration(bow));
+                        }
+
                         Destroy(gameObject); // Zerstöre das Upgrade nach dem Aufsammeln
                     }
                 }
@@ -44,6 +52,13 @@ namespace Scripts.Items
                     Debug.LogWarning("Player has no bow equipped!");
                 }
             }
+        }
+
+        private IEnumerator RemoveBuffAfterDuration(Bow bow)
+        {
+            yield return new WaitForSeconds(buffDuration);
+            bow.SetRicochet(false);
+            Debug.Log("Buff expired. Ricochet disabled.");
         }
     }
 }

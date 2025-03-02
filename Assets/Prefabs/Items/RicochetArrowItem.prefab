@@ -135,6 +135,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToLive: 10
+  canExpire: 0
+  isTemporary: 0
+  buffDuration: 10
+  amount: 1
 --- !u!114 &8215370795809919517
 MonoBehaviour:
   m_ObjectHideFlags: 0
