@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2338076128698309231}
   - component: {fileID: 4989139949023004239}
   - component: {fileID: 3779827520781367497}
-  - component: {fileID: 3197110956852626129}
+  - component: {fileID: 218084181182077212}
   m_Layer: 0
   m_Name: RestoreHeartItem
   m_TagString: Untagged
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 1
---- !u!114 &3197110956852626129
+--- !u!114 &218084181182077212
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
