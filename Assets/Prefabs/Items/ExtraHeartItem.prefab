@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 186476335755152796}
   - component: {fileID: 2338076128698309231}
   - component: {fileID: 4989139949023004239}
-  - component: {fileID: -7856054334831457117}
-  - component: {fileID: 1284980593684783924}
+  - component: {fileID: -7797510871524049040}
   m_Layer: 0
   m_Name: ExtraHeartItem
   m_TagString: Untagged
