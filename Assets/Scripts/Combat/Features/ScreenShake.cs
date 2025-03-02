@@ -23,7 +23,7 @@ public class ScreenShake : MonoBehaviour
     {
         if (!isShakeActive)
             yield break;
-
+            
         Vector3 originalPosition = playerTransform.position;
 
         float elapsed = 0.0f;
@@ -40,6 +40,6 @@ public class ScreenShake : MonoBehaviour
             yield return null;
         }
 
-        transform.position = playerTransform.position;
+        transform.position = originalPosition;
     }
 }

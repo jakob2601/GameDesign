@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic; 
 using Scripts.Movements.AI;
 using Scripts.Healths;
 using Scripts.Combats.CharacterCombats;
@@ -19,6 +20,7 @@ namespace Scripts.Combats.Weapons
         // Hitbox-Fixierung
         private Vector2 fixedAttackPosition;
         private bool isAttackActive = false; // Überprüft, ob der Angriff gerade läuft
+        private HashSet<Collider2D> hitEnemiesThisAttack = new HashSet<Collider2D>();
 
         [Header("Hitstop & Screen Shake")]
         [SerializeField] protected Hitstop hitstop; // Reference to the Hitstop component
@@ -60,6 +62,7 @@ namespace Scripts.Combats.Weapons
                 Debug.LogError("Attack point or character movement is not assigned.");
                 return;
             }
+            hitEnemiesThisAttack.Clear();
 
             // Fixiere die Position zum Zeitpunkt des Angriffs
             fixedAttackPosition = (Vector2)transform.position + (Vector2.up * -0.3f) + characterMovement.lastMoveDirection.normalized * attackRange;
@@ -77,6 +80,17 @@ namespace Scripts.Combats.Weapons
                 timer -= Time.deltaTime;
                 yield return null;
             }
+            // **Hitstop & Screen Shake anwenden**
+            if (hitstop != null && hitEnemiesThisAttack.Count == 1)
+            {
+                hitstop.SetHitstopDuration(hitstopDuration);
+                StartCoroutine(hitstop.ApplyHitstop());
+            }
+
+            if (screenShake != null && hitEnemiesThisAttack.Count == 1)
+            {
+                StartCoroutine(screenShake.Shake());
+            }
             isAttackActive = false; // Nach der Zeit deaktivieren
         }
 
@@ -91,6 +105,13 @@ namespace Scripts.Combats.Weapons
                 // Falls der Treffer das eigene GameObject ist, überspringen (z. B. Kind-Objekte)
                 if (enemy.transform.root == transform.root)
                     continue;
+
+                // Skip if we've already hit this enemy during this attack
+                if (hitEnemiesThisAttack.Contains(enemy))
+                    continue;
+
+                // Mark this enemy as hit for this attack
+                hitEnemiesThisAttack.Add(enemy);
 
                 Vector2 hitDirection = (Vector2)(enemy.transform.position - transform.position);
                 Health enemyHealth = enemy.GetComponent<Health>();
@@ -150,18 +171,6 @@ namespace Scripts.Combats.Weapons
                     {
                         Debug.LogWarning($" EnemyHealth nicht gefunden für {enemy.name}!");
                     }
-                }
-
-                // **Hitstop & Screen Shake anwenden**
-                if (hitstop != null)
-                {
-                    hitstop.SetHitstopDuration(hitstopDuration);
-                    StartCoroutine(hitstop.ApplyHitstop());
-                }
-
-                if (screenShake != null)
-                {
-                    StartCoroutine(screenShake.Shake());
                 }
             }
         }
