@@ -34,6 +34,12 @@ namespace Scripts.Movements.Behaviours
         [SerializeField] protected float currentDistanceToTarget;
 
         [SerializeField] private bool isEnabled = true; // Is Enabled by interior
+
+        // Add these new variables for custom targeting
+        protected Transform temporaryTarget;
+        protected bool usingTemporaryTarget = false;
+        protected float temporaryTargetTimer = 0f;
+        protected float temporaryTargetDuration = 2f;
         
 
         public void SetNextWaypointDistance(float nextWaypointDistance)
@@ -210,8 +216,51 @@ namespace Scripts.Movements.Behaviours
             }
         }
 
+        // Add method to set a custom target point
+        public void SetCustomTargetPoint(Vector2 point)
+        {
+            // Create a temporary GameObject at the specified position
+            GameObject tempObject = new GameObject("TempTarget");
+            tempObject.transform.position = point;
+            
+            // Store the original target
+            Transform originalTarget = target;
+            
+            // Set the temporary target
+            temporaryTarget = tempObject.transform;
+            target = temporaryTarget;
+            usingTemporaryTarget = true;
+            temporaryTargetTimer = 0f;
+            
+            // Debug
+            Debug.Log($"Setting custom target point at {point}");
+            Debug.DrawLine(transform.position, point, Color.yellow, 1.0f);
+        }
+
+        // Update the Update method to handle temporary targets
         public void Update()
         {
+            // Handle temporary target timeouts
+            if (usingTemporaryTarget)
+            {
+                temporaryTargetTimer += Time.deltaTime;
+                if (temporaryTargetTimer >= temporaryTargetDuration)
+                {
+                    usingTemporaryTarget = false;
+                    Destroy(temporaryTarget.gameObject);
+                    
+                    // Find player again if we lost the original target
+                    if (target == temporaryTarget || target == null)
+                    {
+                        GameObject player = GameObject.FindGameObjectWithTag("Player");
+                        if (player != null)
+                        {
+                            target = player.transform;
+                        }
+                    }
+                }
+            }
+
             if (timeSinceLastUpdate >= updatePathRate)
             {
                 UpdatePath(rb);

@@ -12,6 +12,7 @@ namespace Scripts.Characters.CharactersAnimation
     {
         [SerializeField] protected EnemyCombat enemyCombat;
         [SerializeField] protected Sword sword;
+        [SerializeField] protected Bow bow;
         [SerializeField] protected EnemyMovementAI movementAI;
 
         protected override void Start()
@@ -28,6 +29,12 @@ namespace Scripts.Characters.CharactersAnimation
             if (sword == null)
             {
                 Debug.LogWarning("Sword is not assigned. This enemy won't perform sword attacks.");
+            }
+
+            bow = transform.root.GetComponentInChildren<Bow>();
+            if (bow == null)
+            {
+                Debug.LogError("Bow is not assigned.");
             }
 
             movementAI = transform.root.GetComponentInChildren<EnemyMovementAI>();
@@ -75,6 +82,7 @@ namespace Scripts.Characters.CharactersAnimation
         public override void CheckBowAttackHitBox()
         {
             base.CheckBowAttackHitBox();
+            bow.CheckBowAttackHitBox();
         }
 
         public override void FinishSwordAttackAnimation()
@@ -83,6 +91,14 @@ namespace Scripts.Characters.CharactersAnimation
             enemyCombat.FinishSwordAttack();
             animator.SetBool("IsAttacking", enemyCombat.GetIsAttacking());
             animator.SetBool("IsSwordAttack", false);
+        }
+
+        public override void FinishBowAttackAnimation()
+        {
+            base.FinishBowAttackAnimation();
+            enemyCombat.FinishBowAttack();
+            animator.SetBool("IsAttacking", enemyCombat.GetIsAttacking());
+            animator.SetBool("IsBowAttack", false);
         }
     }
 }

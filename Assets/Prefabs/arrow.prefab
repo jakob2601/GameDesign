@@ -177,12 +177,17 @@ MonoBehaviour:
   effectTime: 0.2
   timeToLive: 5
   arrowHitTime: 0.2
+  specialArrowType: 0
+  specialArrowChance: 1
+  hitEnemiesThisAttack: 0
+  maxEnemiesToHit: 3
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
-  attackDamage: 10
+  attackDamage: 1
   knockbackForce: 1
   knockbackDuration: 0.2
+  canDamage: 1
   hitstop: {fileID: 2035642773292739531}
   hitstopDuration: 0.1
   screenShake: {fileID: 0}
