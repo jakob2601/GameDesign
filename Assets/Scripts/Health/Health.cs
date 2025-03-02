@@ -88,6 +88,10 @@ namespace Scripts.Healths
         public virtual void Heal(int amount)
         {
             // Erhöhe die Gesundheit
+            if(currentHealth + amount > maxHealth)
+            {
+                amount = maxHealth - currentHealth;
+            }
             currentHealth += amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 

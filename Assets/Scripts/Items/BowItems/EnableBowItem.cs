@@ -1,0 +1,24 @@
+using UnityEngine;
+using Scripts.Combats.CharacterCombats;
+
+namespace Scripts.Items
+{
+    public class EnableBowItem : Item
+    {
+        protected override void OnTriggerEnter2D(Collider2D collision)
+        {
+            PlayerCombat playerCombat = collision.GetComponentInChildren<PlayerCombat>();
+            if (playerCombat == null)
+            {
+                playerCombat = collision.GetComponentInParent<PlayerCombat>();
+            }
+
+            if (playerCombat != null) // If it's a player
+            {
+                playerCombat.SetWeaponAvailable(Combat.WeaponTypes.Bow, true); // Enable arrow shooting
+                Debug.Log("Player can now shoot arrows.");
+                Destroy(gameObject); // Remove the arrow after pickup
+            }
+        }
+    }
+}

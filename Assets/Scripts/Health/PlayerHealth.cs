@@ -42,6 +42,14 @@ namespace Scripts.Healths
             healthBarController.UpdateHearts(currentHealth, maxHealth);
         }
 
+        public void FullHeal()
+        {
+            // Heal the player to full health
+            currentHealth = maxHealth;
+            // Update the health bar
+            healthBarController.UpdateHearts(currentHealth, maxHealth);
+        }
+
         public void IncreaseMaxHealth(int amount)
         {
             maxHealth += amount;

@@ -322,7 +322,7 @@ MonoBehaviour:
   clashSoundDuration: 0.7
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
-  HeartPickup: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
+  RestoreHeartItem: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
   dropChance: 1
 --- !u!114 &610034541743464483
 MonoBehaviour:
