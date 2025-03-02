@@ -24,9 +24,6 @@ namespace Scripts.Combats.CharacterCombats
         // Debug variables
         [SerializeField] protected bool debugAttackState = false;
 
-        // Flag to track arrow shooting ability
-        [SerializeField] private bool canShootArrow = false;
-
         public override MovementAI getCharacterMovement()
         {
             return transform.root.GetComponentInChildren<PlayerMovementAI>();
@@ -54,6 +51,8 @@ namespace Scripts.Combats.CharacterCombats
             {
                 bow.SetEnemyLayer(enemyLayer);
             }
+
+            base.SetWeaponAvailable(WeaponTypes.Bow, false);
         }
 
         protected override void Update()
@@ -69,7 +68,7 @@ namespace Scripts.Combats.CharacterCombats
         protected override void CheckCombatInput()
         {
             // Sword attack input
-            if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0))
+            if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0) && HasWeapon(WeaponTypes.Sword))
             {
                 if (combatEnabled) 
                 {
@@ -92,7 +91,7 @@ namespace Scripts.Combats.CharacterCombats
                 }
             }
             // Bow attack input
-            else if (Input.GetMouseButtonDown(1) && canShootArrow)
+            else if (Input.GetMouseButtonDown(1) && HasWeapon(WeaponTypes.Bow))
             {
                 if (combatEnabled)
                 {
@@ -202,12 +201,5 @@ namespace Scripts.Combats.CharacterCombats
                 }
             }
         }
-
-        // Method to enable arrow shooting
-        public void EnableArrowShooting()
-        {
-            canShootArrow = true;
-            Debug.Log("Arrow shooting enabled.");
     }
-}
 }

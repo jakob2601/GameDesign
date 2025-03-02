@@ -10,7 +10,7 @@ namespace Scripts.Healths
     public class EnemyHealth : Health
     {
 
-        [SerializeField] private GameObject HeartPickup; // Reference to the heart prefab
+        [SerializeField] private GameObject RestoreHeartItem; // Reference to the heart prefab
         [SerializeField] private float dropChance = 1f; // 30% chance to drop a heart
 
         private EnemyCombat enemyCombat;
@@ -85,7 +85,7 @@ namespace Scripts.Healths
         private void DropHeart()
         {
             // Improved null check
-            if (HeartPickup == null)
+            if (RestoreHeartItem == null)
             {
                 Debug.LogError("HeartPickup ist nicht zugewiesen für Enemy: " + gameObject.name);
                 return; // This should prevent the error
@@ -98,7 +98,7 @@ namespace Scripts.Healths
             {
                 try
                 {
-                    Instantiate(HeartPickup, transform.position, Quaternion.identity);
+                    Instantiate(RestoreHeartItem, transform.position, Quaternion.identity);
                     Debug.Log("Heart dropped!");
                 }
                 catch (System.Exception e)

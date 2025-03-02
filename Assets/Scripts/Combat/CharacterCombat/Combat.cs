@@ -41,7 +41,9 @@ namespace Scripts.Combats.CharacterCombats
         public GameObject debugAttackRangeVisualizer; // Referenz für das Visualisierungssprite
 
         [Header("Combat States")]
-        [SerializeField] protected bool gotInput, isAttacking, isFirstAttack;
+        [SerializeField] protected bool gotInput;
+        [SerializeField] protected bool isAttacking;
+        [SerializeField] protected bool isFirstAttack;
         [SerializeField] public bool isSwordAttack, isBowAttack; 
 
         abstract public MovementAI getCharacterMovement();
