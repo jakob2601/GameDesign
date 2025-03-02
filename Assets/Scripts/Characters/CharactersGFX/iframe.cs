@@ -18,7 +18,7 @@ namespace Scripts.Characters
             return isInvincible;
         }
 
-        protected void SetIsInvincible(bool isInvincible)
+        public void SetIsInvincible(bool isInvincible)
         {
             this.isInvincible = isInvincible;
         }

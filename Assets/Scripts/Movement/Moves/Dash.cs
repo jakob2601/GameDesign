@@ -108,7 +108,7 @@ namespace Scripts.Movements.Moves
 
         public IEnumerator PerformDash(Rigidbody2D rb, Vector2 walkingInput)
         {
-            playerHealth.setInvincibility(true);
+            playerHealth.SetIsInvincible(true);  
             Vector2 dashDirection = walkingInput.normalized; // Richtung des Dashes basierend auf der Eingabe
 
             // Raycast prüft Kollisionen vor dem Dash
@@ -131,7 +131,7 @@ namespace Scripts.Movements.Moves
                 dashTime += Time.fixedDeltaTime;
                 yield return new WaitForFixedUpdate(); // Warte auf das nächste Physik-Update
             }
-            playerHealth.setInvincibility(false);
+            playerHealth.SetIsInvincible(false);  
             // Starte den Dash-Cooldown
             dashCooldownTimer = dashCooldown;
             if (trailRenderer != null)

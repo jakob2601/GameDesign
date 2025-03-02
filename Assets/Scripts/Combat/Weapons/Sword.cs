@@ -114,6 +114,12 @@ namespace Scripts.Combats.Weapons
                 // Falls der Treffer das eigene GameObject ist, überspringen (z. B. Kind-Objekte)
                 if (enemy.transform.root == transform.root)
                     continue;
+                
+                IFrameHandler iframeHandler = enemy.GetComponentInChildren<IFrameHandler>();
+                if (iframeHandler != null && iframeHandler.GetIsInvincible())
+                {
+                    continue;
+                }
 
                 // Skip if we've already hit this enemy during this attack
                 if (hitEnemiesThisAttack.Contains(enemy))
