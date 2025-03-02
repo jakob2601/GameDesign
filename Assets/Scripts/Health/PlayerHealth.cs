@@ -11,17 +11,32 @@ namespace Scripts.Healths
     public class PlayerHealth : Health
     {
         [SerializeField] public HealthBarController healthBarController;
+        private IFrameHandler iframeHandler; // Add this line
 
         protected override void Start()
         {
             // Call the base class initialization
+            iframeHandler = GetComponent<IFrameHandler>(); // Add this line
+
             base.Start();
         }
-
-        public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
+public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
+{
+    // Only apply damage and trigger invincibility if we're not already invincible
+    if (iframeHandler == null || !iframeHandler.IsInvincible())
+    {
+        base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
+        if (iframeHandler != null)
         {
-            base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
+            iframeHandler.TriggerInvincibility();
+            Debug.Log("Triggering invincibility frames from PlayerHealth"); // Debug log
         }
+    }
+    else
+    {
+        Debug.Log("Damage prevented by invincibility frames"); // Debug log
+    }
+}
 
         protected override void initializeHealthBar(int maxHealth)
         {

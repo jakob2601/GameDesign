@@ -16224,6 +16224,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7834915610557380560, guid: 28c806822a898514eabd46a838920fff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2016017175}
+    - targetCorrespondingSourceObject: {fileID: 7834915610557380560, guid: 28c806822a898514eabd46a838920fff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2016017179}
   m_SourcePrefab: {fileID: 100100000, guid: 28c806822a898514eabd46a838920fff, type: 3}
 --- !u!1001 &1698697331
 PrefabInstance:
@@ -17402,6 +17405,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2016017179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944386774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc48d9d7bb42bde4cab0c44c8e647f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invincibilityDuration: 1
+  flashInterval: 0.05
+  flashDuringInvincibility: 1
 --- !u!1 &2018971556
 GameObject:
   m_ObjectHideFlags: 0
