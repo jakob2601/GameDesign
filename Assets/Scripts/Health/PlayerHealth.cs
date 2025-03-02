@@ -3,6 +3,7 @@ using Scripts.UI;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Combats.Weapons;
+using Scripts.Characters;
 using System.Threading;
 using UnityEngine.SceneManagement;
 
@@ -17,9 +18,9 @@ namespace Scripts.Healths
             // Call the base class initialization
             base.Start();
         }
-
         public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
+            // Only apply damage and trigger invincibility if we're not already invincible
             base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
         }
 

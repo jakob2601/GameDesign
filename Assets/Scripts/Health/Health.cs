@@ -31,11 +31,28 @@ namespace Scripts.Healths
 
         [SerializeField] protected SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
         [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
+        [SerializeField] protected IFrameHandler iframeHandler;
 
         [Header("Clash Properties")]
         [SerializeField] protected float clashSoundDuration = 0.7f;
         [SerializeField] protected Color clashColor = new Color(1f, 0.9f, 0.2f); // Golden yellow
         [SerializeField] protected float clashColorDuration = 0.1f;
+
+
+        public IFrameHandler GetIFrameHandler()
+        {
+            return iframeHandler;
+        }
+
+        public bool GetIsInvincible()
+        {
+            return iframeHandler.GetIsInvincible();
+        }
+
+        public void SetIsInvincible(bool isInvincible)
+        {
+            iframeHandler.SetIsInvincible(isInvincible);
+        }
 
         protected virtual void Start()
         {
@@ -80,6 +97,12 @@ namespace Scripts.Healths
             {
                 Debug.LogWarning("CharacterAnimation not found on " + gameObject.name);
             }
+
+            iframeHandler = transform.root.GetComponentInChildren<IFrameHandler>();
+            if (iframeHandler == null)
+            {
+                Debug.LogWarning("IFrameHandler not found on " + gameObject.name);
+            }
         }
 
         abstract protected void initializeHealthBar(int maxHealth);
@@ -88,7 +111,7 @@ namespace Scripts.Healths
         public virtual void Heal(int amount)
         {
             // Erhöhe die Gesundheit
-            if(currentHealth + amount > maxHealth)
+            if (currentHealth + amount > maxHealth)
             {
                 amount = maxHealth - currentHealth;
             }
@@ -100,10 +123,9 @@ namespace Scripts.Healths
 
         public virtual void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
-            Debug.Log(gameObject.name + " took damage: " + damage);
-            // Reduziere die Gesundheit
-            if (!isInvincible)
+            if (iframeHandler == null || (iframeHandler != null && !iframeHandler.GetIsInvincible()))
             {
+                Debug.Log(gameObject.name + " took damage: " + damage);
                 StartCoroutine(CombatCooldown());
                 currentHealth -= damage;
                 Debug.Log("Current Health: " + currentHealth + "GameObject: " + gameObject.name + "damaged by " + damage);
@@ -130,11 +152,17 @@ namespace Scripts.Healths
                 // Rückstoß anwenden
                 StartCoroutine(knockback.KnockbackCharacter(rb, hitDirection, knockbackForce, knockbackDuration));
 
-                StartCoroutine(InvincibiltyTimer());
+                //StartCoroutine(InvincibiltyTimer());
+            }
+
+            if (iframeHandler != null)
+            {
+                iframeHandler.TriggerInvincibility();
+                Debug.Log("Triggering invincibility frames from PlayerHealth"); // Debug log
             }
             else
             {
-                Debug.Log("Player is invincible");
+                Debug.LogWarning("IFrameHandler not found on " + gameObject.name);
             }
         }
 
@@ -161,23 +189,11 @@ namespace Scripts.Healths
             }
         }
 
-        protected IEnumerator InvincibiltyTimer()
-        {
-            isInvincible = true;
-            yield return new WaitForSeconds(invincibilityTime);
-            isInvincible = false;
-        }
-
         protected IEnumerator CombatCooldown()
         {
             combat.SetCombatEnabled(false);
             yield return new WaitForSeconds(combatDisabledTime);
             combat.SetCombatEnabled(true);
-        }
-
-        public void setInvincibility(bool state)
-        {
-            isInvincible = state;
         }
 
         void SpawnBloodParticles()
@@ -193,8 +209,6 @@ namespace Scripts.Healths
                 Debug.LogWarning("No blood particle prefab assigned!");
             }
         }
-
-
 
         protected virtual void Die()
         {
