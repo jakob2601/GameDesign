@@ -14,7 +14,7 @@ public class ArrowPickup : MonoBehaviour
 
         if (playerCombat != null) // If it's a player
         {
-            playerCombat.EnableArrowShooting(); // Enable arrow shooting
+            playerCombat.SetWeaponAvailable(Combat.WeaponTypes.Bow, true); // Enable arrow shooting
             Debug.Log("Player can now shoot arrows.");
             Destroy(gameObject); // Remove the arrow after pickup
         }

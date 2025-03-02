@@ -15,7 +15,12 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected float effectTime = 0.8f;
         [SerializeField] protected float timeToLive = 5f;
         [SerializeField] protected float arrowHitTime = 0.2f;
+        
+        [Header("Special Arrow Properties")]
         [SerializeField] protected bool ricochet = false;
+        [SerializeField] protected float ricochetChance = 0f;
+        [SerializeField] protected bool canPierce = false;
+        [SerializeField] protected float pierceChance = 0f;
 
         // Properties that were previously inherited from Weapon
         [Header("Attack Properties")]
@@ -23,6 +28,7 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected int attackDamage = 1;
         [SerializeField] protected float knockbackForce = 1f;
         [SerializeField] protected float knockbackDuration = 0.2f;
+        [SerializeField] protected bool canDamage = true;
 
         private Rigidbody2D rb;
         private GameObject playerObject;
@@ -121,15 +127,8 @@ namespace Scripts.Combats.Weapons
 
             Debug.Log("Arrow hit: " + target.name);
 
-            // Stop the arrow from moving
-            if (rb != null && !ricochet)
-            {
-                rb.velocity = Vector2.zero;
-                rb.isKinematic = true;
-            }
-
             // Check if we hit something in the enemy layer
-            if (((1 << target.layer) & enemyLayer) != 0)
+            if (((1 << target.layer) & enemyLayer) != 0 && canDamage)
             {
                 // Apply damage to enemy if it has a health component
                 Health health = target.GetComponent<Health>();
@@ -154,6 +153,14 @@ namespace Scripts.Combats.Weapons
                 {
                     StartCoroutine(screenShake.Shake());
                 }
+            }
+
+            // Stop the arrow from moving
+            if (rb != null && !ricochet && !canPierce)
+            {
+                rb.velocity = Vector2.zero;
+                rb.isKinematic = true;
+                canDamage = false;
             }
 
             CreateEffectAndDestroy();
