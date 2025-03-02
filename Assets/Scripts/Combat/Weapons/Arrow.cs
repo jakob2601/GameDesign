@@ -6,6 +6,7 @@ using Scripts.Healths;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Combats.Features;
 using Scripts.Characters;
+using Scripts.Items;
 
 namespace Scripts.Combats.Weapons
 {
@@ -40,6 +41,7 @@ namespace Scripts.Combats.Weapons
 
         private Rigidbody2D rb;
         private GameObject playerObject;
+        private HashSet<GameObject> hitEnemies = new HashSet<GameObject>(); // Track hit enemies
 
         [Header("Hitstop & Screen Shake")]
         [SerializeField] protected Hitstop hitstop; // Reference to the Hitstop component
@@ -138,16 +140,24 @@ namespace Scripts.Combats.Weapons
             {
                 return; // Skip collision with player
             }
+            bool didntHitWall = true;
 
             Debug.Log("Arrow hit: " + target.name);
 
             // Check if we hit something in the enemy layer
             if (((1 << target.layer) & enemyLayer) != 0 && canDamage)
             {
+                // Check if the enemy has already been hit
+                if (hitEnemies.Contains(target))
+                {
+                    return; // Skip if already hit
+                }
+
                 // Apply damage to enemy if it has a health component
                 Health health = target.GetComponent<Health>();
                 if (health != null)
                 {
+                    hitEnemies.Add(target); // Add to hit enemies list
                     hitEnemiesThisAttack++;
                     // Calculate hit direction from the arrow's velocity
                     Vector2 hitDirection = rb != null && rb.velocity.magnitude > 0.1f ?
@@ -169,9 +179,18 @@ namespace Scripts.Combats.Weapons
                     StartCoroutine(screenShake.Shake());
                 }
             }
+            else if (target.GetComponent<Item>() != null)
+            {
+                // Allow arrows to pass through items
+                didntHitWall = true;
+            }
+            else
+            {
+                didntHitWall = false;
+            }
 
             // Stop the arrow from moving
-            if (rb != null && specialArrowType == SpecialArrowType.None)
+            if (rb != null && (specialArrowType == SpecialArrowType.None || hitEnemiesThisAttack >= maxEnemiesToHit || !didntHitWall)) 
             {
                 rb.velocity = Vector2.zero;
                 rb.isKinematic = true;
@@ -188,8 +207,6 @@ namespace Scripts.Combats.Weapons
                 // Pierce the arrow
                 StartCoroutine(PierceArrow());
             }
-
-            
         }
 
         protected IEnumerator RicochetArrow()
@@ -198,11 +215,12 @@ namespace Scripts.Combats.Weapons
             yield return new WaitForSeconds(0.1f);
 
             // Check if the arrow should ricochet
-            if (Random.value <= specialArrowChance && hitEnemiesThisAttack < maxEnemiesToHit)
+            if (Random.value <= specialArrowChance)
             {
                 // Calculate new direction based on the normal of the collision
                 Vector2 newDirection = Vector2.Reflect(rb.velocity.normalized, rb.GetRelativeVector(Vector2.up));
                 rb.velocity = newDirection * rb.velocity.magnitude;
+                rb.rotation = Mathf.Atan2(newDirection.y, newDirection.x) * Mathf.Rad2Deg; // Ensure the arrow points in the new direction
             }
             else
             {
@@ -220,7 +238,7 @@ namespace Scripts.Combats.Weapons
             yield return new WaitForSeconds(0.1f);
 
             // Check if the arrow should pierce
-            if (Random.value <= specialArrowChance && hitEnemiesThisAttack < maxEnemiesToHit)
+            if (Random.value <= specialArrowChance)
             {
                 // Continue moving the arrow
             }
