@@ -42,8 +42,16 @@ namespace Scripts.Combats.Weapons
         protected override void Start()
         {
             base.Start();
-            hitstop = FindObjectOfType<Hitstop>(); // Find the Hitstop component in the scene
+            hitstop = GetComponent<Hitstop>(); 
+            if (hitstop == null)
+            {
+                Debug.LogError("Hitstop not found for sword");
+            }
             screenShake = FindObjectOfType<ScreenShake>(); // Find the ScreenShake component in the scene
+            if (screenShake == null)
+            {
+                Debug.LogError("ScreenShake not found for sword");
+            }
         }
 
         protected override void Update()
@@ -82,13 +90,13 @@ namespace Scripts.Combats.Weapons
                 yield return null;
             }
             // **Hitstop & Screen Shake anwenden**
-            if (hitstop != null && hitEnemiesThisAttack.Count == 1)
+            if (hitstop != null && hitEnemiesThisAttack.Count >= 1)
             {
                 hitstop.SetHitstopDuration(hitstopDuration);
                 StartCoroutine(hitstop.ApplyHitstop());
             }
 
-            if (screenShake != null && hitEnemiesThisAttack.Count == 1)
+            if (screenShake != null && hitEnemiesThisAttack.Count >= 1)
             {
                 StartCoroutine(screenShake.Shake());
             }

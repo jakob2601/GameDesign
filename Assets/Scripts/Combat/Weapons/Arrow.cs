@@ -41,8 +41,16 @@ namespace Scripts.Combats.Weapons
             rb = GetComponent<Rigidbody2D>();
 
             hitstop = GetComponent<Hitstop>(); // Find the Hitstop component in the scene
+            if (hitstop == null)
+            {
+                Debug.LogError("Hitstop not found for arrow");
+            }
 
             screenShake = FindObjectOfType<ScreenShake>(); // Find the ScreenShake component in the scene
+            if (screenShake == null)
+            {
+                Debug.LogError("ScreenShake not found for arrow");
+            }
         }
 
         // Setter methods
