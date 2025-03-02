@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d5cd92e53c7b294b999ef77e87ea87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToLive: 10
+  canExpire: 0
+  amount: 1
   healAmount: 1
 --- !u!114 &218084181182077212
 MonoBehaviour:

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
 using Scripts.Combats.Weapons; // Importiere das Waffen-System
@@ -7,7 +8,7 @@ namespace Scripts.Items
     public class UpgradeWeaponDamageItem : Item
     {
         [SerializeField] private int damageIncrease = 1; // Erhöht den Schaden um 1
-
+        
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.CompareTag("Player")) // Überprüfe, ob der Spieler das Upgrade berührt
@@ -36,6 +37,11 @@ namespace Scripts.Items
                             {
                                 weapon.SetAttackDamage(weapon.GetAttackDamage() + damageIncrease);
                                 Debug.Log(weaponType + " Damage erhöht! Neuer Wert: " + weapon.GetAttackDamage());
+
+                                if (isTemporary)
+                                {
+                                    StartCoroutine(RemoveBuffAfterDuration(weapon));
+                                }
                             }
                         }
                     }
@@ -48,6 +54,13 @@ namespace Scripts.Items
                     Debug.LogError("Spieler hat kein Combat-System gefunden!");
                 }
             }
+        }
+
+        private IEnumerator RemoveBuffAfterDuration(Weapon weapon)
+        {
+            yield return new WaitForSeconds(buffDuration);
+            weapon.SetAttackDamage(weapon.GetAttackDamage() - damageIncrease);
+            Debug.Log("Buff expired. " + weapon.GetType().Name + " Damage zurückgesetzt auf " + weapon.GetAttackDamage());
         }
     }
 }

@@ -134,6 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bcd56eb8e78c614e8c6b6613945285c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToLive: 10
+  canExpire: 0
+  amount: 1
   healsFullHealth: 0
   healAmount: 1
   extraHeartAmount: 1

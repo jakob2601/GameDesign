@@ -134,3 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToLive: 10
+  canExpire: 0
+  isTemporary: 1
+  buffDuration: 10
+  amount: 1

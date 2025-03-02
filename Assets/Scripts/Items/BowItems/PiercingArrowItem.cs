@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
 using Scripts.Combats.Weapons; // Importiere das Waffen-System
@@ -36,6 +37,13 @@ namespace Scripts.Items
                         
                         bow.SetPierce(true);
                         Debug.Log("Pfeile gehen jetzt durch Gegner durch!");
+
+                        if (isTemporary)
+                        {
+                            Debug.Log("Piercing Buff expires after " + buffDuration + " seconds.");
+                            StartCoroutine(RemoveBuffAfterDuration(bow));
+                        }
+
                         Destroy(gameObject); // Zerstöre das Upgrade nach dem Aufsammeln
                     }
                 }
@@ -44,6 +52,13 @@ namespace Scripts.Items
                     Debug.LogWarning("Player has no bow equipped!");
                 }
             }
+        }
+
+        private IEnumerator RemoveBuffAfterDuration(Bow bow)
+        {
+            yield return new WaitForSeconds(buffDuration);
+            bow.SetPierce(false);
+            Debug.Log("Buff expired. Pierce disabled.");
         }
     }
 }
