@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heartPrefab: {fileID: 4928196192993530209, guid: 7d56126ed5335114d82d47731cf2d870, type: 3}
-  bowPrefab: {fileID: 0}
+  bowPrefab: {fileID: 2463013648017040212, guid: 7d64784fdbe54644ba6b5eb27501d47d, type: 3}
   spawnPoint: {fileID: 5391879592292532702}
 --- !u!1 &7325364770948926828
 GameObject:
