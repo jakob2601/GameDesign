@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Combats.Features;
+using Scripts.Healths; // Add this line to reference the Health class
 
 namespace Scripts.Combats.Features
 {
@@ -14,10 +16,21 @@ namespace Scripts.Combats.Features
         }
 
         [System.Serializable]
+        public class ItemDropInfo
+        {
+            public GameObject itemPrefab;
+            [Range(0, 100)]
+            public float dropChance; // Percentage chance to drop the item
+        }
+
+        [System.Serializable]
         public class Wave
         {
             public List<EnemySpawnInfo> enemies;
             public float spawnInterval;
+            public List<ItemDropInfo> itemDrops; // List of item drops for this wave
+            public bool onlyOneItemMax; // Toggle to control if only one item can spawn
+            public Transform rewardSpawnPoint; // Specific point where the reward spawns
         }
 
         public Wave[] waves;
@@ -27,6 +40,7 @@ namespace Scripts.Combats.Features
         private bool isSpawning = false;
         private List<int> usedSpawnPoints = new List<int>();
         public LayerMask wallLayerMask; // Layer mask to identify walls
+        private List<GameObject> activeEnemies = new List<GameObject>(); // List to keep track of active enemies
 
         void Start()
         {
@@ -50,10 +64,18 @@ namespace Scripts.Combats.Features
                 }
 
                 isSpawning = false;
-                currentWaveIndex++;
 
                 // Wait for the specified time between waves
                 yield return new WaitForSeconds(timeBetweenWaves);
+
+                // Drop items after wave
+                if (currentWaveIndex == 0)
+                {
+                    yield return new WaitUntil(() => activeEnemies.Count == 0); // Wait until all enemies are defeated
+                }
+                TryDropItems(currentWave);
+
+                currentWaveIndex++;
             }
         }
 
@@ -81,11 +103,45 @@ namespace Scripts.Combats.Features
             // Check if the spawn position is inside a wall
             if (Physics2D.OverlapCircle(spawnPosition, 0.5f, wallLayerMask) == null)
             {
-                Instantiate(enemyPrefab, spawnPosition, spawnPoint.rotation);
+                GameObject enemy = Instantiate(enemyPrefab, spawnPosition, spawnPoint.rotation);
+                activeEnemies.Add(enemy); // Add enemy to the active enemies list
+                Health.OnEnemyDied += () => RemoveEnemy(enemy); // Subscribe to the enemy's death event
             }
             else
             {
                 Debug.LogWarning("Spawn position is inside a wall, skipping spawn.");
+            }
+        }
+
+        void RemoveEnemy(GameObject enemy)
+        {
+            activeEnemies.Remove(enemy); // Remove enemy from the active enemies list
+        }
+
+        void TryDropItems(Wave wave)
+        {
+            bool itemDropped = false;
+
+            foreach (var itemDrop in wave.itemDrops)
+            {
+                float randomValue = Random.Range(0f, 100f);
+                if (randomValue <= itemDrop.dropChance)
+                {
+                    // Drop the item at the specified reward spawn point
+                    Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
+                    Instantiate(itemDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
+
+                    if (wave.onlyOneItemMax)
+                    {
+                        itemDropped = true;
+                        break;
+                    }
+                }
+            }
+
+            if (wave.onlyOneItemMax && !itemDropped)
+            {
+                Debug.LogWarning("No item dropped this wave.");
             }
         }
 
@@ -108,6 +164,16 @@ namespace Scripts.Combats.Features
                 if (spawnPoint != null)
                 {
                     Gizmos.DrawSphere(spawnPoint.position, 0.5f);
+                }
+            }
+
+            // Draw Gizmos for reward spawn points
+            Gizmos.color = Color.blue;
+            foreach (Wave wave in waves)
+            {
+                if (wave.rewardSpawnPoint != null)
+                {
+                    Gizmos.DrawSphere(wave.rewardSpawnPoint.position, 0.5f);
                 }
             }
         }

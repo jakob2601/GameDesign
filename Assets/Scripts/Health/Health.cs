@@ -30,7 +30,7 @@ namespace Scripts.Healths
         [SerializeField] protected Knockback knockback; // Referenz auf den Knockback
 
         [SerializeField] protected SpriteRenderer spriteRenderer; // Referenz auf den SpriteRenderer
-        [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab        
+        [SerializeField] public GameObject bloodParticlesPrefab; // Referenz zum Blut-Partikel-Prefab
 
         [Header("Clash Properties")]
         [SerializeField] protected float clashSoundDuration = 0.7f;
@@ -147,11 +147,11 @@ namespace Scripts.Healths
             }
 
             // Play clash effect sound
-            SoundManager.PlaySound(SoundType.SWING, clashSoundDuration); 
-            
+            SoundManager.PlaySound(SoundType.SWING, clashSoundDuration);
+
             // Apply stronger knockback for the clash
             StartCoroutine(knockback.KnockbackCharacter(rb, clashDirection, clashForce, clashDuration));
-            
+
             // Optionally flash the sprite a different color for clash
             // Flash gold color for clash
             CharacterGFX characterGFX = GetComponentInChildren<CharacterGFX>();
@@ -160,7 +160,7 @@ namespace Scripts.Healths
                 characterGFX.FlashColor(clashColor, clashColorDuration);
             }
         }
-        
+
         protected IEnumerator InvincibiltyTimer()
         {
             isInvincible = true;
@@ -194,7 +194,7 @@ namespace Scripts.Healths
             }
         }
 
-       
+
 
         protected virtual void Die()
         {

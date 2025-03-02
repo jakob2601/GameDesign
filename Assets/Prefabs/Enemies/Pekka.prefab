@@ -720,7 +720,7 @@ MonoBehaviour:
   damageFlashDuration: 0.1
   hitstop: {fileID: 8508756755579297667}
   hitstopDuration: 0.1
-  screenShake: {fileID: 0}
+  screenShake: {fileID: 3173260978490684285, guid: 9762ca696e266be438ae77e22d126f07, type: 3}
   clashKnockbackForce: 3
   clashKnockbackDuration: 0.3
   clashCooldown: 0.5
