@@ -65,6 +65,7 @@ Transform:
   - {fileID: 3204125244975601958}
   - {fileID: 5520251983193135026}
   - {fileID: 7190711715174163256}
+  - {fileID: 713273425061282540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2078029389688017434
@@ -85,17 +86,39 @@ MonoBehaviour:
       count: 2
     - enemyPrefab: {fileID: 8898999564239227769, guid: b143506620a505d4caa222d8125618d4, type: 3}
       count: 2
-    - enemyPrefab: {fileID: 0}
-      count: 0
+    - enemyPrefab: {fileID: 5413714183383202248, guid: a17b9c9278f452e43b71d1601f82121b, type: 3}
+      count: 1
     spawnInterval: 4
+    itemDrops:
+    - itemPrefab: {fileID: 4928196192993530209, guid: 7d56126ed5335114d82d47731cf2d870, type: 3}
+      dropChance: 15
+    - itemPrefab: {fileID: 7047850777393464634, guid: 93a92853cce6f054a9f36acd3a10a272, type: 3}
+      dropChance: 15
+    - itemPrefab: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
+      dropChance: 70
+    onlyOneItemMax: 1
+    rewardSpawnPoint: {fileID: 713273425061282540}
+    mustDropReward: 1
+    rewardDropped: 0
   - enemies:
     - enemyPrefab: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
-      count: 4
+      count: 3
     - enemyPrefab: {fileID: 8898999564239227769, guid: b143506620a505d4caa222d8125618d4, type: 3}
       count: 2
-    - enemyPrefab: {fileID: 0}
-      count: 0
+    - enemyPrefab: {fileID: 5413714183383202248, guid: a17b9c9278f452e43b71d1601f82121b, type: 3}
+      count: 2
     spawnInterval: 2
+    itemDrops:
+    - itemPrefab: {fileID: 4928196192993530209, guid: 7d56126ed5335114d82d47731cf2d870, type: 3}
+      dropChance: 15
+    - itemPrefab: {fileID: 7047850777393464634, guid: 93a92853cce6f054a9f36acd3a10a272, type: 3}
+      dropChance: 15
+    - itemPrefab: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
+      dropChance: 70
+    onlyOneItemMax: 1
+    rewardSpawnPoint: {fileID: 713273425061282540}
+    mustDropReward: 1
+    rewardDropped: 0
   spawnPoints:
   - {fileID: 8397114733710866965}
   - {fileID: 3204125244975601958}
@@ -105,6 +128,37 @@ MonoBehaviour:
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 128
+--- !u!1 &3885677489327666045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 713273425061282540}
+  m_Layer: 0
+  m_Name: RewardPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &713273425061282540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885677489327666045}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.47, y: -14.29, z: -0.055297017}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3781285476152270341}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4760678626951454546
 GameObject:
   m_ObjectHideFlags: 0
