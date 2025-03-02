@@ -99,6 +99,14 @@ MonoBehaviour:
   contactDamage: {fileID: 7052181738753943573}
   startAttackRange: 1.5
   sword: {fileID: 955802709539510504}
+  bow: {fileID: 0}
+  minShootRange: 3
+  idealShootRange: 5
+  maxShootRange: 7
+  shootAngleThreshold: 0.95
+  aimTime: 0.5
+  bowCooldownTime: 2
+  aimIndicator: {fileID: 0}
 --- !u!1 &4887016575314615901
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +303,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerCollider: {fileID: 0}
+  repositionCooldown: 1.5
+  repositionCheckRadius: 2
 --- !u!114 &4194403028306377578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,7 +334,7 @@ MonoBehaviour:
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
   RestoreHeartItem: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
-  dropChance: 1
+  dropChance: 0.33
 --- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,6 +667,7 @@ MonoBehaviour:
   animator: {fileID: 2309280226520025970}
   enemyCombat: {fileID: 1033671911682065929}
   sword: {fileID: 955802709539510504}
+  bow: {fileID: 0}
   movementAI: {fileID: 1056930885647471817}
 --- !u!114 &3154951224766644663
 MonoBehaviour:

@@ -1,5 +1,5 @@
-// Assets/Scripts/Health/Health.cs
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MyGame;
 using System.Collections;
 using Scripts.UI;
@@ -213,6 +213,13 @@ namespace Scripts.Healths
         protected virtual void Die()
         {
             OnEnemyDied?.Invoke();
+            Respawn();
+        }
+
+        private void Respawn()
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
         }
 
         protected virtual void Hurt()
