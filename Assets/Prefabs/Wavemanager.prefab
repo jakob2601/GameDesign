@@ -119,6 +119,15 @@ MonoBehaviour:
     rewardSpawnPoint: {fileID: 713273425061282540}
     mustDropReward: 1
     rewardDropped: 0
+  - enemies: []
+    spawnInterval: 0
+    itemDrops:
+    - itemPrefab: {fileID: 4383608463153675702, guid: 89fba54f93bd1b0488ef55b6bb12535d, type: 3}
+      dropChance: 100
+    onlyOneItemMax: 1
+    rewardSpawnPoint: {fileID: 713273425061282540}
+    mustDropReward: 1
+    rewardDropped: 0
   spawnPoints:
   - {fileID: 8397114733710866965}
   - {fileID: 3204125244975601958}
