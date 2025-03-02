@@ -10,11 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4765289697609376348}
   - component: {fileID: 3180751605688155752}
-  - component: {fileID: 7496324349047968536}
   - component: {fileID: 3806176602863210872}
-  - component: {fileID: -6219502141580599295}
+  - component: {fileID: 3041497642079423590}
   m_Layer: 0
-  m_Name: bowIcon
+  m_Name: PiercingArrowItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,18 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7496324349047968536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2463013648017040212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c506304be45d5ce4d820599ddda26fc1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!70 &3806176602863210872
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,7 +121,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.59, y: 0.78}
   m_Direction: 0
---- !u!114 &-6219502141580599295
+--- !u!114 &3041497642079423590
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,8 +130,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2463013648017040212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 899dfb8bcac7070448091d53095c81fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 1fddebd9b1d22b6479aba1e7291ae9e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatSpeed: 7
-  floatHeight: 0.05

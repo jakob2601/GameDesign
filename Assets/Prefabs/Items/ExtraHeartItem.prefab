@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 186476335755152796}
   - component: {fileID: 2338076128698309231}
   - component: {fileID: 4989139949023004239}
-  - component: {fileID: -7856054334831457117}
-  - component: {fileID: 1284980593684783924}
+  - component: {fileID: -7797510871524049040}
+  - component: {fileID: 6817020691155181174}
   m_Layer: 0
   m_Name: ExtraHeartItem
   m_TagString: Untagged
@@ -137,3 +137,17 @@ MonoBehaviour:
   healsFullHealth: 0
   healAmount: 1
   extraHeartAmount: 1
+--- !u!114 &6817020691155181174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928196192993530209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899dfb8bcac7070448091d53095c81fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatSpeed: 7
+  floatHeight: 0.05

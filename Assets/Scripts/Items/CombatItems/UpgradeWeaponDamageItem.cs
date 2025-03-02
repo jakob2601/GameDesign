@@ -21,6 +21,13 @@ namespace Scripts.Items
                     {
                         if (weaponType == Combat.WeaponTypes.None) continue;
 
+                        // Enable weapon if not already enabled
+                        if (!playerCombat.HasWeapon(weaponType))
+                        {
+                            playerCombat.SetWeaponAvailable(weaponType, true);
+                            Debug.Log("Player can now use " + weaponType + ".");
+                        }
+
                         if (playerCombat.HasWeapon(weaponType))
                         {
                             System.Type weaponClassType = System.Type.GetType("Scripts.Combats.Weapons." + weaponType.ToString());

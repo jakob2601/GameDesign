@@ -7,12 +7,67 @@ namespace Scripts.Combats.Weapons
 {
     public class Bow : Weapon
     {
+        // Add an enum for arrow types
+        public enum SpecialArrowType
+        {
+            None,
+            Ricochet,
+            Pierce
+        }
+        
         [Header("Bow Properties")]
         [SerializeField] protected GameObject arrowPrefab;
         [SerializeField] protected float bulletForce = 20f;
         [SerializeField] protected int arrowDamage = 10;
         [SerializeField] protected float arrowLifetime = 5f;
         
+        [Header("Special Arrow Properties")]
+        public SpecialArrowType currentSpecialArrowType = SpecialArrowType.None;
+        [SerializeField] protected float specialArrowChance = 1f;
+
+        // Replace individual flags with a unified system
+
+        protected override void Start()
+        {
+            base.Start();
+            SetPierce(false);
+            SetRicochet(false);
+        }
+    
+        public void SetRicochet(bool enable)
+        {
+            if (enable)
+            {
+                // If we're enabling ricochet, disable pierce and set arrow type
+                currentSpecialArrowType = SpecialArrowType.Ricochet;
+                Debug.Log("Special Arrows: Ricochet enabled" + 
+                         (currentSpecialArrowType == SpecialArrowType.Pierce ? " (Pierce disabled)" : ""));
+            }
+            else if (currentSpecialArrowType == SpecialArrowType.Ricochet)
+            {
+                // Only disable if it was ricochet
+                currentSpecialArrowType = SpecialArrowType.None;
+                Debug.Log("Special Arrows: Ricochet disabled");
+            }
+        }
+
+        public void SetPierce(bool enable)
+        {
+            if (enable)
+            {
+                // If we're enabling pierce, disable ricochet and set arrow type
+                currentSpecialArrowType = SpecialArrowType.Pierce;
+                Debug.Log("Special Arrows: Pierce enabled" + 
+                         (currentSpecialArrowType == SpecialArrowType.Ricochet ? " (Ricochet disabled)" : ""));
+            }
+            else if (currentSpecialArrowType == SpecialArrowType.Pierce)
+            {
+                // Only disable if it was pierce
+                currentSpecialArrowType = SpecialArrowType.None;
+                Debug.Log("Special Arrows: Pierce disabled");
+            }
+        }
+
         public override void PerformAttack()
         {
             base.Start();
@@ -41,6 +96,9 @@ namespace Scripts.Combats.Weapons
                 arrowScript.SetKnockbackForce(knockbackForce);
                 arrowScript.SetKnockbackDuration(knockbackDuration);
                 
+                // Apply special abilities based on current arrow type
+                arrowScript.SetSpecialArrowType((Arrow.SpecialArrowType)currentSpecialArrowType);
+
                 // Important: Set the player GameObject so arrow can ignore ALL its colliders
                 arrowScript.SetCharacterObject(transform.root.gameObject);
             }

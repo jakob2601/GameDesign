@@ -1,6 +1,8 @@
 using UnityEngine;
 
-public class FloatingItem : MonoBehaviour
+namespace Scripts.Items
+{
+    public class FloatingItem : MonoBehaviour
 {
     [SerializeField] private float floatSpeed = 7f; // Geschwindigkeit der Bewegung
     [SerializeField] private float floatHeight = 0.05f; // Höhe der Bewegung
@@ -18,3 +20,5 @@ public class FloatingItem : MonoBehaviour
         transform.position = new Vector3(startPosition.x, newY, startPosition.z);
     }
 }
+}
+

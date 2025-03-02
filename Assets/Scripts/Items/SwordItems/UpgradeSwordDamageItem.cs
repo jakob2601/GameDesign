@@ -14,8 +14,15 @@ namespace Scripts.Items
             {
                 Combat playerCombat = collision.GetComponentInChildren<Combat>(); // Suche das Combat-System des Spielers
 
-                if (playerCombat != null && playerCombat.HasWeapon(Combat.WeaponTypes.Sword))
+                if (playerCombat != null)
                 {
+                    // Enable sword if not already enabled
+                    if (!playerCombat.HasWeapon(Combat.WeaponTypes.Sword))
+                    {
+                        playerCombat.SetWeaponAvailable(Combat.WeaponTypes.Sword, true);
+                        Debug.Log("Player can now use a sword.");
+                    }
+
                     Weapon sword = collision.GetComponentInChildren<Sword>();
                     if (sword != null)
                     {
@@ -26,7 +33,7 @@ namespace Scripts.Items
                 }
                 else
                 {
-                    Debug.LogError("Spieler hat kein Schwert gefunden!");
+                    Debug.LogError("Spieler hat kein Combat-System gefunden!");
                 }
             }
         }
