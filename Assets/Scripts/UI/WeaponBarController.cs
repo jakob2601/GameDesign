@@ -190,15 +190,27 @@ namespace Scripts.UI
             TextMeshProUGUI tmpText = textObj.AddComponent<TextMeshProUGUI>();
             tmpText.text = text;
             tmpText.fontSize = 12;
-            tmpText.alignment = TextAlignmentOptions.Center;
+            tmpText.alignment = TextAlignmentOptions.Center; // Center text horizontally
+            tmpText.verticalAlignment = VerticalAlignmentOptions.Middle; // Center text vertically
+            
+            // Set font settings for better visibility
+            tmpText.fontStyle = FontStyles.Bold;
+            tmpText.enableWordWrapping = false;
+            tmpText.overflowMode = TextOverflowModes.Overflow;
             
             // Position below the icon
             RectTransform rt = tmpText.rectTransform;
-            rt.anchorMin = new Vector2(0.5f, 0);
-            rt.anchorMax = new Vector2(0.5f, 0);
-            rt.pivot = new Vector2(0.5f, 1);
-            rt.sizeDelta = new Vector2(60, 20);
-            rt.anchoredPosition = textOffset;
+            
+            // Center anchors at the bottom of the parent
+            rt.anchorMin = new Vector2(0, 0); // Bottom left
+            rt.anchorMax = new Vector2(1, 0); // Bottom right
+            rt.pivot = new Vector2(0.5f, 1);  // Top center pivot
+            
+            // Make the text width match the parent's width
+            rt.sizeDelta = new Vector2(0, 20); // Width 0 means "use anchors width"
+            
+            // Position the text centered below the icon
+            rt.anchoredPosition = new Vector2(0, textOffset.y);
             
             return tmpText;
         }

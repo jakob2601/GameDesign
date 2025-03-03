@@ -115,19 +115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1b2ae33e483615438b54f3393ca2e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashContainer: {fileID: 2488732041199948152}
+  weaponBarContainer: {fileID: 0}
+  containerPosition: {x: 10, y: -110}
+  iconSize: {x: 80, y: 80}
+  iconSpacing: 90
+  textOffset: {x: 0, y: -20}
   dashIcon: {fileID: 0}
   dashCooldownOverlay: {fileID: 0}
   dashKeyText: {fileID: 0}
   dashKeyBinding: SPACE BAR
-  weaponIconContainer: {fileID: 2488732041199948152}
   swordIcon: {fileID: 0}
   bowIcon: {fileID: 0}
   swordKeyText: {fileID: 0}
   bowKeyText: {fileID: 0}
   swordKeyBinding: LMB
   bowKeyBinding: RMB
-  arrowTypeContainer: {fileID: 2488732041199948152}
   normalArrowIcon: {fileID: 0}
   piercingArrowIcon: {fileID: 0}
   ricochetArrowIcon: {fileID: 0}
@@ -136,7 +138,7 @@ MonoBehaviour:
   cooldownColor: {r: 0.3, g: 0.3, b: 0.3, a: 0.7}
   selectedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   dashSprite: {fileID: -1576430088, guid: a16e1c358a36d904884b3891e914848a, type: 3}
-  swordSprite: {fileID: -7207888165612735802, guid: 32241a93fea59b74680467030ec48b95, type: 3}
+  swordSprite: {fileID: -1862108986685511230, guid: 32241a93fea59b74680467030ec48b95, type: 3}
   bowSprite: {fileID: 21300000, guid: bbda943b71900cd4cb1bebc3d9f4f2fe, type: 3}
   normalArrowSprite: {fileID: 21300000, guid: b4c81b90a8746724d8f38a9b60d1a79e, type: 3}
   piercingArrowSprite: {fileID: 21300000, guid: 257cc8d6d704d44499c849ab33f7b66e, type: 3}
