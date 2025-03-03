@@ -233,7 +233,7 @@ namespace Scripts.Movements.Behaviours
             temporaryTargetTimer = 0f;
             
             // Debug
-            Debug.Log($"Setting custom target point at {point}");
+            // Debug.Log($"Setting custom target point at {point}");
             Debug.DrawLine(transform.position, point, Color.yellow, 1.0f);
         }
 
@@ -351,7 +351,7 @@ namespace Scripts.Movements.Behaviours
 
             if (this.currentWaypoint >= this.path.vectorPath.Count)
             {
-                Debug.Log("End of path reached");
+                // Debug.Log("End of path reached");
                 SetReachedEndOfPath();
                 return;
             }
