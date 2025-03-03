@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1a0a912f754184898bade354de0c24, type: 3}
+  m_Name: DropConfiguration
+  m_EditorClassIdentifier: 
+  possibleRewards:
+  - rewardPrefab: {fileID: 4928196192993530209, guid: 7d56126ed5335114d82d47731cf2d870, type: 3}
+    dropChance: 0.2
+    rewardName: 
+  - rewardPrefab: {fileID: 2463013648017040212, guid: 30612d9f7580ddb4ab6de7506e6bac1a, type: 3}
+    dropChance: 0.1
+    rewardName: 
+  - rewardPrefab: {fileID: 7047850777393464634, guid: 93a92853cce6f054a9f36acd3a10a272, type: 3}
+    dropChance: 0.2
+    rewardName: 
+  - rewardPrefab: {fileID: 2463013648017040212, guid: 8296a3516e420d3439ac5152291646dd, type: 3}
+    dropChance: 0.1
+    rewardName: 
+  - rewardPrefab: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
+    dropChance: 0.2
+    rewardName: 
+  nothingDropChance: 0.3
