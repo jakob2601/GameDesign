@@ -4,16 +4,25 @@ using System.Collections;
 using Scripts.Movements.Behaviours;
 using UnityEngine.UIElements;
 using Scripts.Combats.CharacterCombats;
+using System.Collections.Generic;
 
 namespace Scripts.Healths
 {
+    [System.Serializable]
+    public class DropReward
+    {
+        public GameObject rewardPrefab;
+        public float dropChance = 0.3f; // 30% chance by default
+        public string rewardName; // For easier identification in inspector
+    }
+
     public class EnemyHealth : Health
     {
-
-        [SerializeField] private GameObject RestoreHeartItem; // Reference to the heart prefab
-        [SerializeField] private float dropChance = 1f; // 30% chance to drop a heart
+        [SerializeField] private List<DropReward> possibleRewards = new List<DropReward>();
+        [SerializeField] private float nothingDropChance = 0.3f; // Chance to drop nothing
 
         private EnemyCombat enemyCombat;
+
         protected override void Start()
         {
             // Call the base class initialization
@@ -60,7 +69,7 @@ namespace Scripts.Healths
             characterAnimation.SetIsDead(true);
             GetComponent<Collider2D>().enabled = false;
             this.enabled = false;
-            DropHeart();
+            DropReward();
 
             Destroy(gameObject, 0.5f);
         }
@@ -70,7 +79,7 @@ namespace Scripts.Healths
             // Play hurt animation
             if (enemyCombat != null)
             {
-                enemyCombat.CancelAttack(); // Greift auf die Methode zu
+                enemyCombat.CancelAttack();
             }
             characterAnimation.SetIsHurt(true);
         }
@@ -82,28 +91,61 @@ namespace Scripts.Healths
             base.TakeDamage(damage, hitDirection, knockbackForce, knockbackDuration);
         }
 
-        private void DropHeart()
+        private void DropReward()
         {
-            // Improved null check
-            if (RestoreHeartItem == null)
+            // Check if we should drop anything at all
+            if (Random.value < nothingDropChance)
             {
-                Debug.LogError("HeartPickup ist nicht zugewiesen für Enemy: " + gameObject.name);
-                return; // This should prevent the error
+                Debug.Log("No reward dropped due to nothingDropChance");
+                return;
             }
 
-            float randomValue = Random.value;
-            Debug.Log("Drop Chance: " + randomValue + " (Must be less than " + dropChance + ")");
-
-            if (randomValue <= dropChance)
+            if (possibleRewards.Count == 0)
             {
-                try
+                Debug.Log("No rewards configured for enemy: " + gameObject.name);
+                return;
+            }
+
+            // Calculate total weight/chances of all rewards
+            float totalChance = 0f;
+            foreach (var reward in possibleRewards)
+            {
+                if (reward.rewardPrefab != null)
                 {
-                    Instantiate(RestoreHeartItem, transform.position, Quaternion.identity);
-                    Debug.Log("Heart dropped!");
+                    totalChance += reward.dropChance;
                 }
-                catch (System.Exception e)
+            }
+
+            if (totalChance <= 0f)
+            {
+                Debug.LogWarning("Total drop chance is 0 or negative for enemy: " + gameObject.name);
+                return;
+            }
+
+            // Choose a random value between 0 and the total chance
+            float randomValue = Random.Range(0f, totalChance);
+            float cumulativeChance = 0f;
+
+            // Find which reward to drop based on the random value
+            foreach (var reward in possibleRewards)
+            {
+                if (reward.rewardPrefab == null) continue;
+
+                cumulativeChance += reward.dropChance;
+
+                if (randomValue <= cumulativeChance)
                 {
-                    Debug.LogError("Error dropping heart: " + e.Message);
+                    try
+                    {
+                        Instantiate(reward.rewardPrefab, transform.position, Quaternion.identity);
+                        Debug.Log($"Dropped reward: {reward.rewardName}");
+                        return; // Only drop one reward
+                    }
+                    catch (System.Exception e)
+                    {
+                        Debug.LogError($"Error dropping reward {reward.rewardName}: {e.Message}");
+                    }
+                    break;
                 }
             }
         }
