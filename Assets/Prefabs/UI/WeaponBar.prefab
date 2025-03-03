@@ -140,7 +140,7 @@ MonoBehaviour:
   dashSprite: {fileID: -1576430088, guid: a16e1c358a36d904884b3891e914848a, type: 3}
   swordSprite: {fileID: -1862108986685511230, guid: 32241a93fea59b74680467030ec48b95, type: 3}
   bowSprite: {fileID: 21300000, guid: bbda943b71900cd4cb1bebc3d9f4f2fe, type: 3}
-  normalArrowSprite: {fileID: 21300000, guid: b4c81b90a8746724d8f38a9b60d1a79e, type: 3}
+  normalArrowSprite: {fileID: -848137324, guid: b4c81b90a8746724d8f38a9b60d1a79e, type: 3}
   piercingArrowSprite: {fileID: 21300000, guid: 257cc8d6d704d44499c849ab33f7b66e, type: 3}
   ricochetArrowSprite: {fileID: 21300000, guid: e523d9eb5d235d14eb28ba6e0c5ca9e4, type: 3}
 --- !u!114 &6092377289942727734
