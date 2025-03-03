@@ -73,6 +73,13 @@ namespace Scripts.Healths
 
             Debug.Log("Spieler ist gestorben. Lade GameOver-Szene...");
             SceneManager.LoadScene("GameOverMenu"); // Load the GameOver scene
+            Respawn();
+        }
+
+        protected void Respawn()
+        {
+            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentSceneIndex);
         }
     }
 }

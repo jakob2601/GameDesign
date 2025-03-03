@@ -213,13 +213,7 @@ namespace Scripts.Healths
         protected virtual void Die()
         {
             OnEnemyDied?.Invoke();
-            Respawn();
-        }
-
-        private void Respawn()
-        {
-            int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-            SceneManager.LoadScene(currentSceneIndex);
+            
         }
 
         protected virtual void Hurt()
