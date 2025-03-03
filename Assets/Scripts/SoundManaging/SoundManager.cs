@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace MyGame
-{   
+{
     public enum SoundType
     {
         SWING,
@@ -12,7 +12,7 @@ namespace MyGame
         HURT,
         FOOTSTEPS_GRASS,
         BATTLEMUSIC,
-        SWORD_CLASH  
+        SWORD_CLASH
     }
 
     [RequireComponent(typeof(AudioSource))]
@@ -41,7 +41,7 @@ namespace MyGame
         // Update is called once per frame
         void Update()
         {
-        
+
         }
     }
 }
