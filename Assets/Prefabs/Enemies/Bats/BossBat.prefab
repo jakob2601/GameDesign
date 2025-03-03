@@ -83,6 +83,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  characterLayer:
+    serializedVersion: 2
+    m_Bits: 64
   characterMovement: {fileID: 1407999269920633892}
   attackRange: 0.5
   attackDamage: 2

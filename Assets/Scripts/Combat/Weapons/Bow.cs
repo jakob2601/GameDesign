@@ -91,6 +91,7 @@ namespace Scripts.Combats.Weapons
             if (arrowScript != null)
             {
                 arrowScript.SetEnemyLayer(enemyLayer);
+                arrowScript.SetSameTeamLayer(characterLayer); // Pass the character layer
                 arrowScript.SetAttackDamage(attackDamage);
                 arrowScript.SetLifetime(arrowLifetime);
                 arrowScript.SetKnockbackForce(knockbackForce);

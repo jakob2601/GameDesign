@@ -81,6 +81,9 @@ MonoBehaviour:
   combat: {fileID: 1033671911682065929}
   enemyLayer:
     serializedVersion: 2
+    m_Bits: 8
+  characterLayer:
+    serializedVersion: 2
     m_Bits: 64
   characterMovement: {fileID: 1056930885647471817}
   attackRange: 0.5
@@ -714,6 +717,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  characterLayer:
+    serializedVersion: 2
+    m_Bits: 64
   characterMovement: {fileID: 1056930885647471817}
   attackRange: 0.7
   attackDamage: 1
@@ -794,6 +800,9 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
+  characterLayer:
+    serializedVersion: 2
+    m_Bits: 64
   characterMovement: {fileID: 1056930885647471817}
   attackRange: 0.5
   attackDamage: 1
