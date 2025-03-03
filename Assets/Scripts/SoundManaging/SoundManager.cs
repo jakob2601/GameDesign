@@ -25,7 +25,7 @@ namespace MyGame
         private AudioSource audioSource;  // Für normale Soundeffekte
         private AudioSource musicSource;  // Für Hintergrundmusik
 
-        private float musicVolume = 1f; // Standard-Lautstärke für Musik
+        private float musicVolume = 0.1f; // Standard-Lautstärke für Musik
 
         private void Awake()
         {
@@ -71,6 +71,13 @@ namespace MyGame
             {
                 Debug.LogError("SoundManager: Musik " + sound + " ist NULL oder nicht gesetzt.");
                 return;
+            }
+
+            if (instance.musicSource.clip != instance.soundList[(int)sound])
+            {
+                instance.musicSource.clip = instance.soundList[(int)sound];
+                instance.musicSource.volume = volume; // Lautstärke setzen
+                instance.musicSource.Play();
             }
         }
 
