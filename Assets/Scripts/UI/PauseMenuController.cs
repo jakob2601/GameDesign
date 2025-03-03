@@ -37,7 +37,8 @@ namespace MyGame
         public void Menu()
         {
             Time.timeScale = 1;
-            SceneManager.LoadScene("Main Menu");
+            isPaused = false;
+            SceneManager.LoadScene("StartMenu");
         }
 
         public void Resume()
