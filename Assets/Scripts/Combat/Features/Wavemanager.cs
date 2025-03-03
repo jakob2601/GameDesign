@@ -32,6 +32,7 @@ namespace Scripts.Combats.Features
             public bool onlyOneItemMax; // Toggle to control if only one item can spawn
             public Transform rewardSpawnPoint; // Specific point where the reward spawns
             public bool mustDropReward; // Toggle to control if a reward must be dropped
+            public bool spawnRewardAfterAllEnemiesDead; // Toggle to control if reward spawns after all enemies are dead
             [HideInInspector]
             public bool rewardDropped; // Flag to track if a reward has been dropped
         }
@@ -72,7 +73,7 @@ namespace Scripts.Combats.Features
                 yield return new WaitForSeconds(timeBetweenWaves);
 
                 // Drop items after wave
-                if (currentWaveIndex == 0)
+                if (currentWave.spawnRewardAfterAllEnemiesDead)
                 {
                     yield return new WaitUntil(() => activeEnemies.Count == 0); // Wait until all enemies are defeated
                 }
@@ -121,45 +122,55 @@ namespace Scripts.Combats.Features
             activeEnemies.Remove(enemy); // Remove enemy from the active enemies list
         }
 
-        void TryDropItems(Wave wave)
+void TryDropItems(Wave wave)
+{
+    if (wave.rewardDropped)
+    {
+        return; // Do not drop a reward if one has already been dropped
+    }
+
+    // Check if all enemies on the map are dead
+    if (activeEnemies.Count > 0)
+    {
+        Debug.Log("Cannot drop items, enemies are still alive.");
+        return;
+    }
+
+    bool itemDropped = false;
+
+    foreach (var itemDrop in wave.itemDrops)
+    {
+        float randomValue = Random.Range(0f, 100f);
+        if (randomValue <= itemDrop.dropChance)
         {
-            if (wave.rewardDropped)
+            // Drop the item at the specified reward spawn point
+            Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Instantiate(itemDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
+
+            Debug.Log($"Dropped item: {itemDrop.itemPrefab.name} at {spawnPoint.position}");
+
+            wave.rewardDropped = true; // Mark that a reward has been dropped
+
+            if (wave.onlyOneItemMax)
             {
-                return; // Do not drop a reward if one has already been dropped
-            }
-
-            bool itemDropped = false;
-
-            foreach (var itemDrop in wave.itemDrops)
-            {
-                float randomValue = Random.Range(0f, 100f);
-                if (randomValue <= itemDrop.dropChance)
-                {
-                    // Drop the item at the specified reward spawn point
-                    Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
-                    Instantiate(itemDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
-
-                    wave.rewardDropped = true; // Mark that a reward has been dropped
-
-                    if (wave.onlyOneItemMax)
-                    {
-                        itemDropped = true;
-                        break;
-                    }
-                }
-            }
-
-            if (wave.mustDropReward && !itemDropped)
-            {
-                // Ensure at least one item is dropped
-                var guaranteedDrop = wave.itemDrops[Random.Range(0, wave.itemDrops.Count)];
-                Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
-                Instantiate(guaranteedDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
-
-                wave.rewardDropped = true; // Mark that a reward has been dropped
+                itemDropped = true;
+                break;
             }
         }
+    }
 
+    if (wave.mustDropReward && !itemDropped)
+    {
+        // Ensure at least one item is dropped
+        var guaranteedDrop = wave.itemDrops[Random.Range(0, wave.itemDrops.Count)];
+        Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
+        Instantiate(guaranteedDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
+
+        Debug.Log($"Dropped guaranteed item: {guaranteedDrop.itemPrefab.name} at {spawnPoint.position}");
+
+        wave.rewardDropped = true; // Mark that a reward has been dropped
+    }
+}
         void Update()
         {
             if (!isSpawning && currentWaveIndex < waves.Length)
