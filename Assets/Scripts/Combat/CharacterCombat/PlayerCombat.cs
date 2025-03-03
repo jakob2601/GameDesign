@@ -9,18 +9,18 @@ using Scripts.Movements;
 namespace Scripts.Combats.CharacterCombats
 {
     public class PlayerCombat : Combat
-    {   
+    {
         [Header("Weapons")]
         [SerializeField] protected Sword sword;
         [SerializeField] protected Bow bow;
-        
+
         // Variables for attack queueing
         [SerializeField] protected bool queuedSwordAttack = false;
         [SerializeField] protected bool queuedBowAttack = false;
         [SerializeField] protected float queuedAttackWindow = 0.5f; // Time window to queue attacks
         [SerializeField] protected float minQueueTime = 0.25f; // Minimum time before next attack can be queued
         [SerializeField] protected float queuedAttackTime;
-        
+
         // Debug variables
         [SerializeField] protected bool debugAttackState = false;
 
@@ -33,21 +33,21 @@ namespace Scripts.Combats.CharacterCombats
         {
             base.Start();
             sword = GetComponentInChildren<Sword>();
-            if(sword == null) 
+            if (sword == null)
             {
                 Debug.LogError("No sword found for player combat");
             }
-            else 
+            else
             {
                 sword.SetEnemyLayer(enemyLayer);
             }
-            
+
             bow = GetComponentInChildren<Bow>();
-            if(bow == null) 
+            if (bow == null)
             {
                 Debug.LogError("No bow found for player combat");
             }
-            else 
+            else
             {
                 bow.SetEnemyLayer(enemyLayer);
             }
@@ -70,7 +70,7 @@ namespace Scripts.Combats.CharacterCombats
             // Sword attack input
             if (Input.GetKeyDown(KeyCode.R) || Input.GetMouseButtonDown(0) && HasWeapon(WeaponTypes.Sword))
             {
-                if (combatEnabled) 
+                if (combatEnabled)
                 {
                     if (!isAttacking && !gotInput && Time.time >= lastInputTime + sword.GetNextAttackTime())
                     {
@@ -103,7 +103,7 @@ namespace Scripts.Combats.CharacterCombats
                         lastInputTime = Time.time;
                         if (debugAttackState) Debug.Log("Direct bow attack");
                     }
-                    else if(!queuedBowAttack && gotInput && Time.time >= lastInputTime + minQueueTime)
+                    else if (!queuedBowAttack && gotInput && Time.time >= lastInputTime + minQueueTime)
                     {
                         // If already attacking, queue this attack
                         queuedBowAttack = true;
@@ -122,14 +122,14 @@ namespace Scripts.Combats.CharacterCombats
                 gotInput = false;
                 isAttacking = true;
                 isFirstAttack = !isFirstAttack;
-                
-                if (isSwordAttack) 
+
+                if (isSwordAttack)
                 {
                     characterAnimation.SetSwordAttackAnimation(true);
                     SoundManager.PlaySound(SoundType.SWING);
                     if (debugAttackState) Debug.Log("Starting sword attack");
                 }
-                else if (isBowAttack) 
+                else if (isBowAttack)
                 {
                     characterAnimation.SetBowAttackAnimation(true);
                     // SoundManager.PlaySound(SoundType.BOW);
@@ -142,9 +142,9 @@ namespace Scripts.Combats.CharacterCombats
             {
                 gotInput = false;
             }
-            
+
             // Reset queued attacks if they expire
-            if ((queuedSwordAttack || queuedBowAttack) && 
+            if ((queuedSwordAttack || queuedBowAttack) &&
                 Time.time >= queuedAttackTime + queuedAttackWindow)
             {
                 queuedSwordAttack = false;
@@ -158,7 +158,7 @@ namespace Scripts.Combats.CharacterCombats
             if (debugAttackState) Debug.Log("Finishing sword attack");
             isSwordAttack = false;
             isAttacking = false;  // Set this first to prevent race conditions
-            
+
             // Use a coroutine to delay queued attack processing by one frame
             StartCoroutine(ProcessQueuedAttacksNextFrame());
         }
@@ -168,16 +168,16 @@ namespace Scripts.Combats.CharacterCombats
             if (debugAttackState) Debug.Log("Finishing bow attack");
             isBowAttack = false;
             isAttacking = false;  // Set this first to prevent race conditions
-            
+
             // Use a coroutine to delay queued attack processing by one frame
             StartCoroutine(ProcessQueuedAttacksNextFrame());
         }
-        
+
         private IEnumerator ProcessQueuedAttacksNextFrame()
         {
             // Wait for the end of the frame
             yield return null;
-            
+
             // Now check for queued attacks
             if (Time.time < queuedAttackTime + queuedAttackWindow)
             {

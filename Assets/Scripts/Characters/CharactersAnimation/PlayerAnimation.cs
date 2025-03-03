@@ -81,7 +81,7 @@ namespace Scripts.Characters.CharactersAnimation
         }
 
         public override void FinishSwordAttackAnimation()
-        {  
+        {
             base.FinishSwordAttackAnimation();
             playerCombat.FinishSwordAttack();
             animator.SetBool("IsAttacking", playerCombat.GetIsAttacking());

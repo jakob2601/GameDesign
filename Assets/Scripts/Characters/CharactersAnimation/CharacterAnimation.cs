@@ -37,11 +37,11 @@ namespace Scripts.Characters.CharactersAnimation
 
         public void SetIsHurt(bool isHurt)
         {
-            if(isHurt) 
+            if (isHurt)
             {
                 animator.SetTrigger("IsHurt");
             }
-            else 
+            else
             {
                 animator.ResetTrigger("IsHurt");
             }
@@ -49,11 +49,11 @@ namespace Scripts.Characters.CharactersAnimation
 
         public void SetIsDead(bool isDead)
         {
-            if(isDead) 
+            if (isDead)
             {
                 animator.SetTrigger("IsDead");
             }
-            else 
+            else
             {
                 animator.ResetTrigger("IsDead");
             }
@@ -87,12 +87,12 @@ namespace Scripts.Characters.CharactersAnimation
 
         public virtual void FinishSwordAttackAnimation()
         {
-    
+
         }
 
         public virtual void FinishBowAttackAnimation()
         {
-    
+
         }
     }
 }
