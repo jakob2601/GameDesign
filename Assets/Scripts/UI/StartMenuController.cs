@@ -7,14 +7,16 @@ namespace MyGame
 {
     public class StartMenuController : MonoBehaviour
     {
+        private bool isPaused = false;
         public void OnStartClick()
         {
+            isPaused = false;
             SceneManager.LoadScene("Arena lvl1");
         }
 
         public void OnBackClick()
         {
-            SceneManager.LoadScene("StartMenu", LoadSceneMode.Additive);
+            SceneManager.LoadScene("StartMenu");
         }
 
     
