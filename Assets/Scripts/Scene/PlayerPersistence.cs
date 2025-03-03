@@ -72,13 +72,20 @@ namespace Scripts.Scene
                     // Have the new player apply the upgrades
                     newPlayer.ApplyPersistentUpgrades();
                 }
-  // Add this to detect new player creation
-private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)         {
-             Debug.Log("Scene loaded: " + scene.name);
+private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+{
+    Debug.Log("Scene loaded: " + scene.name);
 
-             // Wait a frame to let other objects initialize
-             StartCoroutine(FindPlayerNextFrame());
-         }
+    // Restore player health to maximum when entering a new scene
+    if (playerHealth != null)
+    {
+        playerHealth.currentHealth = playerHealth.maxHealth;
+        Debug.Log($"Player health restored to max: {playerHealth.maxHealth}");
+    }
+
+    // Wait a frame to let other objects initialize
+    StartCoroutine(FindPlayerNextFrame());
+}
 
        private IEnumerator FindPlayerNextFrame()
        {
