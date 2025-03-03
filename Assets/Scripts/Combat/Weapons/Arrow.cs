@@ -24,7 +24,7 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected float effectTime = 0.8f;
         [SerializeField] protected float timeToLive = 5f;
         [SerializeField] protected float arrowHitTime = 0.2f;
-        
+
         [Header("Special Arrow Properties")]
         [SerializeField] protected SpecialArrowType specialArrowType = SpecialArrowType.None;
         [SerializeField] protected float specialArrowChance = 1f;
@@ -77,7 +77,7 @@ namespace Scripts.Combats.Weapons
             // Find all existing arrows and ignore collisions with them
             Arrow[] allArrows = FindObjectsOfType<Arrow>();
             Collider2D thisCollider = GetComponent<Collider2D>();
-            
+
             foreach (Arrow otherArrow in allArrows)
             {
                 if (otherArrow != this && otherArrow.gameObject != this.gameObject)
@@ -161,7 +161,7 @@ namespace Scripts.Combats.Weapons
             {
                 return;
             }
-            
+
             // Check if it's the player or child of player (failsafe)
             if (playerObject != null &&
                 (target == playerObject || target.transform.IsChildOf(playerObject.transform)))
@@ -212,13 +212,14 @@ namespace Scripts.Combats.Weapons
                 // Allow arrows to pass through items
                 didntHitWall = true;
             }
+
             else
             {
                 didntHitWall = false;
             }
 
             // Stop the arrow from moving
-            if (rb != null && (specialArrowType == SpecialArrowType.None || hitEnemiesThisAttack >= maxEnemiesToHit || !didntHitWall)) 
+            if (rb != null && (specialArrowType == SpecialArrowType.None || hitEnemiesThisAttack >= maxEnemiesToHit || !didntHitWall))
             {
                 rb.velocity = Vector2.zero;
                 rb.isKinematic = true;

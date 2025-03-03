@@ -126,13 +126,20 @@ namespace Scripts.Combats.CharacterCombats
                 if (isSwordAttack)
                 {
                     characterAnimation.SetSwordAttackAnimation(true);
-                    SoundManager.PlaySound(SoundType.SWING);
+                    if (isFirstAttack)
+                    {
+                        SoundManager.PlaySound(SoundType.SWING);
+                    }
+                    else
+                    {
+                        SoundManager.PlaySound(SoundType.SWING2);
+                    }
                     if (debugAttackState) Debug.Log("Starting sword attack");
                 }
                 else if (isBowAttack)
                 {
                     characterAnimation.SetBowAttackAnimation(true);
-                    // SoundManager.PlaySound(SoundType.BOW);
+                    //SoundManager.PlaySound(SoundType.BOW);
                     if (debugAttackState) Debug.Log("Starting bow attack");
                 }
             }

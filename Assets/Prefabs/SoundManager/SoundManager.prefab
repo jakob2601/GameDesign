@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6567035819815139746
+--- !u!1 &7826924604338609870
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7030540700453267372}
-  - component: {fileID: 5223256130628476546}
-  - component: {fileID: 3925722455925635746}
+  - component: {fileID: 188882312157172932}
+  - component: {fileID: 5398947082671306297}
+  - component: {fileID: 3890899024322904003}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7030540700453267372
+--- !u!4 &188882312157172932
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6567035819815139746}
+  m_GameObject: {fileID: 7826924604338609870}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.7269799, y: -1.7481683, z: -0.013539741}
@@ -33,13 +33,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &5223256130628476546
+--- !u!82 &5398947082671306297
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6567035819815139746}
+  m_GameObject: {fileID: 7826924604338609870}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -129,13 +129,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3925722455925635746
+--- !u!114 &3890899024322904003
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6567035819815139746}
+  m_GameObject: {fileID: 7826924604338609870}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bb46c25fb1778d4bbe0f9e94ebb8aa2, type: 3}
@@ -143,8 +143,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundList:
   - {fileID: 8300000, guid: d101ba985a308ff4ebcffbf4aee4e5e4, type: 3}
+  - {fileID: 8300000, guid: 08725387bbb1cac479b0c872d59d7f33, type: 3}
   - {fileID: 8300000, guid: da49c0d788812fd488ba80b13cc75e86, type: 3}
   - {fileID: 8300000, guid: 87874c14fbfb67744b8fdbb9c8ffbca8, type: 3}
   - {fileID: 8300000, guid: 13eb939517c567d4ea63162106b574c9, type: 3}
   - {fileID: 8300000, guid: 17a5a7206afc3e54eba2fdad3b74fc56, type: 3}
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 5023a6e13bbeb2c4ea50921d253d99e8, type: 3}
+  - {fileID: 8300000, guid: b9e57d5c2bd95884fb87205779af2648, type: 3}
