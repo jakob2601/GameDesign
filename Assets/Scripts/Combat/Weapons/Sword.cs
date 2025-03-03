@@ -176,11 +176,11 @@ namespace Scripts.Combats.Weapons
                         enemyHealth.TakeDamage(attackDamage, hitDirection, knockbackForce, knockbackDuration);
 
                         // Angreifer blinkt rot, um Treffer zu visualisieren
-                        CharacterGFX attackerGFX = transform.root.GetComponentInChildren<CharacterGFX>();
+                        /*CharacterGFX attackerGFX = transform.root.GetComponentInChildren<CharacterGFX>();
                         if (attackerGFX != null)
                         {
                             attackerGFX.FlashColor(damageColor, damageFlashDuration);
-                        }
+                        }*/
                     }
                     else
                     {

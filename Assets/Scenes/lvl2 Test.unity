@@ -369,6 +369,10 @@ PrefabInstance:
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2078029389688017434, guid: 4f27793890915064badb2bdaadd1def5, type: 3}
+      propertyPath: waves.Array.data[0].itemDrops.Array.data[2].dropChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078029389688017434, guid: 4f27793890915064badb2bdaadd1def5, type: 3}
       propertyPath: waves.Array.data[0].itemDrops.Array.data[3].dropChance
       value: 25
       objectReference: {fileID: 0}
@@ -383,6 +387,10 @@ PrefabInstance:
     - target: {fileID: 2078029389688017434, guid: 4f27793890915064badb2bdaadd1def5, type: 3}
       propertyPath: waves.Array.data[1].itemDrops.Array.data[1].dropChance
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2078029389688017434, guid: 4f27793890915064badb2bdaadd1def5, type: 3}
+      propertyPath: waves.Array.data[1].itemDrops.Array.data[2].dropChance
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2078029389688017434, guid: 4f27793890915064badb2bdaadd1def5, type: 3}
       propertyPath: waves.Array.data[1].itemDrops.Array.data[3].dropChance
