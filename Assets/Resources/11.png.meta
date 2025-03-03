@@ -583,10 +583,10 @@ TextureImporter:
       name: 11_23
       rect:
         serializedVersion: 2
-        x: 240
-        y: 34
-        width: 80
-        height: 37
+        x: 255
+        y: 31
+        width: 64
+        height: 33
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
