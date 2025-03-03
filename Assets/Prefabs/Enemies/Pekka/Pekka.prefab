@@ -331,11 +331,10 @@ MonoBehaviour:
   clashSoundDuration: 0.7
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
-  possibleRewards:
-  - rewardPrefab: {fileID: 0}
-    dropChance: 0
-    rewardName: 
-  nothingDropChance: 0.3
+  dropConfig: {fileID: 11400000, guid: c808e4def0e19554eb45a6253d611b14, type: 2}
+  useLocalDropSettings: 0
+  localPossibleRewards: []
+  localNothingDropChance: 0.3
 --- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -68,7 +68,7 @@ namespace Scripts.UI
             {
                 // Use this object's transform as the container
                 weaponBarContainer = transform;
-                Debug.LogWarning("No weapon bar container assigned. Using this GameObject as container.");
+               // Debug.LogWarning("No weapon bar container assigned. Using this GameObject as container.");
             }
 
             // Create UI elements if they don't exist
@@ -154,7 +154,7 @@ namespace Scripts.UI
             // Store references to containers for show/hide management
             arrowTypeContainer = normalArrowIcon.transform.parent.gameObject;
             
-            Debug.Log("UI elements created or verified successfully with fixed positioning");
+          //  Debug.Log("UI elements created or verified successfully with fixed positioning");
         }
 
         private Image CreateFixedPositionImage(string name, int positionIndex, Sprite sprite)
@@ -246,7 +246,7 @@ namespace Scripts.UI
             // Show/hide arrow type icons based on bow availability
             SetArrowTypeIconsVisibility(hasBow);
             
-            Debug.Log($"WeaponBarController updated - Sword: {hasSword}, Bow: {hasBow}");
+        //    Debug.Log($"WeaponBarController updated - Sword: {hasSword}, Bow: {hasBow}");
         }
 
         public void UpdateDashCooldown(float currentCooldown, float maxCooldown)
@@ -303,7 +303,7 @@ namespace Scripts.UI
                 ricochetArrowIcon.color = arrowType == Bow.SpecialArrowType.Ricochet ? selectedColor : unavailableColor;
             }
             
-            Debug.Log($"WeaponBarController updated arrow type: {arrowType}");
+        //    Debug.Log($"WeaponBarController updated arrow type: {arrowType}");
         }
 
         public void PlayWeaponAcquiredAnimation(Combat.WeaponTypes weaponType)

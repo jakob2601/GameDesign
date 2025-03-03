@@ -331,8 +331,10 @@ MonoBehaviour:
   clashSoundDuration: 0.7
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
-  RestoreHeartItem: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
-  dropChance: 1
+  dropConfig: {fileID: 11400000, guid: c808e4def0e19554eb45a6253d611b14, type: 2}
+  useLocalDropSettings: 0
+  localPossibleRewards: []
+  localNothingDropChance: 0.3
 --- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0

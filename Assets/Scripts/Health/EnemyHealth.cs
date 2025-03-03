@@ -1,4 +1,3 @@
-// Assets/Scripts/Health/EnemyHealth.cs
 using UnityEngine;
 using System.Collections;
 using Scripts.Movements.Behaviours;
@@ -18,8 +17,10 @@ namespace Scripts.Healths
 
     public class EnemyHealth : Health
     {
-        [SerializeField] private List<DropReward> possibleRewards = new List<DropReward>();
-        [SerializeField] private float nothingDropChance = 0.3f; // Chance to drop nothing
+        [SerializeField] private DropConfiguration dropConfig;
+        [SerializeField] private bool useLocalDropSettings = false;
+        [SerializeField] private List<DropReward> localPossibleRewards = new List<DropReward>();
+        [SerializeField] private float localNothingDropChance = 0.3f;
 
         private EnemyCombat enemyCombat;
 
@@ -50,6 +51,7 @@ namespace Scripts.Healths
         {
             // Update the health bar
         }
+
         public System.Action<string> OnThisEnemyDied;
         private bool isDying = false;
 
@@ -93,14 +95,34 @@ namespace Scripts.Healths
 
         private void DropReward()
         {
+            // Determine which configuration to use
+            List<DropReward> rewardList;
+            float nothing;
+
+            if (useLocalDropSettings || dropConfig == null)
+            {
+                rewardList = localPossibleRewards;
+                nothing = localNothingDropChance;
+
+                if (dropConfig == null && !useLocalDropSettings)
+                {
+                    Debug.LogWarning("No drop configuration assigned to enemy: " + gameObject.name + ". Using local settings.");
+                }
+            }
+            else
+            {
+                rewardList = dropConfig.possibleRewards;
+                nothing = dropConfig.nothingDropChance;
+            }
+
             // Check if we should drop anything at all
-            if (Random.value < nothingDropChance)
+            if (Random.value < nothing)
             {
                 Debug.Log("No reward dropped due to nothingDropChance");
                 return;
             }
 
-            if (possibleRewards.Count == 0)
+            if (rewardList.Count == 0)
             {
                 Debug.Log("No rewards configured for enemy: " + gameObject.name);
                 return;
@@ -108,7 +130,7 @@ namespace Scripts.Healths
 
             // Calculate total weight/chances of all rewards
             float totalChance = 0f;
-            foreach (var reward in possibleRewards)
+            foreach (var reward in rewardList)
             {
                 if (reward.rewardPrefab != null)
                 {
@@ -127,7 +149,7 @@ namespace Scripts.Healths
             float cumulativeChance = 0f;
 
             // Find which reward to drop based on the random value
-            foreach (var reward in possibleRewards)
+            foreach (var reward in rewardList)
             {
                 if (reward.rewardPrefab == null) continue;
 
