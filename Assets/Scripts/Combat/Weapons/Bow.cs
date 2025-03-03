@@ -14,12 +14,12 @@ namespace Scripts.Combats.Weapons
             Ricochet,
             Pierce
         }
-        
+
         [Header("Bow Properties")]
         [SerializeField] protected GameObject arrowPrefab;
         [SerializeField] protected float bulletForce = 20f;
         [SerializeField] protected float arrowLifetime = 5f;
-        
+
         [Header("Special Arrow Properties")]
         public SpecialArrowType currentSpecialArrowType = SpecialArrowType.None;
         [SerializeField] protected float specialArrowChance = 1f;
@@ -32,14 +32,14 @@ namespace Scripts.Combats.Weapons
             SetPierce(false);
             SetRicochet(false);
         }
-    
+
         public void SetRicochet(bool enable)
         {
             if (enable)
             {
                 // If we're enabling ricochet, disable pierce and set arrow type
                 currentSpecialArrowType = SpecialArrowType.Ricochet;
-                Debug.Log("Special Arrows: Ricochet enabled" + 
+                Debug.Log("Special Arrows: Ricochet enabled" +
                          (currentSpecialArrowType == SpecialArrowType.Pierce ? " (Pierce disabled)" : ""));
             }
             else if (currentSpecialArrowType == SpecialArrowType.Ricochet)
@@ -56,7 +56,7 @@ namespace Scripts.Combats.Weapons
             {
                 // If we're enabling pierce, disable ricochet and set arrow type
                 currentSpecialArrowType = SpecialArrowType.Pierce;
-                Debug.Log("Special Arrows: Pierce enabled" + 
+                Debug.Log("Special Arrows: Pierce enabled" +
                          (currentSpecialArrowType == SpecialArrowType.Ricochet ? " (Ricochet disabled)" : ""));
             }
             else if (currentSpecialArrowType == SpecialArrowType.Pierce)
@@ -69,7 +69,7 @@ namespace Scripts.Combats.Weapons
 
         public override void PerformAttack()
         {
-            base.Start();
+            base.PerformAttack();
             CheckBowAttackHitBox();
         }
 
@@ -84,7 +84,7 @@ namespace Scripts.Combats.Weapons
 
             // Instantiate the arrow at attackPoint with the calculated rotation
             GameObject bullet = Instantiate(arrowPrefab, attackPoint.position, arrowRotation);
-            
+
             // Set arrow properties
             Arrow arrowScript = bullet.GetComponent<Arrow>();
             if (arrowScript != null)
@@ -94,14 +94,14 @@ namespace Scripts.Combats.Weapons
                 arrowScript.SetLifetime(arrowLifetime);
                 arrowScript.SetKnockbackForce(knockbackForce);
                 arrowScript.SetKnockbackDuration(knockbackDuration);
-                
+
                 // Apply special abilities based on current arrow type
                 arrowScript.SetSpecialArrowType((Arrow.SpecialArrowType)currentSpecialArrowType);
 
                 // Important: Set the player GameObject so arrow can ignore ALL its colliders
                 arrowScript.SetCharacterObject(transform.root.gameObject);
             }
-            
+
             // Setup rigidbody and physics
             Rigidbody2D rbBullet = bullet.GetComponent<Rigidbody2D>();
             rbBullet.AddForce(shootDirection * bulletForce, ForceMode2D.Impulse);
