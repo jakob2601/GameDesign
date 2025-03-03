@@ -199,7 +199,7 @@ SpriteRenderer:
   m_SortingLayerID: -2062681333
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1872727398, guid: 8a2cc7627977a8e479186ab0864efc0a, type: 3}
+  m_Sprite: {fileID: 893746394, guid: 8a2cc7627977a8e479186ab0864efc0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -220,7 +220,7 @@ Animator:
   m_GameObject: {fileID: 6593454568619315632}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a03cbb85412384c4d9604fde3ca9e46e, type: 2}
+  m_Controller: {fileID: 9100000, guid: a84a86b9a39627646beab5efaea297dc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 4631787771365337327}
   - component: {fileID: 1410209266160065896}
   m_Layer: 6
-  m_Name: red_Bat
+  m_Name: purple_bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
