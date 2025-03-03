@@ -81,7 +81,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - enemies:
+  - waveName: 1
+    enemies:
     - enemyPrefab: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
       count: 2
     - enemyPrefab: {fileID: 8898999564239227769, guid: b143506620a505d4caa222d8125618d4, type: 3}
@@ -99,15 +100,18 @@ MonoBehaviour:
     onlyOneItemMax: 1
     rewardSpawnPoint: {fileID: 713273425061282540}
     mustDropReward: 1
+    requireAllEnemiesDeadForReward: 1
+    waitForAllEnemiesDeadBeforeNextWave: 1
     rewardDropped: 0
-  - enemies:
+  - waveName: 2
+    enemies:
     - enemyPrefab: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
-      count: 3
+      count: 2
     - enemyPrefab: {fileID: 8898999564239227769, guid: b143506620a505d4caa222d8125618d4, type: 3}
       count: 2
     - enemyPrefab: {fileID: 5413714183383202248, guid: a17b9c9278f452e43b71d1601f82121b, type: 3}
-      count: 2
-    spawnInterval: 2
+      count: 1
+    spawnInterval: 4
     itemDrops:
     - itemPrefab: {fileID: 4928196192993530209, guid: 7d56126ed5335114d82d47731cf2d870, type: 3}
       dropChance: 15
@@ -118,22 +122,37 @@ MonoBehaviour:
     onlyOneItemMax: 1
     rewardSpawnPoint: {fileID: 713273425061282540}
     mustDropReward: 1
+    requireAllEnemiesDeadForReward: 1
+    waitForAllEnemiesDeadBeforeNextWave: 1
     rewardDropped: 0
-  - enemies: []
-    spawnInterval: 0
+  - waveName: 3
+    enemies:
+    - enemyPrefab: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      count: 2
+    - enemyPrefab: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      count: 2
+    - enemyPrefab: {fileID: 5413714183383202248, guid: 8df05728e47555c469ad43041e2b4a35, type: 3}
+      count: 2
+    spawnInterval: 4
     itemDrops:
     - itemPrefab: {fileID: 4383608463153675702, guid: 89fba54f93bd1b0488ef55b6bb12535d, type: 3}
-      dropChance: 100
+      dropChance: 15.7
     onlyOneItemMax: 1
     rewardSpawnPoint: {fileID: 713273425061282540}
     mustDropReward: 1
+    requireAllEnemiesDeadForReward: 1
+    waitForAllEnemiesDeadBeforeNextWave: 1
     rewardDropped: 0
   spawnPoints:
   - {fileID: 8397114733710866965}
   - {fileID: 3204125244975601958}
   - {fileID: 5520251983193135026}
   - {fileID: 7190711715174163256}
-  timeBetweenWaves: 10
+  timeBetweenWaves: 1
+  autoStart: 1
+  currentWaveIndex: 0
+  totalEnemiesSpawned: 0
+  totalEnemiesKilled: 0
   wallLayerMask:
     serializedVersion: 2
     m_Bits: 128

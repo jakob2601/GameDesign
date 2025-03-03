@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Combats.Features;
 using Scripts.Healths;
 
 namespace Scripts.Combats.Features
@@ -26,68 +25,180 @@ namespace Scripts.Combats.Features
         [System.Serializable]
         public class Wave
         {
+            public string waveName = "Wave";
             public List<EnemySpawnInfo> enemies;
-            public float spawnInterval;
-            public List<ItemDropInfo> itemDrops; // List of item drops for this wave
-            public bool onlyOneItemMax; // Toggle to control if only one item can spawn
-            public Transform rewardSpawnPoint; // Specific point where the reward spawns
-            public bool mustDropReward; // Toggle to control if a reward must be dropped
-            public bool spawnRewardAfterAllEnemiesDead; // Toggle to control if reward spawns after all enemies are dead
+            public float spawnInterval = 1f;
+            public List<ItemDropInfo> itemDrops;
+            public bool onlyOneItemMax = true;
+            public Transform rewardSpawnPoint;
+            public bool mustDropReward = false;
+            public bool requireAllEnemiesDeadForReward = true;
+            public bool waitForAllEnemiesDeadBeforeNextWave = true;
             [HideInInspector]
-            public bool rewardDropped; // Flag to track if a reward has been dropped
+            public bool rewardDropped = false;
         }
 
+        [Header("Wave Settings")]
         public Wave[] waves;
         public Transform[] spawnPoints;
-        public float timeBetweenWaves = 5f; // Time between waves
-        private int currentWaveIndex = 0;
+        public float timeBetweenWaves = 5f;
+        public bool autoStart = true;
+
+        [Header("Debug")]
+        [SerializeField] private int currentWaveIndex = 0;
+        [SerializeField] private int totalEnemiesSpawned = 0;
+        [SerializeField] private int totalEnemiesKilled = 0;
+
         private bool isSpawning = false;
         private List<int> usedSpawnPoints = new List<int>();
-        public LayerMask wallLayerMask; // Layer mask to identify walls
-        private List<GameObject> activeEnemies = new List<GameObject>(); // List to keep track of active enemies
+        private List<GameObject> activeEnemies = new List<GameObject>();
+        public LayerMask wallLayerMask;
 
-        void Start()
+        private void OnEnable()
         {
-            StartCoroutine(StartNextWave());
+            Health.OnEnemyDied += HandleEnemyDeath;
         }
 
-        IEnumerator StartNextWave()
+        private void OnDisable()
         {
-            while (currentWaveIndex < waves.Length)
+            Health.OnEnemyDied -= HandleEnemyDeath;
+        }
+
+        private void Start()
+        {
+            if (autoStart)
             {
-                Wave currentWave = waves[currentWaveIndex];
-                isSpawning = true;
-
-                foreach (var enemyInfo in currentWave.enemies)
-                {
-                    for (int i = 0; i < enemyInfo.count; i++)
-                    {
-                        SpawnEnemy(enemyInfo.enemyPrefab);
-                        yield return new WaitForSeconds(currentWave.spawnInterval);
-                    }
-                }
-
-                isSpawning = false;
-
-                // Wait for the specified time between waves
-                yield return new WaitForSeconds(timeBetweenWaves);
-
-                // Drop items after wave
-                if (currentWave.spawnRewardAfterAllEnemiesDead)
-                {
-                    yield return new WaitUntil(() => activeEnemies.Count == 0); // Wait until all enemies are defeated
-                }
-                TryDropItems(currentWave);
-
-                currentWaveIndex++;
+                StartNextWave();
             }
         }
 
-        void SpawnEnemy(GameObject enemyPrefab)
+private void HandleEnemyDeath()
+{
+    totalEnemiesKilled++;
+    int beforeCount = activeEnemies.Count;
+
+    // Find and remove dead enemies from our active list more aggressively
+    for (int i = activeEnemies.Count - 1; i >= 0; i--)
+    {
+        if (activeEnemies[i] == null ||
+            !activeEnemies[i].activeInHierarchy ||
+            (activeEnemies[i].GetComponent<Health>() != null &&
+             activeEnemies[i].GetComponent<Health>().currentHealth <= 0))
         {
+            activeEnemies.RemoveAt(i);
+        }
+    }
+
+    Debug.Log($"Enemy died! Total killed: {totalEnemiesKilled}, Active before: {beforeCount}, Active after: {activeEnemies.Count}");
+
+    // Only proceed if there are no active enemies left
+    if (activeEnemies.Count == 0 && currentWaveIndex > 0)
+    {
+        int waveIndex = currentWaveIndex - 1;
+        if (waveIndex < waves.Length)
+        {
+            Wave currentWave = waves[waveIndex];
+
+            // Drop rewards if not already dropped
+            if (!currentWave.rewardDropped && currentWave.requireAllEnemiesDeadForReward)
+            {
+                Debug.Log($"All enemies dead for wave {waveIndex}, dropping rewards for {currentWave.waveName}");
+                TryDropItems(currentWave);
+            }
+
+            // Start next wave if not already spawning
+            if (currentWave.waitForAllEnemiesDeadBeforeNextWave && !isSpawning && currentWaveIndex < waves.Length)
+            {
+                Debug.Log($"Scheduling next wave to start after {timeBetweenWaves} seconds");
+                StartCoroutine(DelayNextWave(timeBetweenWaves));
+            }
+        }
+    }
+}
+
+ private IEnumerator DelayNextWave(float delay)
+ {
+     yield return new WaitForSeconds(delay);
+     StartNextWave();
+ }
+
+
+       public void StartNextWave()
+       {
+           if (currentWaveIndex < waves.Length && !isSpawning)
+           {
+               // Calculate total enemies in this wave
+               int totalEnemiesInWave = 0;
+               foreach (var enemyInfo in waves[currentWaveIndex].enemies)
+               {
+                   totalEnemiesInWave += enemyInfo.count;
+               }
+
+               Debug.Log($"Starting wave {currentWaveIndex + 1}: {waves[currentWaveIndex].waveName} with {totalEnemiesInWave} enemies");
+               StartCoroutine(SpawnWave(waves[currentWaveIndex]));
+               currentWaveIndex++;
+           }
+           else
+           {
+               Debug.Log("All waves completed!");
+           }
+       }
+
+       private IEnumerator SpawnWave(Wave wave)
+       {
+           Debug.Log($"Starting {wave.waveName}");
+           isSpawning = true;
+           int waveEnemiesSpawned = 0;
+           int expectedEnemies = 0;
+
+           foreach (var enemyInfo in wave.enemies)
+           {
+               expectedEnemies += enemyInfo.count;
+           }
+
+           foreach (var enemyInfo in wave.enemies)
+           {
+               for (int i = 0; i < enemyInfo.count; i++)
+               {
+                   SpawnEnemy(enemyInfo.enemyPrefab);
+                   waveEnemiesSpawned++;
+                   totalEnemiesSpawned++;
+                   Debug.Log($"Wave progress: {waveEnemiesSpawned}/{expectedEnemies} enemies spawned");
+                   yield return new WaitForSeconds(wave.spawnInterval);
+               }
+           }
+
+           Debug.Log($"Wave complete: All {expectedEnemies} enemies spawned. Total active: {activeEnemies.Count}");
+           isSpawning = false;
+
+           // If we don't need to wait for enemies to be dead before dropping rewards
+           if (!wave.requireAllEnemiesDeadForReward)
+           {
+               TryDropItems(wave);
+           }
+
+           // If we don't need to wait for all enemies to be dead before starting next wave
+           if (!wave.waitForAllEnemiesDeadBeforeNextWave)
+           {
+               yield return new WaitForSeconds(timeBetweenWaves);
+               if (currentWaveIndex < waves.Length)
+               {
+                   StartNextWave();
+               }
+           }
+       }
+
+        private void SpawnEnemy(GameObject enemyPrefab)
+        {
+            if (spawnPoints.Length == 0)
+            {
+                Debug.LogError("No spawn points defined for wave manager!");
+                return;
+            }
+
             if (usedSpawnPoints.Count >= spawnPoints.Length)
             {
-                usedSpawnPoints.Clear(); // Reset the used spawn points if all have been used
+                usedSpawnPoints.Clear();
             }
 
             int spawnIndex;
@@ -97,7 +208,6 @@ namespace Scripts.Combats.Features
             } while (usedSpawnPoints.Contains(spawnIndex));
 
             usedSpawnPoints.Add(spawnIndex);
-
             Transform spawnPoint = spawnPoints[spawnIndex];
 
             // Calculate random offset within a circle of radius 2 units
@@ -105,82 +215,74 @@ namespace Scripts.Combats.Features
             Vector3 spawnPosition = spawnPoint.position + new Vector3(randomOffset.x, randomOffset.y, 0);
 
             // Check if the spawn position is inside a wall
-            if (Physics2D.OverlapCircle(spawnPosition, 0.5f, wallLayerMask) == null)
+            if (wallLayerMask == 0 || Physics2D.OverlapCircle(spawnPosition, 0.5f, wallLayerMask) == null)
             {
                 GameObject enemy = Instantiate(enemyPrefab, spawnPosition, spawnPoint.rotation);
-                activeEnemies.Add(enemy); // Add enemy to the active enemies list
-                Health.OnEnemyDied += () => RemoveEnemy(enemy); // Subscribe to the enemy's death event
+                activeEnemies.Add(enemy);
+                Debug.Log($"Spawned enemy at {spawnPosition}");
             }
             else
             {
-                Debug.LogWarning("Spawn position is inside a wall, skipping spawn.");
+                Debug.LogWarning("Spawn position is inside a wall, trying again.");
+                SpawnEnemy(enemyPrefab);
             }
         }
 
-        void RemoveEnemy(GameObject enemy)
+        private void TryDropItems(Wave wave)
         {
-            activeEnemies.Remove(enemy); // Remove enemy from the active enemies list
-        }
-
-void TryDropItems(Wave wave)
-{
-    if (wave.rewardDropped)
-    {
-        return; // Do not drop a reward if one has already been dropped
-    }
-
-    // Check if all enemies on the map are dead
-    if (activeEnemies.Count > 0)
-    {
-        Debug.Log("Cannot drop items, enemies are still alive.");
-        return;
-    }
-
-    bool itemDropped = false;
-
-    foreach (var itemDrop in wave.itemDrops)
-    {
-        float randomValue = Random.Range(0f, 100f);
-        if (randomValue <= itemDrop.dropChance)
-        {
-            // Drop the item at the specified reward spawn point
-            Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
-            Instantiate(itemDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
-
-            Debug.Log($"Dropped item: {itemDrop.itemPrefab.name} at {spawnPoint.position}");
-
-            wave.rewardDropped = true; // Mark that a reward has been dropped
-
-            if (wave.onlyOneItemMax)
+            if (wave.rewardDropped || wave.itemDrops == null || wave.itemDrops.Count == 0)
             {
-                itemDropped = true;
-                break;
+                Debug.Log("No rewards to drop or already dropped");
+                return;
+            }
+
+            Debug.Log("Attempting to drop rewards");
+            bool itemDropped = false;
+
+            // Try to drop items based on chance
+            foreach (var itemDrop in wave.itemDrops)
+            {
+                float randomValue = Random.Range(0f, 100f);
+                if (randomValue <= itemDrop.dropChance)
+                {
+                    Transform spawnPoint = GetRewardSpawnPoint(wave);
+                    GameObject droppedItem = Instantiate(itemDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
+                    Debug.Log($"Dropped item: {itemDrop.itemPrefab.name} at {spawnPoint.position}");
+
+                    wave.rewardDropped = true;
+                    itemDropped = true;
+
+                    if (wave.onlyOneItemMax)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            // Force drop if required and nothing dropped yet
+            if (wave.mustDropReward && !itemDropped && wave.itemDrops.Count > 0)
+            {
+                var guaranteedDrop = wave.itemDrops[Random.Range(0, wave.itemDrops.Count)];
+                Transform spawnPoint = GetRewardSpawnPoint(wave);
+                GameObject droppedItem = Instantiate(guaranteedDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
+                Debug.Log($"Dropped guaranteed item: {guaranteedDrop.itemPrefab.name} at {spawnPoint.position}");
+                wave.rewardDropped = true;
             }
         }
-    }
 
-    if (wave.mustDropReward && !itemDropped)
-    {
-        // Ensure at least one item is dropped
-        var guaranteedDrop = wave.itemDrops[Random.Range(0, wave.itemDrops.Count)];
-        Transform spawnPoint = wave.rewardSpawnPoint != null ? wave.rewardSpawnPoint : spawnPoints[Random.Range(0, spawnPoints.Length)];
-        Instantiate(guaranteedDrop.itemPrefab, spawnPoint.position, spawnPoint.rotation);
-
-        Debug.Log($"Dropped guaranteed item: {guaranteedDrop.itemPrefab.name} at {spawnPoint.position}");
-
-        wave.rewardDropped = true; // Mark that a reward has been dropped
-    }
-}
-        void Update()
+        private Transform GetRewardSpawnPoint(Wave wave)
         {
-            if (!isSpawning && currentWaveIndex < waves.Length)
-            {
-                StartCoroutine(StartNextWave());
-            }
+            if (wave.rewardSpawnPoint != null)
+                return wave.rewardSpawnPoint;
+
+            if (spawnPoints != null && spawnPoints.Length > 0)
+                return spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+            return transform; // Fallback to the WaveManager's position
         }
 
         // Draw Gizmos to visualize spawn points in the editor
-        void OnDrawGizmos()
+        private void OnDrawGizmos()
         {
             if (spawnPoints == null) return;
 
@@ -193,7 +295,6 @@ void TryDropItems(Wave wave)
                 }
             }
 
-            // Draw Gizmos for reward spawn points
             Gizmos.color = Color.blue;
             foreach (Wave wave in waves)
             {
