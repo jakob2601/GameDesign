@@ -6,14 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Main Menu.unity
-    guid: 41c85bacf6e1f6346a433464cbaff246
-  - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/Scenes/GameOverMenu.unity
-    guid: ee9e6ec570b45f44da529fc512a9c29d
+    path: Assets/Scenes/StartMenu.unity
+    guid: 93708c79f74fe8a47984d8279bf63a6f
   - enabled: 1
     path: Assets/Scenes/Arena lvl1.unity
     guid: ac56554794dc64744b4be0c4661535e9
@@ -27,6 +21,15 @@ EditorBuildSettings:
     path: Assets/Scenes/ControlsMenu.unity
     guid: 20198f94da1307e41a51434f76977b94
   - enabled: 1
-    path: Assets/Scenes/StartMenu.unity
-    guid: 93708c79f74fe8a47984d8279bf63a6f
+    path: Assets/Scenes/Main Menu.unity
+    guid: 41c85bacf6e1f6346a433464cbaff246
+  - enabled: 1
+    path: Assets/Scenes/GameOverMenu.unity
+    guid: ee9e6ec570b45f44da529fc512a9c29d
+  - enabled: 1
+    path: Assets/Scenes/CreditsScreen.unity
+    guid: aead7cfe6b23ca94488a7fb2b5877220
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
   m_configObjects: {}

@@ -26,6 +26,11 @@ namespace MyGame
             SceneManager.LoadScene("ControlsMenu");
         }
 
+        public void OnCreditClick()
+        {
+            SceneManager.LoadScene("CreditsScreen");
+        }
+
         public void OnExitClick()
         {
 #if UNITY_EDITOR
