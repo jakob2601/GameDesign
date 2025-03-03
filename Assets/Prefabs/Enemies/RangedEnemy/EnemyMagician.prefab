@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 9001278909043300127}
   - component: {fileID: 2081608683695642961}
   m_Layer: 6
-  m_Name: RangedEnemy
+  m_Name: EnemyMagician
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 2
+  maxHealth: 1
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
@@ -327,7 +327,7 @@ MonoBehaviour:
   knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
-  iframeHandler: {fileID: 812797123040034883}
+  iframeHandler: {fileID: 4167929021102011437}
   clashSoundDuration: 0.7
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 2309280226520025970}
   - component: {fileID: 8642524177580602481}
   - component: {fileID: 1315377608127543291}
-  - component: {fileID: 812797123040034883}
+  - component: {fileID: 4167929021102011437}
   m_Layer: 6
   m_Name: PekkaGFX
   m_TagString: Untagged
@@ -489,7 +489,7 @@ SpriteRenderer:
   m_SortingLayerID: -2062681333
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 16660313, guid: 169c47314072f044c8ee3fb091a37f24, type: 3}
+  m_Sprite: {fileID: 1708324646, guid: 2b03075138984b849a6d3997e2918ae2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -510,7 +510,7 @@ Animator:
   m_GameObject: {fileID: 5590381219280098367}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6270366be6c7c194890c3869afe21c9b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 511b77391b2a19f4a93109aba2ee657f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
   sword: {fileID: 0}
   bow: {fileID: 0}
   movementAI: {fileID: 1056930885647471817}
---- !u!114 &812797123040034883
+--- !u!114 &4167929021102011437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -715,7 +715,7 @@ MonoBehaviour:
   nextAttackTime: 1.5
   knockbackForce: 1
   knockbackDuration: 0.2
-  arrowPrefab: {fileID: 2960165790278124058, guid: 93a191be15fc1b84b8ec553092c0c87d, type: 3}
+  arrowPrefab: {fileID: 2960165790278124058, guid: 55a9c0412c4b7184c993df1c50113d60, type: 3}
   bulletForce: 10
   arrowLifetime: 5
   currentSpecialArrowType: 0
