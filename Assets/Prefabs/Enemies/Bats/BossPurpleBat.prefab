@@ -84,8 +84,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   characterMovement: {fileID: 1407999269920633892}
-  attackRange: 1
-  attackDamage: 2
+  attackRange: 0.5
+  attackDamage: 1
   attackRate: 2
   nextAttackTime: 0
   knockbackForce: 10
@@ -199,7 +199,7 @@ SpriteRenderer:
   m_SortingLayerID: -2062681333
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1664952223, guid: 99f2ea618d5aa924cac695bd57b659e0, type: 3}
+  m_Sprite: {fileID: -1872727398, guid: 8a2cc7627977a8e479186ab0864efc0a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 4631787771365337327}
   - component: {fileID: 1410209266160065896}
   m_Layer: 6
-  m_Name: red_bat
+  m_Name: BossPurpleBat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -390,8 +390,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.08178686, y: -0, z: -0, w: 0.9966499}
   m_LocalPosition: {x: 9.14, y: 0.09, z: 0.25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2172079745745444276}
   - {fileID: 6094513341276148107}
@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
+  maxHealth: 12
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
@@ -612,7 +612,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 558c1b524b82e434a83fcff830cf67db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
+  moveSpeed: 3
   rb: {fileID: 9009377094194626458}
 --- !u!114 &8388824041984510071
 MonoBehaviour:
