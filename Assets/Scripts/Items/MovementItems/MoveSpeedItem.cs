@@ -1,6 +1,7 @@
 using UnityEngine;
-using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
-using Scripts.Movements.Moves; // Importiere das Waffen-System
+using Scripts.Combats.CharacterCombats;
+using Scripts.Movements.Moves;
+using Scripts.Scene; // Add this for PlayerPersistence
 
 namespace Scripts.Items
 {
@@ -16,7 +17,16 @@ namespace Scripts.Items
 
                 if (walking != null)
                 {
-                    walking.SetMoveSpeed(walking.GetMoveSpeed() + moveSpeedIncrease);
+                    float newSpeed = walking.GetMoveSpeed() + moveSpeedIncrease;
+                    walking.SetMoveSpeed(newSpeed);
+
+                    // Save to persistence system
+                    PlayerPersistence persistence = collision.GetComponent<PlayerPersistence>();
+                    if (persistence != null)
+                    {
+                        persistence.UpdateMoveSpeed(newSpeed);
+                    }
+
                     Debug.Log("Move Speed erhöht! Neuer Wert: " + walking.GetMoveSpeed());
                     Destroy(gameObject); // Zerstöre das Upgrade nach dem Aufsammeln
                 }

@@ -13,6 +13,7 @@ namespace Scripts.Combats.Weapons
         [SerializeField] public Transform attackPoint; 
         [SerializeField] public Combat combat;
         [SerializeField] public LayerMask enemyLayer;
+        [SerializeField] public LayerMask characterLayer;
         [SerializeField] public MovementAI characterMovement;
         
         [Header("Attack Properties")]

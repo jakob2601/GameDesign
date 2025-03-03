@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using MyGame;
 using System.Collections;
-using Scripts.UI;
 using Scripts.Combats;
 using Scripts.Movements.Behaviours;
 using Scripts.Characters.CharactersAnimation;
 using Scripts.Characters;
 using Scripts.Combats.CharacterCombats;
 using System;
+using Scripts.UI;
+
 
 namespace Scripts.Healths
 {

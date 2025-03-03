@@ -39,6 +39,8 @@ namespace Scripts.Combats.Weapons
         [SerializeField] protected float knockbackDuration = 0.2f;
         [SerializeField] protected bool canDamage = true;
 
+        [SerializeField] private LayerMask sameTeamLayer; // Layer of characters that arrows should pass through
+
         private Rigidbody2D rb;
         private GameObject playerObject;
         private HashSet<GameObject> hitEnemies = new HashSet<GameObject>(); // Track hit enemies
@@ -144,6 +146,13 @@ namespace Scripts.Combats.Weapons
             specialArrowType = type;
         }
 
+        // Add this method to set the character layer
+        public void SetSameTeamLayer(LayerMask layer)
+        {
+            sameTeamLayer = layer;
+            // Debug.Log($"Arrow will pass through layer: {LayerMaskToString(sameTeamLayer)}");
+        }
+
         void OnCollisionEnter2D(Collision2D collision)
         {
             HitObject(collision.gameObject, collision.contacts[0].point);
@@ -168,10 +177,28 @@ namespace Scripts.Combats.Weapons
             {
                 return; // Skip collision with player
             }
+            
             bool didntHitWall = true;
 
-            Debug.Log("Arrow hit: " + target.name);
+            // Check if we hit a teammate - if so, IGNORE the collision and continue
+            if (((1 << target.layer) & sameTeamLayer) != 0 ||
+                (target.GetComponentInChildren<Combat>() != null && ((1 << target.layer) & enemyLayer) == 0))
+            {
+                Debug.Log($"Arrow passing through {target.name} - same team layer match");
+                
+                // Ignore collision with this teammate
+                Collider2D arrowCollider = GetComponent<Collider2D>();
+                Collider2D[] targetColliders = target.GetComponentsInChildren<Collider2D>();
+                foreach (Collider2D col in targetColliders)
+                {
+                    Physics2D.IgnoreCollision(arrowCollider, col, true);
+                }
+                
+                // Important: Don't process anything else, just continue flying
+                return;
+            }
 
+            // Rest of your collision handling code...
             // Check if we hit something in the enemy layer
             if (((1 << target.layer) & enemyLayer) != 0 && canDamage)
             {
@@ -209,17 +236,15 @@ namespace Scripts.Combats.Weapons
             }
             else if (target.GetComponent<Item>() != null)
             {
-                // Allow arrows to pass through items
                 didntHitWall = true;
             }
-
             else
             {
                 didntHitWall = false;
             }
 
             // Stop the arrow from moving
-            if (rb != null && (specialArrowType == SpecialArrowType.None || hitEnemiesThisAttack >= maxEnemiesToHit || !didntHitWall))
+            if (rb != null && !didntHitWall || (specialArrowType == SpecialArrowType.None && hitEnemiesThisAttack > 0) || (hitEnemiesThisAttack >= maxEnemiesToHit))
             {
                 rb.velocity = Vector2.zero;
                 rb.isKinematic = true;

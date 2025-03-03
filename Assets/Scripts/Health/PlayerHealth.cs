@@ -1,11 +1,11 @@
 using System.Collections;
-using Scripts.UI;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats;
 using Scripts.Combats.Weapons;
 using Scripts.Characters;
 using System.Threading;
 using UnityEngine.SceneManagement;
+using Scripts.UI;
 
 namespace Scripts.Healths
 {
@@ -17,7 +17,14 @@ namespace Scripts.Healths
         {
             // Call the base class initialization
             base.Start();
+            // Initialize the health bar
+            if (healthBarController != null)
+            {
+                healthBarController.InitializeHearts(maxHealth);
+                healthBarController.UpdateHearts(currentHealth, maxHealth);
+            }
         }
+
         public override void TakeDamage(int damage, Vector2 hitDirection, float knockbackForce, float knockbackDuration)
         {
             // Only apply damage and trigger invincibility if we're not already invincible
@@ -27,20 +34,29 @@ namespace Scripts.Healths
         protected override void initializeHealthBar(int maxHealth)
         {
             // Initialize the health bar
-            healthBarController.InitializeHearts(maxHealth);
+            if (healthBarController != null)
+            {
+                healthBarController.InitializeHearts(maxHealth);
+            }
         }
 
         protected override void updateHealthBar(int currentHealth, int maxHealth)
         {
-            // Update the health bar
-            healthBarController.UpdateHearts(currentHealth, maxHealth);
+            // Add null check to prevent NullReferenceException
+            if (healthBarController != null)
+            {
+                healthBarController.UpdateHearts(currentHealth, maxHealth);
+            }
         }
 
         public override void Heal(int amount)
         {
             base.Heal(amount);
             // Update the health bar
-            healthBarController.UpdateHearts(currentHealth, maxHealth);
+            if (healthBarController != null)
+            {
+                healthBarController.UpdateHearts(currentHealth, maxHealth);
+            }
         }
 
         public void FullHeal()
@@ -48,7 +64,10 @@ namespace Scripts.Healths
             // Heal the player to full health
             currentHealth = maxHealth;
             // Update the health bar
-            healthBarController.UpdateHearts(currentHealth, maxHealth);
+            if (healthBarController != null)
+            {
+                healthBarController.UpdateHearts(currentHealth, maxHealth);
+            }
         }
 
         public void IncreaseMaxHealth(int amount)
@@ -56,8 +75,11 @@ namespace Scripts.Healths
             maxHealth += amount;
             currentHealth += amount; // Optionally heal the player by the same amount
             // Re-initialize the health bar to accommodate the new max health
-            healthBarController.InitializeHearts(maxHealth);
-            healthBarController.UpdateHearts(currentHealth, maxHealth);
+            if (healthBarController != null)
+            {
+                healthBarController.InitializeHearts(maxHealth);
+                healthBarController.UpdateHearts(currentHealth, maxHealth);
+            }
             Debug.Log("Max health increased by " + amount + ". New max health: " + maxHealth);
         }
 

@@ -120,7 +120,7 @@ namespace Scripts.Combats.CharacterCombats
                         {
                             isAiming = true;
                             aimStartTime = Time.time;
-                            Debug.Log($"{gameObject.name} is taking aim... (Cooldown: {timeSinceLastBowAttack:F1}s)");
+                            // Debug.Log($"{gameObject.name} is taking aim... (Cooldown: {timeSinceLastBowAttack:F1}s)");
                         }
                         // If we've been aiming long enough, shoot
                         else if (Time.time >= aimStartTime + aimTime)
@@ -201,12 +201,13 @@ namespace Scripts.Combats.CharacterCombats
             bool properlyAligned = facingAlignment >= shootAngleThreshold;
             
             // Log information about positioning
+            /*
             if (!goodDistance || !hasLineOfSight || !properlyAligned)
             {
                 Debug.Log($"Shot position check: Distance ok={goodDistance} ({distanceToPlayer:F1}), " +
                           $"LOS={hasLineOfSight}, Aligned={properlyAligned} ({facingAlignment:F2})");
             }
-            
+            */
             return goodDistance && hasLineOfSight && properlyAligned;
         }
 

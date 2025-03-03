@@ -249,8 +249,8 @@ namespace Scripts.Movements.AI
                     lastRepositionTime = Time.time;
                     
                     // Verbesserte Log-Meldung
-                    string reason = tooClose ? "too close" : (tooFar ? "too far" : "no line of sight");
-                    Debug.Log($"Repositioning for better bow shot: {reason}. Distance to player={distanceToPlayer:F1}, ideal={enemyCombat.idealShootRange:F1}");
+                    // string reason = tooClose ? "too close" : (tooFar ? "too far" : "no line of sight");
+                    // Debug.Log($"Repositioning for better bow shot: {reason}. Distance to player={distanceToPlayer:F1}, ideal={enemyCombat.idealShootRange:F1}");
                 }
             }
         }

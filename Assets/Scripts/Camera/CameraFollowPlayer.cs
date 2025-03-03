@@ -1,35 +1,37 @@
 using UnityEngine;
+using Scripts.Scene;
 
-namespace Scripts.Camera
+public class CameraFollow : MonoBehaviour
 {
-    public class CameraFollow : MonoBehaviour
+    private Transform target;
+    public Vector3 offset = new Vector3(0, 0, -10);
+    public float smoothSpeed = 0.125f;
+
+    void Start()
     {
-        public Transform player; // Referenz zum Spieler
-        public float smoothSpeed = 0.125f; // Geschmeidigkeit der Bewegung
-        public Vector3 offset; // Optionaler Offset zwischen Spieler und Kamera
-
-        private void Start()
-        {
-            if (player == null)
-            {
-                Debug.LogError("Player not set in CameraFollow script!");
-            }
-        }
-
-        private void LateUpdate()
-        {
-            if (player != null)
-            {
-                // Zielposition der Kamera
-                Vector3 targetPosition = player.position + offset;
-
-                // Geschmeidige Kamerabewegung
-                Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
-
-                // Kamera aktualisieren
-                transform.position = smoothedPosition;
-            }
-        }
+        FindPlayer();
     }
 
+    void LateUpdate()
+    {
+        if (target == null)
+        {
+            FindPlayer();
+            return;
+        }
+
+        Vector3 desiredPosition = target.position + offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
+    }
+
+    void FindPlayer()
+    {
+        PlayerPersistence player = FindObjectOfType<PlayerPersistence>();
+        if (player != null)
+        {
+            target = player.transform;
+            Debug.Log("Camera found player to follow");
+        }
+    }
 }
