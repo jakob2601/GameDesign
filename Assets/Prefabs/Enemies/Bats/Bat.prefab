@@ -530,7 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
@@ -547,7 +547,7 @@ MonoBehaviour:
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
   RestoreHeartItem: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
-  dropChance: 1
+  dropChance: 0.1
 --- !u!114 &6795240739313571146
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -117,7 +117,7 @@ MonoBehaviour:
     m_Bits: 64
   characterMovement: {fileID: 3960980809086202236}
   attackRange: 0.7
-  attackDamage: 2
+  attackDamage: 1
   attackRate: 2
   nextAttackTime: 0.3
   knockbackForce: 10
