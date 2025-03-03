@@ -163,4 +163,4 @@ MonoBehaviour:
   isTemporary: 0
   buffDuration: 10
   amount: 1
-  moveSpeedIncrease: 1
+  moveSpeedIncrease: 0.5
