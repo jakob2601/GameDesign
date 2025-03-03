@@ -482,9 +482,10 @@ GameObject:
   - component: {fileID: 1526314319241926698}
   - component: {fileID: 4691762652494968890}
   - component: {fileID: 1666080984605215606}
+  - component: {fileID: -1399133866710967969}
   m_Layer: 3
   m_Name: player_0
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -677,6 +678,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   footstepAudioSource: {fileID: 0}
+--- !u!114 &-1399133866710967969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7834915610557380560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 390da0d8c404f274abbcade1d80e61b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasSword: 1
+  hasBow: 0
+  swordDamage: 1
+  bowDamage: 1
+  hasPiercingArrows: 0
+  hasRicochetArrows: 0
+  moveSpeed: 6.5
 --- !u!1 &8267244617820324840
 GameObject:
   m_ObjectHideFlags: 0

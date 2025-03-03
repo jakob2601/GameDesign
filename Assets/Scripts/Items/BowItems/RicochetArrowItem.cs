@@ -1,7 +1,9 @@
 using System.Collections;
 using UnityEngine;
-using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
-using Scripts.Combats.Weapons; // Importiere das Waffen-System
+using Scripts.Combats.CharacterCombats;
+using Scripts.Combats.Weapons;
+using Scripts.Scene; // Add this for PlayerPersistence
+
 
 namespace Scripts.Items
 {
@@ -9,9 +11,9 @@ namespace Scripts.Items
     {
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player")) // Überprüfe, ob der Spieler das Upgrade berührt
+            if (collision.CompareTag("Player"))
             {
-                Combat playerCombat = collision.GetComponentInChildren<Combat>(); // Suche das Combat-System des Spielers
+                Combat playerCombat = collision.GetComponentInChildren<Combat>();
 
                 if (playerCombat != null)
                 {
@@ -28,15 +30,18 @@ namespace Scripts.Items
                         // Check if pierce is enabled before replacing
                         if (bow.currentSpecialArrowType == Bow.SpecialArrowType.Pierce)
                         {
-                            // Show replacement message
                             Debug.Log("Ricocheting arrows replace Piercing arrows!");
-                            
-                            // Here you could also show a UI message to the player
-                            // UIManager.Instance.ShowMessage("Ricocheting arrows replace Piercing arrows!");
                         }
-                        
+
                         bow.SetRicochet(true);
                         Debug.Log("Pfeile prallen jetzt ab!");
+
+                        // Fix the typo in method name
+                        PlayerPersistence persistence = collision.GetComponent<PlayerPersistence>();
+                        if (persistence != null)
+                        {
+                            persistence.EnableRicochet(true); // Fixed method name
+                        }
 
                         if (isTemporary)
                         {
@@ -44,7 +49,7 @@ namespace Scripts.Items
                             StartCoroutine(RemoveBuffAfterDuration(bow));
                         }
 
-                        Destroy(gameObject); // Zerstöre das Upgrade nach dem Aufsammeln
+                        Destroy(gameObject);
                     }
                 }
                 else
@@ -58,6 +63,14 @@ namespace Scripts.Items
         {
             yield return new WaitForSeconds(buffDuration);
             bow.SetRicochet(false);
+
+            // Update persistence when buff expires
+            PlayerPersistence persistence = bow.GetComponentInParent<PlayerPersistence>();
+            if (persistence != null)
+            {
+                persistence.EnableRicochet(false);
+            }
+
             Debug.Log("Buff expired. Ricochet disabled.");
         }
     }

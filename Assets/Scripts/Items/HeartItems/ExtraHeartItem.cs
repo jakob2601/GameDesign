@@ -1,18 +1,18 @@
 using UnityEngine;
 using Scripts.Healths;
 using Scripts.Combats.CharacterCombats;
+using Scripts.Scene; // Add this for PlayerPersistence
 
 namespace Scripts.Items
 {
     public class ExtraHeartItem : Item
     {
-        [SerializeField] protected bool healsFullHealth = false; // Flag to indicate if this heart heals full health
-        [SerializeField] protected int healAmount = 1; // Amount the heart heals
-        [SerializeField] protected int extraHeartAmount = 1; // Amount to increase max health
+        [SerializeField] protected bool healsFullHealth = false;
+        [SerializeField] protected int healAmount = 1;
+        [SerializeField] protected int extraHeartAmount = 1;
 
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            // Check if the player touched the heart
             PlayerHealth playerHealth = collision.GetComponentInChildren<PlayerHealth>();
 
             if(playerHealth == null)
@@ -20,21 +20,26 @@ namespace Scripts.Items
                 playerHealth = collision.GetComponentInParent<PlayerHealth>();
             }
 
-            if (playerHealth != null) // If it's a player
+            if (playerHealth != null)
             {
                 if (healsFullHealth)
                 {
                     playerHealth.FullHeal();
                     Debug.Log("Player healed to full health.");
                 }
-                else 
+                else
                 {
-                    playerHealth.Heal(healAmount); // Heal the player by healAmount
+                    playerHealth.Heal(healAmount);
                     Debug.Log("Player healed by " + healAmount + " HP.");
                 }
-                playerHealth.IncreaseMaxHealth(extraHeartAmount); // Increase max health
-                Debug.Log("Player's max health increased by " + extraHeartAmount + ".");
-                Destroy(gameObject); // Remove the heart after pickup
+
+                // Fix variable name in persistence call
+                PlayerPersistence persistence = collision.GetComponent<PlayerPersistence>();
+                if (persistence != null)
+                {
+                    persistence.AddExtraHeart(extraHeartAmount); // Fixed variable name
+                }
+                Destroy(gameObject);
             }
         }
     }
