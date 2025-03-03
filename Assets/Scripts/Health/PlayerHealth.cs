@@ -12,11 +12,16 @@ namespace Scripts.Healths
     public class PlayerHealth : Health
     {
         [SerializeField] public HealthBarController healthBarController;
+        [SerializeField] private int maxPossibleHealth = 10; // Maximum possible health, changeable in inspector
 
         protected override void Start()
         {
+            // Ensure maxHealth doesn't exceed the configurable limit
+            maxHealth = Mathf.Min(maxHealth, maxPossibleHealth);
+
             // Call the base class initialization
             base.Start();
+
             // Initialize the health bar
             if (healthBarController != null)
             {
@@ -72,15 +77,31 @@ namespace Scripts.Healths
 
         public void IncreaseMaxHealth(int amount)
         {
-            maxHealth += amount;
-            currentHealth += amount; // Optionally heal the player by the same amount
+            // Check if we're already at the maximum allowed health
+            if (maxHealth >= maxPossibleHealth)
+            {
+                Debug.Log("Cannot increase max health beyond the limit of " + maxPossibleHealth);
+                return;
+            }
+
+            // Calculate how much health can be added without exceeding the limit
+            int actualIncrease = Mathf.Min(amount, maxPossibleHealth - maxHealth);
+
+            if (actualIncrease <= 0)
+            {
+                return; // No increase possible
+            }
+
+            maxHealth += actualIncrease;
+            currentHealth += actualIncrease; // Optionally heal the player by the same amount
+
             // Re-initialize the health bar to accommodate the new max health
             if (healthBarController != null)
             {
                 healthBarController.InitializeHearts(maxHealth);
                 healthBarController.UpdateHearts(currentHealth, maxHealth);
             }
-            Debug.Log("Max health increased by " + amount + ". New max health: " + maxHealth);
+            Debug.Log("Max health increased by " + actualIncrease + ". New max health: " + maxHealth);
         }
 
         protected override void Hurt()
