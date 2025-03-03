@@ -12,6 +12,18 @@ namespace MyGame
             SceneManager.LoadScene("Arena lvl1");
         }
 
+        public void OnBackClick()
+        {
+            SceneManager.LoadScene("StartMenu", LoadSceneMode.Additive);
+        }
+
+    
+
+        public void OnControlClick()
+        {
+            SceneManager.LoadScene("ControlsMenu");
+        }
+
         public void OnExitClick()
         {
 #if UNITY_EDITOR
