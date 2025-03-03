@@ -426,7 +426,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f143e5741243ac04f84c866c9a507edb, type: 2}
+  - {fileID: 2100000, guid: 47a0cc0716382004785ca937e5891371, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15499,10 +15499,6 @@ PrefabInstance:
     - target: {fileID: 1517074981824917970, guid: 9762ca696e266be438ae77e22d126f07, type: 3}
       propertyPath: m_Name
       value: Main Camera (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536654604875291070, guid: 9762ca696e266be438ae77e22d126f07, type: 3}
-      propertyPath: orthographic size
-      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7704651636136639327, guid: 9762ca696e266be438ae77e22d126f07, type: 3}
       propertyPath: player

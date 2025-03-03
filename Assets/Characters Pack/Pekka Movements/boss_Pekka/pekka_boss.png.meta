@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f45322098d7bbab45bbe314f02f1ec3c
+guid: 54f49d38be6f6ee4aa0855adb4ff77bd
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RED_KNIGHT_0
+      name: pekka_boss_0
       rect:
         serializedVersion: 2
         x: 0
@@ -111,14 +111,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d06c4e3f57ac3f4d9f9fb221fe2ce8a
-      internalID: 231517992
+      spriteID: d1a812e3241429149b659a1d9eace0d6
+      internalID: -26370969
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_1
+      name: pekka_boss_1
       rect:
         serializedVersion: 2
         x: 16
@@ -132,14 +132,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f604e0de36025a4fb72878b6d04d825
-      internalID: 332286992
+      spriteID: c76f3d9e12bfe964f9799919152a2169
+      internalID: -2077449265
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_2
+      name: pekka_boss_2
       rect:
         serializedVersion: 2
         x: 32
@@ -153,14 +153,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a963b376e6baf64a893c7638233a987
-      internalID: 1681341239
+      spriteID: 7a7e62a6f527ade46968a9eea568b6c2
+      internalID: 1376485760
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_3
+      name: pekka_boss_3
       rect:
         serializedVersion: 2
         x: 48
@@ -174,14 +174,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b6d5d4d0bdec8444a58ef44a24b5ddc
-      internalID: 36007510
+      spriteID: dcfeed6fe1bc66946914c2b8e9a0e62c
+      internalID: 155327719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_4
+      name: pekka_boss_4
       rect:
         serializedVersion: 2
         x: 64
@@ -195,14 +195,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65f452f586c4cbc4ea1d3e9965d33555
-      internalID: 1943788006
+      spriteID: f55216efc90205341afefe2a6e43bb41
+      internalID: 543025628
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_5
+      name: pekka_boss_5
       rect:
         serializedVersion: 2
         x: 80
@@ -216,14 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43c74c632a6acfc41b86549254c4bf68
-      internalID: -1066335773
+      spriteID: bb41cef845ba64e468f0210a0bde2624
+      internalID: -683238491
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_6
+      name: pekka_boss_6
       rect:
         serializedVersion: 2
         x: 96
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15b4f097557cc234f890d8f586b0db82
-      internalID: -256964237
+      spriteID: 62c4081e74ded774ab47fe7f9ea8ca9b
+      internalID: 2085848714
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_7
+      name: pekka_boss_7
       rect:
         serializedVersion: 2
         x: 112
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 00a722c7ace9e584281de31a1d87ec51
-      internalID: -1714298344
+      spriteID: 85bfe5d7fed9b9049b9ef60f575bfea4
+      internalID: 1020347935
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_8
+      name: pekka_boss_8
       rect:
         serializedVersion: 2
         x: 0
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12aa90927d3ae634a9afcb2eb8894efe
-      internalID: -1976802005
+      spriteID: 55b81f9152bc5ce4cbc077050de29860
+      internalID: -820966616
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_9
+      name: pekka_boss_9
       rect:
         serializedVersion: 2
         x: 16
@@ -300,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b4549e2e42961e742a4d1a464e51ab10
-      internalID: -1349298711
+      spriteID: 4d3ee499a9fd3a14e810cfae0f7e0fd8
+      internalID: 897460312
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_10
+      name: pekka_boss_10
       rect:
         serializedVersion: 2
         x: 32
@@ -321,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bde6b1e2122d549418439c1cb9d5d003
-      internalID: -1628551852
+      spriteID: 67dbf45e3877fda4aae17f0159f750d8
+      internalID: 1641345730
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_11
+      name: pekka_boss_11
       rect:
         serializedVersion: 2
         x: 48
@@ -342,14 +342,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fc96609e746714648a5973764edb5990
-      internalID: 129412139
+      spriteID: 8a93af19c5b98c64d843f93b5d63bf09
+      internalID: -1178932768
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_12
+      name: pekka_boss_12
       rect:
         serializedVersion: 2
         x: 64
@@ -363,14 +363,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8729149268d9cc4b8b90ef2a23e4dfa
-      internalID: 322957682
+      spriteID: 614816a35fa20504d8a646fd05b13355
+      internalID: 1943442218
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_13
+      name: pekka_boss_13
       rect:
         serializedVersion: 2
         x: 80
@@ -384,14 +384,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a86b8c00b239c74f8b672c97b3319ea
-      internalID: -51753354
+      spriteID: 1c49bba05459d4442a39ddf25a7c170c
+      internalID: 1825015271
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_14
+      name: pekka_boss_14
       rect:
         serializedVersion: 2
         x: 96
@@ -405,14 +405,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a7aa4d946d003f408efe22a8904ca6b
-      internalID: 1743622865
+      spriteID: df74ce81c959f744ea0bcd020ee3fe0e
+      internalID: 1386784003
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_15
+      name: pekka_boss_15
       rect:
         serializedVersion: 2
         x: 112
@@ -426,14 +426,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 63abe5126ad26fb4abf98e50348b5afd
-      internalID: -948645311
+      spriteID: 90534a49e07f8ae45a7bb6653dbef55b
+      internalID: 349207553
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_16
+      name: pekka_boss_16
       rect:
         serializedVersion: 2
         x: 128
@@ -447,14 +447,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 90691ecddbd2ac9419984327f1392c29
-      internalID: -1687457248
+      spriteID: 82730fc6c7fe93d4fa99298f2d18b244
+      internalID: -617017955
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_17
+      name: pekka_boss_17
       rect:
         serializedVersion: 2
         x: 144
@@ -468,14 +468,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a7c2a18bba556184caf3eab5643c52a4
-      internalID: 73129341
+      spriteID: 24d0b6d1a5708044b9b2eea6b44ccb55
+      internalID: 2144244500
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_18
+      name: pekka_boss_18
       rect:
         serializedVersion: 2
         x: 160
@@ -489,14 +489,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c582a4d508952c49a5b485aa34996f0
-      internalID: -410283385
+      spriteID: 6ddbdae915526f242a6733c4e95f9587
+      internalID: -2067580941
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_19
+      name: pekka_boss_19
       rect:
         serializedVersion: 2
         x: 176
@@ -510,14 +510,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28f7546f7053f2a49a2a898328dbdd8f
-      internalID: -1418317314
+      spriteID: 532a5b73d23733a4fb53a0804bb9984e
+      internalID: 1250422147
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_20
+      name: pekka_boss_20
       rect:
         serializedVersion: 2
         x: 192
@@ -531,14 +531,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7d53db9f427e7b499014cd7d9cf2354
-      internalID: 1322351547
+      spriteID: dac336ff7b49a6a43a6d3cb492732e1a
+      internalID: -1399130840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_21
+      name: pekka_boss_21
       rect:
         serializedVersion: 2
         x: 208
@@ -552,14 +552,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab44e8ef77c817940a2d01eef80f5eb7
-      internalID: 1652551650
+      spriteID: 5ba2fd0b820f8614cabaae25e74a5d0b
+      internalID: -1306085077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_22
+      name: pekka_boss_22
       rect:
         serializedVersion: 2
         x: 224
@@ -573,14 +573,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1602500ad8f47ff448a4384dc0c683ca
-      internalID: 788942744
+      spriteID: 6c88011607bd4b14c9728ccc5d207a4e
+      internalID: -2110859929
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RED_KNIGHT_23
+      name: pekka_boss_23
       rect:
         serializedVersion: 2
         x: 240
@@ -594,8 +594,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 883467a2ec60f7f44a1d8ce2b36f084a
-      internalID: 218368249
+      spriteID: e5fa0dd8b6c4092429253cfe6ac77264
+      internalID: -827822791
       vertices: []
       indices: 
       edges: []
@@ -611,30 +611,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      RED_KNIGHT_0: 231517992
-      RED_KNIGHT_1: 332286992
-      RED_KNIGHT_10: -1628551852
-      RED_KNIGHT_11: 129412139
-      RED_KNIGHT_12: 322957682
-      RED_KNIGHT_13: -51753354
-      RED_KNIGHT_14: 1743622865
-      RED_KNIGHT_15: -948645311
-      RED_KNIGHT_16: -1687457248
-      RED_KNIGHT_17: 73129341
-      RED_KNIGHT_18: -410283385
-      RED_KNIGHT_19: -1418317314
-      RED_KNIGHT_2: 1681341239
-      RED_KNIGHT_20: 1322351547
-      RED_KNIGHT_21: 1652551650
-      RED_KNIGHT_22: 788942744
-      RED_KNIGHT_23: 218368249
-      RED_KNIGHT_3: 36007510
-      RED_KNIGHT_4: 1943788006
-      RED_KNIGHT_5: -1066335773
-      RED_KNIGHT_6: -256964237
-      RED_KNIGHT_7: -1714298344
-      RED_KNIGHT_8: -1976802005
-      RED_KNIGHT_9: -1349298711
+      pekka_boss_0: -26370969
+      pekka_boss_1: -2077449265
+      pekka_boss_10: 1641345730
+      pekka_boss_11: -1178932768
+      pekka_boss_12: 1943442218
+      pekka_boss_13: 1825015271
+      pekka_boss_14: 1386784003
+      pekka_boss_15: 349207553
+      pekka_boss_16: -617017955
+      pekka_boss_17: 2144244500
+      pekka_boss_18: -2067580941
+      pekka_boss_19: 1250422147
+      pekka_boss_2: 1376485760
+      pekka_boss_20: -1399130840
+      pekka_boss_21: -1306085077
+      pekka_boss_22: -2110859929
+      pekka_boss_23: -827822791
+      pekka_boss_3: 155327719
+      pekka_boss_4: 543025628
+      pekka_boss_5: -683238491
+      pekka_boss_6: 2085848714
+      pekka_boss_7: 1020347935
+      pekka_boss_8: -820966616
+      pekka_boss_9: 897460312
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
