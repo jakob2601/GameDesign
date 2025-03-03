@@ -80,7 +80,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8
-  availableWeapons: 3
+  availableWeapons: 5
   animator: {fileID: 2309280226520025970}
   characterAnimation: {fileID: 1315377608127543291}
   rb: {fileID: 2579191884603178559}
@@ -98,13 +98,13 @@ MonoBehaviour:
   player: {fileID: 0}
   contactDamage: {fileID: 7052181738753943573}
   startAttackRange: 1.5
-  sword: {fileID: 0}
-  bow: {fileID: 1019805528750966460}
-  minShootRange: 5
-  idealShootRange: 7
-  maxShootRange: 10
+  sword: {fileID: 955802709539510504}
+  bow: {fileID: 0}
+  minShootRange: 3
+  idealShootRange: 5
+  maxShootRange: 7
   shootAngleThreshold: 0.95
-  aimTime: 0.7
+  aimTime: 0.5
   bowCooldownTime: 2
   aimIndicator: {fileID: 0}
 --- !u!1 &4887016575314615901
@@ -136,8 +136,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2620986368920158046}
   - {fileID: 3114925580460121786}
-  - {fileID: 3249727730317328932}
   m_Father: {fileID: 3956584344401341677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5413714183383202248
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 9001278909043300127}
   - component: {fileID: 2081608683695642961}
   m_Layer: 6
-  m_Name: EnemyMagician
+  m_Name: Bossred_Pekka
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -175,8 +175,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.042, y: 0.628, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7937483012282986140}
   - {fileID: 3956584344401341677}
@@ -269,8 +269,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.0038434367}
-  m_Size: {x: 0.16, y: 0.19382213}
+  m_Offset: {x: -0.00000003973643, y: 0.030753931}
+  m_Size: {x: 0.4633562, y: 0.8886056}
   m_Direction: 0
 --- !u!114 &1056930885647471817
 MonoBehaviour:
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cce3e483426d7c40a5751194f1eac9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 21
   currentHealth: 0
   isInvincible: 0
   invincibilityTime: 0.1
@@ -327,12 +327,12 @@ MonoBehaviour:
   knockback: {fileID: 2081608683695642961}
   spriteRenderer: {fileID: 6346507499007160480}
   bloodParticlesPrefab: {fileID: 2319143383578273577, guid: a9651279c6ed62543b5c99b1467c2d29, type: 3}
-  iframeHandler: {fileID: 4167929021102011437}
+  iframeHandler: {fileID: 3154951224766644663}
   clashSoundDuration: 0.7
   clashColor: {r: 1, g: 0.9, b: 0.2, a: 1}
   clashColorDuration: 0.1
   RestoreHeartItem: {fileID: 4928196192993530209, guid: 2c13b0412474b8f42b92b69ed4f68aa3, type: 3}
-  dropChance: 1
+  dropChance: 0.33
 --- !u!114 &610034541743464483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 2309280226520025970}
   - component: {fileID: 8642524177580602481}
   - component: {fileID: 1315377608127543291}
-  - component: {fileID: 4167929021102011437}
+  - component: {fileID: 3154951224766644663}
   m_Layer: 6
   m_Name: PekkaGFX
   m_TagString: Untagged
@@ -489,7 +489,7 @@ SpriteRenderer:
   m_SortingLayerID: -2062681333
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1708324646, guid: 2b03075138984b849a6d3997e2918ae2, type: 3}
+  m_Sprite: {fileID: 231517992, guid: f45322098d7bbab45bbe314f02f1ec3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -510,7 +510,7 @@ Animator:
   m_GameObject: {fileID: 5590381219280098367}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 511b77391b2a19f4a93109aba2ee657f, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8bc692b3c290fc44faadba3731b96d9b, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -549,10 +549,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 2309280226520025970}
   enemyCombat: {fileID: 1033671911682065929}
-  sword: {fileID: 0}
+  sword: {fileID: 955802709539510504}
   bow: {fileID: 0}
   movementAI: {fileID: 1056930885647471817}
---- !u!114 &4167929021102011437
+--- !u!114 &3154951224766644663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -564,10 +564,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12376f5386e14304a9e77282b87f3008, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  invincibilityDuration: 1
+  invincibilityDuration: 0.5
   flashInterval: 0.1
   flashDuringInvincibility: 1
---- !u!1 &5657077332399332874
+--- !u!1 &5928959577584447072
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -575,29 +575,79 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3936127910592599219}
-  m_Layer: 3
-  m_Name: AttackPoint
+  - component: {fileID: 2620986368920158046}
+  - component: {fileID: 955802709539510504}
+  - component: {fileID: 8508756755579297667}
+  m_Layer: 6
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3936127910592599219
+--- !u!4 &2620986368920158046
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5657077332399332874}
+  m_GameObject: {fileID: 5928959577584447072}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3249727730317328932}
+  m_Children:
+  - {fileID: 8816732801227117633}
+  m_Father: {fileID: 5350888758718954532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &955802709539510504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928959577584447072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa13da85e05b1943a211a82a4afc5d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 2309280226520025970}
+  attackPoint: {fileID: 8816732801227117633}
+  combat: {fileID: 1033671911682065929}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  characterMovement: {fileID: 1056930885647471817}
+  attackRange: 2.1
+  attackDamage: 2
+  attackRate: 2
+  nextAttackTime: 0
+  knockbackForce: 1
+  knockbackDuration: 0.2
+  angleThreshold: 0.7
+  damageColor: {r: 1, g: 0, b: 0, a: 1}
+  damageFlashDuration: 0.1
+  hitstop: {fileID: 8508756755579297667}
+  hitstopDuration: 0.05
+  screenShake: {fileID: 3173260978490684285, guid: 9762ca696e266be438ae77e22d126f07, type: 3}
+  clashKnockbackForce: 3
+  clashKnockbackDuration: 0.3
+  clashCooldown: 0.5
+  clashTimeWindow: 0.1
+--- !u!114 &8508756755579297667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5928959577584447072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35471e4014970744d8940739fe9084dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6580151123885791987
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +707,7 @@ MonoBehaviour:
   knockbackForce: 10
   knockbackDuration: 0.2
   isEnabled: 0
---- !u!1 &6827122250961597099
+--- !u!1 &7466082864853873045
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -665,58 +715,26 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3249727730317328932}
-  - component: {fileID: 1019805528750966460}
-  m_Layer: 3
-  m_Name: Bow
+  - component: {fileID: 8816732801227117633}
+  m_Layer: 6
+  m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3249727730317328932
+--- !u!4 &8816732801227117633
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6827122250961597099}
+  m_GameObject: {fileID: 7466082864853873045}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3936127910592599219}
-  m_Father: {fileID: 5350888758718954532}
+  m_Children: []
+  m_Father: {fileID: 2620986368920158046}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1019805528750966460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6827122250961597099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae9812d0725835045ae0c584e7d12e46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: 2309280226520025970}
-  attackPoint: {fileID: 3936127910592599219}
-  combat: {fileID: 1033671911682065929}
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  characterMovement: {fileID: 1056930885647471817}
-  attackRange: 0.5
-  attackDamage: 1
-  attackRate: 2
-  nextAttackTime: 1.5
-  knockbackForce: 1
-  knockbackDuration: 0.2
-  arrowPrefab: {fileID: 2960165790278124058, guid: 55a9c0412c4b7184c993df1c50113d60, type: 3}
-  bulletForce: 10
-  arrowLifetime: 5
-  currentSpecialArrowType: 0
-  specialArrowChance: 1

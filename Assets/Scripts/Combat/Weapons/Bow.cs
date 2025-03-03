@@ -24,6 +24,7 @@ namespace Scripts.Combats.Weapons
         public SpecialArrowType currentSpecialArrowType = SpecialArrowType.None;
         [SerializeField] protected float specialArrowChance = 1f;
 
+
         // Replace individual flags with a unified system
 
         protected override void Start()
