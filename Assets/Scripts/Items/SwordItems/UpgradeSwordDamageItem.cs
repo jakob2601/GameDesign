@@ -1,18 +1,19 @@
 using UnityEngine;
-using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
-using Scripts.Combats.Weapons; // Importiere das Waffen-System
+using Scripts.Combats.CharacterCombats;
+using Scripts.Combats.Weapons;
+using Scripts.Scene; // Add this for PlayerPersistence
 
 namespace Scripts.Items
 {
     public class UpgradeSwordDamageItem : Item
     {
-        [SerializeField] private int damageIncrease = 1; // Erhöht den Schaden um 1
+        [SerializeField] private int damageIncrease = 1;
 
         protected override void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player")) // Überprüfe, ob der Spieler das Upgrade berührt
+            if (collision.CompareTag("Player"))
             {
-                Combat playerCombat = collision.GetComponentInChildren<Combat>(); // Suche das Combat-System des Spielers
+                Combat playerCombat = collision.GetComponentInChildren<Combat>();
 
                 if (playerCombat != null)
                 {
@@ -26,9 +27,19 @@ namespace Scripts.Items
                     Weapon sword = collision.GetComponentInChildren<Sword>();
                     if (sword != null)
                     {
-                        sword.SetAttackDamage(sword.GetAttackDamage() + damageIncrease);
-                        Debug.Log("Sword Damage erhöht! Neuer Wert: " + sword.GetAttackDamage());
-                        Destroy(gameObject); // Zerstöre das Upgrade nach dem Aufsammeln
+                        int newDamage = sword.GetAttackDamage() + damageIncrease;
+                        sword.SetAttackDamage(newDamage);
+
+                        // Update PlayerPersistence with new sword damage
+                        PlayerPersistence persistence = collision.GetComponent<PlayerPersistence>();
+                        if (persistence != null)
+                        {
+                            persistence.swordDamage = newDamage;
+                            Debug.Log("Sword damage saved to persistence: " + newDamage);
+                        }
+
+                        Debug.Log("Sword Damage erhöht! Neuer Wert: " + newDamage);
+                        Destroy(gameObject);
                     }
                 }
                 else

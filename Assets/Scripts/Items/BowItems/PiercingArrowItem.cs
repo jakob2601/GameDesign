@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Scripts.Combats.CharacterCombats; // Importiere das Combat-System
 using Scripts.Combats.Weapons; // Importiere das Waffen-System
+using Scripts.Scene; // Add this namespace import for PlayerPersistence
 
 namespace Scripts.Items
 {
@@ -34,7 +35,12 @@ namespace Scripts.Items
                             // Here you could also show a UI message to the player
                             // UIManager.Instance.ShowMessage("Piercing arrows replace Ricocheting arrows!");
                         }
-                        
+                        // Inside the OnTriggerEnter2D method of PiercingArrowItem
+                        PlayerPersistence persistence = collision.GetComponent<PlayerPersistence>();
+                        if (persistence != null)
+                        {
+                            persistence.EnablePiercing(true); // Save to persistence
+                        }
                         bow.SetPierce(true);
                         Debug.Log("Pfeile gehen jetzt durch Gegner durch!");
 
