@@ -103,6 +103,12 @@ namespace Scripts.Combats.CharacterCombats
                 availableWeapons &= ~weaponType;
         }
 
+        // Add a public getter for availableWeapons
+        public WeaponTypes GetAvailableWeapons()
+        {
+            return availableWeapons;
+        }
+
         public float GetLastInputTime()
         {
             return lastInputTime;
